@@ -1,0 +1,9 @@
+### Welcome to your project!
+
+- Click the `Edit` button to start writing
+- Invite collaborators with the `Share` button
+
+### Need help?
+
+- Learn about Penflip: [penflip.com/help](http://www.penflip.com/help)
+- Talk to a person: support@penflip.com
