@@ -183,7 +183,7 @@ from flask import Blueprint, render_template
 
 profile = Blueprint('profile', __name__, url_prefix='/<user_url_slug>')
 
-# [...]
+[...]
 ```
 
 Here we are setting the url_prefix on registration:
@@ -207,7 +207,7 @@ from flask import Blueprint, render_template, g
 
 from ..models import User
 
-# The prefix is defined in facebook/__init__.py.
+"""The prefix is defined in facebook/__init__.py."""
 profile = Blueprint('profile', __name__)
 
 @profile.url_value_preprocessor
