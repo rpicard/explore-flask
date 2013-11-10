@@ -1,6 +1,6 @@
+![4.png](images/4.png)
+
 # Organizing your project
-
-
 
 Flask doesn't require that your project directory have a certain structure. Unlike Django, which comes with a startapp tool to create your application skeletons, Flask leaves the organization of your application up to you. This is one of the reasons I liked Flask as a beginner, but it does mean that you have to put some thought into how to structure your code. You could put your entire application in one file, or have it spread across multiple packages. Neither of these is ideal for most projects though. There are a few organizational patterns that you can use to make development and deployment easier.
 
