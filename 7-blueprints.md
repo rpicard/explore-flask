@@ -1,4 +1,4 @@
-![image](../images/7.png)
+![image](images/7.png)
 
 # Blueprints
 
