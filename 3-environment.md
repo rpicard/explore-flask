@@ -1,3 +1,5 @@
+![image](../images/3.png)
+
 # Environment
 
 Your application is probably going to require a lot of software to function properly. If it doesn’t at least require the Flask package, you may be reading the wrong book. Your application’s **environment** is essentially all of the things that need to be around when it runs. Lucky for us, there are a number of things that we can do to make managing our environment much less complicated.

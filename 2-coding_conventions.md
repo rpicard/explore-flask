@@ -1,3 +1,5 @@
+![image](../images/2.png)
+
 # Coding conventions
 
 There are a number of conventions in the Python community to guide the way you format your code. If you’ve been developing with Python for a while, then you might already be familiar with some of these conventions. I’ll keep things brief and leave a few URLs where you can find more information if you haven’t come across these topics before.
