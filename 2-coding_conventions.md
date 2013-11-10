@@ -1,4 +1,4 @@
-![image](../images/2.png)
+![image](images/2.png)
 
 # Coding conventions
 
