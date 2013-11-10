@@ -1,4 +1,4 @@
-![image](../images/5.png)
+![image](images/5.png)
 
 # Configuration
 
