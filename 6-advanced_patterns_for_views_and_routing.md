@@ -1,4 +1,4 @@
-![image](../images/6.png)
+![image](images/6.png)
 
 # Advanced patterns for views and routing
 
