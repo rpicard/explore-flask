@@ -1,4 +1,4 @@
-![image](../images/3.png)
+![image](images/3.png)
 
 # Environment
 
