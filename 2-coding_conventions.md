@@ -12,7 +12,7 @@ There are a few PEPs, like PEP 8 and PEP 257 that affect the way we write our co
 
 ### PEP 8: Style Guide for Python Code
 
-PEP 8 is the official style guide for Python code. I recommend that you read it and apply it’s recommendations to your Flask projects (and all other Python code). Your code will be much more approachable when it starts growing to many files with hundreds, or thousands, of lines of code. The PEP 8 recommendations are all about having more readable code.
+PEP 8 is the official style guide for Python code. I recommend that you read it and apply its recommendations to your Flask projects (and all other Python code). Your code will be much more approachable when it starts growing to many files with hundreds, or thousands, of lines of code. The PEP 8 recommendations are all about having more readable code. Plus, if your project is going to be open source, potential contributors will likely expect and be comfortable with code written with PEP 8 in mind.
 
 One particularly important recommendation is to use 4 spaces per indentation level. No real tabs. If you break this convention, it’ll be a burden on you and other developers when switching between projects. That sort of inconsistency is a pain in any language, but white-space is especially important in Python, so switching between real tabs and spaces could result in any number of errors that are very difficult to debug.
 
@@ -22,11 +22,11 @@ PEP 257 [LINK TO PEP] covers another Python standard: **docstrings**. You can re
 
 ```
 def launch_rocket():
-	"""Main launch sequence director.
+    """Main launch sequence director.
 
-	Kicks off each of the actions that need to be taken to launch the rocket.
-	"""
-	# [...]
+    Kicks off each of the actions that need to be taken to launch the rocket.
+    """
+    # [...]
 ```
 
 These kinds of docstrings can be used by software such as [Sphinx](http://sphinx-doc.org/) to generate documentation files in HTML, PDF and other formats. They also contribute to making your code more approachable.

@@ -6,7 +6,9 @@ Your application is probably going to require a lot of software to function prop
 
 ## Use virtualenv to manage your environment
 
-virtualenv is a tool for isolating your application in what is called a **virtual environment**. A virtual environment is a directory that contains the software on which your application depends. Instead of downloading packages, like Flask, to your system-wide — or user-wide — package directories, we can download them to an isolated directory for our current application. This makes it easy to specify which Python binary to use, which dependencies want to have available on a per project basis. It also lets you use different versions of the same package for different projects. This flexibility may be important if you’re working on an older system with several projects that have different version requirements.
+virtualenv is a tool for isolating your application in what is called a **virtual environment**. A virtual environment is a directory that contains the software on which your application depends. A virtual environment also changes your environment variables to keep your development environment contained. Instead of downloading packages, like Flask, to your system-wide — or user-wide — package directories, we can download them to an isolated directory for our current application. This makes it easy to specify which Python binary to use, which dependencies want to have available on a per project basis. 
+
+Virtualenv also lets you use different versions of the same package for different projects. This flexibility may be important if you’re working on an older system with several projects that have different version requirements.
 
 When using virtualenv, you'll generally have only a few Python packages installed globally on your system. One of these will be virtualenv itself:
 
@@ -22,7 +24,7 @@ $ virtualenv venv
 
 This creates a new directory where the dependencies will be installed.
 
-{ NOTE: The argument passed to `virtualenv` is the name of the virtual environment. It can be anything you'd like. }
+{ NOTE: The argument passed to `virtualenv` is the destination directory of the virtual environment. It can be anything you'd like. }
 
 Once the new virtual environment has been created, you must activate it by sourcing the `bin/activate` script that was created inside the virtual environment:
 
@@ -84,7 +86,7 @@ Pick a version control system and use it. I recommend Git. From what I've seen, 
 
 ### What to keep out of version control
 
-I usually keep a file out of version control for one of two reasons. Either it’s clutter, or it’s a secret. Compiled files, e.g. `.pyc` files and virtual environments (if you’re not using virtualenvwrapper for some reason) are examples of clutter. They don’t need to be in version control because they can be generated from `.py` files and `requirements.txt` respectively. API keys, application secret keys, and database credentials are examples of secrets. They shouldn’t be in version control because they’re exposure would be a massive breach of security.
+I usually keep a file out of version control for one of two reasons. Either it’s clutter, or it’s a secret. Compiled files, e.g. `.pyc` files and virtual environments (if you’re not using virtualenvwrapper for some reason) are examples of clutter. They don’t need to be in version control because they can be generated from `.py` files and `requirements.txt` respectively. API keys, application secret keys, and database credentials are examples of secrets. They shouldn’t be in version control because their exposure would be a massive breach of security.
 
 { NOTE: When making security related decisions, I assume that my repository will become public at some point. This means keeping secrets out, and never assuming that a security hole won’t be found because, “Who’s going to guess that they could do that?” }
 

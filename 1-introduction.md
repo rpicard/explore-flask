@@ -25,11 +25,10 @@ As of version 0.10, Flask runs with Python 3.3. When I asked Armin Ronacher abou
 
 > I'm not using it myself currently, and I don't ever recommend to people things that I don't believe in myself, so I'm very cautious about recommending Python 3.
 
-His main reason is that there’s so much in Python 3 that doesn’t work yet.
+His main reason is that there are still things in Python 3 that don’t work yet. Another reason of his for not recommending that new projects use Python 3 is that many dependencies simply don't work with the new version yet. It's possible that eventually Flask will officially recommend Python 3 for new projects, but for now it’s all about Python 2.
 
-> For me the best example is that the WSGI specification itself on Python 3 is objectively inferior to the one on Python 2 just because when the specification was updated to Python 3, certain decisions were made with regards to unicode support that are just a bit bizarre.
-
-He adds that another important reason for not recommending that new projects use Python 3 is that many dependencies simply don't work with the new version yet. It's possible that eventually Flask will officially recommend Python 3 for new projects, but for now it’s all about Python 2.
+{ SEE ALSO:
+* This site tracks which packages have been ported to Python 3: https://python3wos.appspot.com/ }
 
 Since this book is meant to provide practical advice, I think it makes sense to write with the assumption of Python 2. Specifically, I'll be writing the book with Python 2.7 in mind. Future updates may very well change this to evolve with the Flask community, but for now 2.7 is where we stand.
 
@@ -39,7 +38,7 @@ At the time of writing this, 0.10 is the latest version of Flask (0.10.1 to be e
 
 ## Annual reviews
 
-I’m hesitant to commit to any one update schedule, since there are a lot of variables that will determine the appropriate time for an update. I’ll make it a point to review everything at least once a year. If it looks like things are getting out of date, I’ll release an update.
+I’m hesitant to commit to any one update schedule, since there are a lot of variables that will determine the appropriate time for an update. Essentially, if it looks like things are getting out of date, I’ll work on releasing an update. Eventually I might stop, but I’ll make sure to announce that if it happens.
 
 ## Conventions used in this book
 
