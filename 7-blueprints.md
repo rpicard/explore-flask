@@ -183,7 +183,7 @@ from flask import Blueprint, render_template
 
 profile = Blueprint('profile', __name__, url_prefix='/<user_url_slug>')
 
-[...]
+# [...]
 ```
 
 Here we are setting the url_prefix on registration:
@@ -207,7 +207,7 @@ from flask import Blueprint, render_template, g
 
 from ..models import User
 
-"""The prefix is defined in facebook/__init__.py."""
+# The prefix is defined in facebook/__init__.py.
 profile = Blueprint('profile', __name__)
 
 @profile.url_value_preprocessor
@@ -301,10 +301,10 @@ from flask import Blueprint
 
 from ..models import Site
 
-"""Note that the capitalized Site and the lowercase site
-are two completely separate variables. Site is a model
-and site is a blueprint.
-"""
+# Note that the capitalized Site and the lowercase site
+# are two completely separate variables. Site is a model
+# and site is a blueprint.
+
 site = Blueprint('site', __name__)
 
 @site.url_value_preprocessor
@@ -312,8 +312,7 @@ def get_site(endpoint, values):
     query = Site.query.filter_by(subdomain=values.pop('site_subdomain'))
     g.site = query.first_or_404()
 
-"""Import the views after site has been defined. The views module will need to import 'site' so we need to make sure that we import views after site has been defined.
-"""
+# Import the views after site has been defined. The views module will need to import 'site' so we need to make sure that we import views after site has been defined.
 import .views
 ```
 
@@ -426,7 +425,7 @@ from .api import api
 
 app = Flask(__name__)
 
-"""Puts the API blueprint on api.gnizama.com."""
+# Puts the API blueprint on api.gnizama.com.
 app.register_blueprint(api, subdomain='api')
 ```
 

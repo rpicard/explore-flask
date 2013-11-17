@@ -90,7 +90,7 @@ There will probably be several other files included in your app in the end, but 
 
 At some point you may find that you have a lot of related routes. If you’re like me, your first thought will be to split _views.py_ into a package and group related views into modules. When you’re at this point, it may be time to factor your application into blueprints.
 
-Blueprints are essentially components of your app defined in a somewhat self-contained manner. They act as apps within your application. You might have different blueprints for the admin panel, the front-end and the user dashboard. This lets your group views, static files and templates by components, while letting you share models, forms and other aspects of your application between several components.
+Blueprints are essentially components of your app defined in a somewhat self-contained manner. They act as apps within your application. You might have different blueprints for the admin panel, the front-end and the user dashboard. This lets you group views, static files and templates by components, while letting you share models, forms and other aspects of your application between several components.
 
 { SEE ALSO:
 * You can read more about blueprints in chapter 7.

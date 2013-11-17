@@ -4,7 +4,7 @@
 
 ## View decorators
 
-Decorators are a Python feature that lets us modify functions using other functions. When a function is “decorated” with another function, the decorator is called and can then call the original function, though it doesn’t have to. We can use decorators to wrap several views with some code that we wish to apply to each.
+Python decorators let us modify functions using other functions. When a function is “decorated” with another function, the decorator is called and can then call the original function, though it doesn’t have to. We can use decorators to wrap several views with some code that we wish to apply to each.
 
 The syntax for decorating a function looks like this:
 
@@ -20,7 +20,7 @@ Let’s take a look at some other decorators you can use in your Flask apps.
 
 ### Authentication
 
-If you’re application requires that a user be logged in to access certain areas, there’s a good chance you’re using the Flask-Login extension. In addition to handling the details of user authentication, Flask-Login gives us a decorator to restrict certain views to authenticated users: `@login_required`.
+If your application requires that a user be logged in to access certain areas, there’s a good chance you want to use the Flask-Login extension. In addition to handling the details of user authentication, Flask-Login gives us a decorator to restrict certain views to authenticated users: `@login_required`.
 
 Here are a few views from an example application that uses Flask-Login and the `@login_required` decorator.
 
@@ -40,7 +40,7 @@ def account():
 ```
 { WARNING: `@app.route` should always be the outermost view decorator. }
 
-Only an authenticated user will be able to access the _/dashboard_ route. Depending on your Flask-Login configuration, unauthenticated users may be redirected to a sign-in route.
+Only an authenticated user will be able to access the _/dashboard_ route. You can configure Flask-Login to redirect unauthenticated users to a login page, return an HTTP 401 status or anything else you’d like it to do with them.
 
 ### Caching
 
@@ -48,7 +48,7 @@ Imagine that an article mentioning your application just appeared on CNN and sev
 
 There are many good answers, but the one that is relevant to this chapter is to implement caching. Specifically, we’re going to use the Flask-Cache extension. This extension provides us with a decorator that we can use on our index view to cache the response for some period of time.
 
-You’ll have to configure Flask-Cache to work with the caching software you wish to use. A popular choice is Redis, which is easy to set-up and use. Assuming Flask-Cache is configured, here’s what our decorated view looks like.
+You can configure Flask-Cache to work with whichever caching software you wish to use. A popular choice is Redis, which is easy to set-up and use. Assuming Flask-Cache is configured, here’s what our decorated view looks like.
 
 ```
 from flask.ext.cache import Cache
@@ -200,7 +200,7 @@ int: accepts integers
 
 float: like int but for floating point values
 
-path: like the default but accepts slashes
+path: like string but accepts slashes
 
 ### Customer converters
 

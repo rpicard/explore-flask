@@ -8,12 +8,12 @@ When you're learning Flask, configuration seems simple. You just define some var
 
 A simple application may not need any of these complicated features. You may just need to put _config.py_ in the root of your repository and load it in _app.py_ or _yourapp/__init__.py_
 
- _config.py_ is should contain one variable assignment per line. Once _config.py_ is loaded later, the configuration variables will be accessible via the `app.config` dictionary, e.g. `app.config[“DEBUG”]`. Here’s an example of a typical _config.py_ file for a small project:
+ _config.py_  should contain one variable assignment per line. Once _config.py_ is loaded later, the configuration variables will be accessible via the `app.config` dictionary, e.g. `app.config[“DEBUG”]`. Here’s an example of a typical _config.py_ file for a small project:
 
 ```
 DEBUG = True # Turns on debugging features in Flask
 BCRYPT_LEVEL = 13 # Configuration for the Flask-Bcrypt extension
-MAIL_FROM_EMAIL = "robert@robert.io" # For use in application emails
+MAIL_FROM_EMAIL = "robert@example.com" # For use in application emails
 ```
 
 There are some built-in configuration variables like `DEBUG`. There are also some configuration variables for extensions that you may be using like `BCRYPT_LEVEL` for the Flask-Bcrypt extension, used for password hashing. You can even define your own configuration variables for use throughout the application. In this example, I would use `app.config[“MAIL_FROM_EMAIL”]` whenever I needed the default “from” address for a transactional email (e.g. password resets). It makes it easy to change that later on.
@@ -34,7 +34,7 @@ app.config.from_object('config')
 
 * VARIABLE : DESCRIPTION : DEFAULT VALUE
 * DEBUG : Gives you some handy tools for debugging errors. This includes a web-based stack trace and Python console when an request results in an application error. : Should be set to True in development and False in production.
-* SECRET_KEY : This is a secret key that is used by Flask to sign cookies and other things. You should define this in your instance folder to keep it out version control. You can read more about instance folders in the next section. : This should be a complex random value.
+* SECRET_KEY : This is a secret key that is used by Flask to sign cookies and other things. You should define this in your instance folder to keep it out of version control. You can read more about instance folders in the next section. : This should be a complex random value.
 * BCRYPT_LEVEL : If you’re using Flask-Bcrypt to hash user passwords (if you’re not, start now), you’ll need to specify the number of “rounds” that the algorithm executes in hashing a password. The more rounds used in hashing, the longer it will be for a computer hash (and importantly, to crack) the password. The number of rounds used should increase over time as computing power increases. : As a rule of thumb, take the last two digits of the current year and use that value. For example, I’m writing this in 2013, so I’m currently using a `BCRYPT_LEVEL = 13`. You’ll often hear that you should choose the highest possible level before you application becomes too slow to bear. That’s true, but it’s tough to translate into a number to use. Feel free to play around with higher numbers, but you should be alright with that rule of thumb.
 
 { WARNING: Make sure DEBUG = False in production. Leaving it on will allow users to run arbitrary Python code on your server. }
@@ -109,7 +109,7 @@ Then in production, you would leave these lines out of _instance/config.py_ and 
 
 ## Configuring from envvar
 
-The instance folder shouldn’t be in version control. This means that you won’t be able to track changes to your instance configurations. That might not be a problem with one or two variables, but if you have a finely tuned configurations for various environments (production, staging, development, etc.) you don’t want to risk loosing that. 
+The instance folder shouldn’t be in version control. This means that you won’t be able to track changes to your instance configurations. That might not be a problem with one or two variables, but if you have a finely tuned configurations for various environments (production, staging, development, etc.) you don’t want to risk losing that. 
 
 Flask gives us the ability to choose a configuration file on the fly based on the value of an environment variable. This means that we can have several configuration files in our repository (and in version control) and always load the right one, depending on the environment.
 
