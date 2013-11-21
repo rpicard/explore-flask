@@ -5,3 +5,4 @@
 5-configuration.md
 6-advanced_patterns_for_views_and_routing.md
 7-blueprints.md
+readme.md
