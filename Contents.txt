@@ -1,4 +1,5 @@
 cover.md
+info.md
 1-introduction.md
 2-coding_conventions.md
 3-environment.md
