@@ -1,4 +1,4 @@
-![image](images/6.png)
+![Advanced patterns for views and routing](images/6.png)
 
 # Advanced patterns for views and routing
 
@@ -264,4 +264,4 @@ This should work just like Reddit’s multi-reddit system. This method can be us
 * The `@login_required` decorator from Flask-Login helps you limit views to authenticated users.
 * The Flask-Cache extension gives you a bunch of decorators to implement various methods of caching.
 * We can develop custom view decorators to help us organize our code and stick to DRY (Don’t Repeat Yourself) coding principals.
-* Custom URL converters can be a great way to implement creative features involving URL’s. 
+* Custom URL converters can be a great way to implement creative features involving URL’s.

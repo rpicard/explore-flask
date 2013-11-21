@@ -1,4 +1,4 @@
-![4.png](images/4.png)
+![Organizing your project](images/4.png)
 
 # Organizing your project
 
