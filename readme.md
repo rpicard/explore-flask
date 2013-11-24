@@ -4,6 +4,12 @@ Hello and welcome to the source material of *Explore Flask*! The book is availab
 
 The book is currently in development. I've decided to release things in this unfinished state and finish the development of *Explore Flask* out in the open. I'm hoping that early feedback from the community will help make this an amazing book by version 1.0.
 
+## Building
+
+The book is built using pandoc and Make. Once you have those set-up on your system you can just run `make` in the _explore-flask/_ repository. That should produce a _build.pdf_ build of the book.
+
+The master branch is the source of the latest release. Each release is also tagged with the version number. The progress branch is where you'll find the changes meant for future releases.
+
 ## License
 
 The book is licensed under the [Creative Commons Attribution-NonCommercial 3.0 Unported License](http://creativecommons.org/licenses/by-nc/3.0/).  You are free to share and remix the book, as long as you provide attribution and do not attempt to re-sell.
