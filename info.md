@@ -16,8 +16,11 @@ I hope that despite it's rough state, you'll still enjoy the content of *Explore
 
 ## Thank you
 
-*Explore Flask* wouldn't be happening if it weren't for the hundreds of people who backed my Kickstarter. As promised in the Kickstarter, here are the names of all of the generous men and women who pledged $50 or more:
+First of all, I'd like to say thank you to my volunteer editor, Will Kahn-Greene. He's been great about going over my very rough drafts and helping me decide on the scope and direction of the content.
 
+Another big thanks to everyone who took the time to talk with me about how they are using Flask. This includes Armin Ronacher (Flask creator), Mark Harviston (Elsevier), Glenn Yonemitsu (Markup Hive), Andy Parsons (Happify), Oleg Lavrovsky (Apps with love), Joel Anderson (Cloudmancer) and Mahmoud Abdelkader (Balanced).
+
+*Explore Flask* wouldn't be happening if it weren't for the hundreds of people who backed my Kickstarter. As promised in the Kickstarter, here are the names of all of the generous men and women who pledged $50 or more:
 
 * Balanced Payments (https://balancedpayments.com) {THEY GET A LOGO IN HERE TOO}
 * CodeLesson (http://codelesson.com)
