@@ -150,6 +150,10 @@ $if(title)$
 \maketitle
 $endif$
 
+\begin{figure}
+\includegraphics[width=\textwidth]{images/cover.png}
+\end{figure}
+
 $for(include-before)$
 $include-before$
 
