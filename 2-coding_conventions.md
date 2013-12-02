@@ -18,7 +18,7 @@ One particularly important recommendation is to use 4 spaces per indentation lev
 
 ### PEP 257: Docstring Conventions
 
-PEP 257 [LINK TO PEP] covers another Python standard: **docstrings**. You can read the definition and recommendations in the PEP itself, but here’s an example to give you an idea of what a docstring looks like:
+PEP 257 [http://www.python.org/dev/peps/pep-0257/] covers another Python standard: **docstrings**. You can read the definition and recommendations in the PEP itself, but here’s an example to give you an idea of what a docstring looks like:
 
 ```
 def launch_rocket():
