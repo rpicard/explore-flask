@@ -74,7 +74,7 @@ This table provides a basic rundown of the components you'll find in most Flask 
 
 /yourapp/ : This is the package that contains your application.
 
-/yourapp/__init__.py : This file initializes your application and brings together all of the various components.
+/yourapp/\_\_init\_\_.py : This file initializes your application and brings together all of the various components.
 
 /yourapp/views.py : This is where the routes are defined. It may be split into a package of its own (_yourapp/views/_) with related views grouped together into modules.
 
