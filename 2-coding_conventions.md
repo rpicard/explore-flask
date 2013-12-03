@@ -18,7 +18,7 @@ One particularly important recommendation is to use 4 spaces per indentation lev
 
 ### PEP 257: Docstring Conventions
 
-PEP 257<sup>1</sup> covers another Python standard: **docstrings**. You can read the definition and recommendations in the PEP itself, but here’s an example to give you an idea of what a docstring looks like:
+PEP 257 covers another Python standard: **docstrings**. You can read the definition and recommendations in the PEP itself, but here’s an example to give you an idea of what a docstring looks like:
 
 ```
 def launch_rocket():
@@ -29,9 +29,11 @@ def launch_rocket():
     # [...]
 ```
 
-1: http://www.python.org/dev/peps/pep-0257/
-
 These kinds of docstrings can be used by software such as [Sphinx](http://sphinx-doc.org/) to generate documentation files in HTML, PDF and other formats. They also contribute to making your code more approachable.
+
+{ SEE MORE:
+* You can read about **docstrings** in PEP 257: http://www.python.org/dev/peps/pep-0257/
+}
 
 ## Relative imports
 
