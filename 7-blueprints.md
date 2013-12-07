@@ -150,7 +150,9 @@ To create a blueprint object, you import the `Blueprint()` class and initialize 
 { NOTE: When using a divisional structure, you’d want to tell Flask that the blueprint has its own template and static directories. Here’s what our definition would look like in that case:
 
 ```
-profile = Blueprint('profile', __name__, template_folder='templates', static_folder='static')
+profile = Blueprint('profile', __name__,
+                    template_folder='templates',
+                    static_folder='static')
 ```
 }
 
