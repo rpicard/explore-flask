@@ -62,7 +62,7 @@ Installing setuptools............done.
 Installing pip...............done.
 ```
 
-`mkvirtualenv` creates a directory in your virtual environments folder, e.g. `~/.virtualenvs`, and activates it for you. Just like with plain old `virtualenv`, `python` and `pip` now point to that virtual environment instead of the global system. To activate a particular environment, use the command: `workon [environment name]`. `deactivate` still deactivates the enviornment.
+`mkvirtualenv` creates a directory in your virtual environments folder, e.g. `~/.virtualenvs`, and activates it for you. Just like with plain old `virtualenv`, `python` and `pip` now point to that virtual environment instead of the global system. To activate a particular environment, use the command: `workon [environment name]`. `deactivate` still deactivates the environment.
 
 
 ## Keeping track of dependencies
