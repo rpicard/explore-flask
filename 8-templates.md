@@ -49,13 +49,17 @@ templates/
         analytics.html
 ```
 
-For the most part, the templates are organized as if they are static pages. The route that renders templates/admin/analytics.html is myapp.com/admin/analytics. There are also some extra templates in there that won't be rendered directly. The _layout.html_ files are meant to be inherited by the child templates.
+For the most part, the templates are organized like a static site. The template for myapp.com/admin/analytics is _templates/admin/analytics.html_. There are also some extra templates in there that won't be rendered directly. The _layout.html_ files are meant to be inherited by the other templates.
 
 ## Inheritance
 
 Much like Batman’s backstory, a well organized templates directory relies heavily on inheritance. The **base template** usually defines a generalized structure that all of the **child templates** will work within. In our example, _layout.html_ is a base template and the other _.html_ files are child templates.
 
-You’ll generally have one top-level _layout.html_ that defines the general layout for your application as well as one for each section of your site. If you take a look at the directory above, you’ll see that there is a top-level _myapp/templates/layout.html_ as well as _myapp/templates/profile/layout.html_ and _myapp/templates/admin/layout.html_. The last two files inherit and modify the first.
+You’ll generally have one top-level _layout.html_ that defines the general layout for your application and one for each section of your site. If you take a look at the directory above, you’ll see that there is a top-level _myapp/templates/layout.html_ as well as _myapp/templates/profile/layout.html_ and _myapp/templates/admin/layout.html_. The last two files inherit and modify the first.
+
+{ SEE ALSO: For the details of how to implement this inheritence, refer to the Jinja Template Inheritence documentation.
+* http://jinja.pocoo.org/docs/templates/#template-inheritance
+}
 
 ## Creating macros
 
