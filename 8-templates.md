@@ -117,7 +117,7 @@ Now we've defined the macro in _myapp/templates/macros.html_. What we're doing i
 
 ## Custom filters
 
-Jinja filters are functions that can be applied to the result of an expression in the `{{ ... }}` delimeters before it’s printed to the template. Here's a look at how we use them:
+Jinja filters are functions that can be applied to the result of an expression in the `{{ ... }}` delimeters before that result is printed to the template. Here's a look at the syntax:
 
 ```
 <h2>{{ article.title|title }}</h2>
@@ -129,7 +129,7 @@ In this snippet, the `title` filter will take `article.title` and return a title
 
 We can define our own filters for use in our Jinja templates. As an example, we’ll implement a simple `caps` filter to capitalize all of the letters in a string.
 
-{ NOTE: Jinja already has an `upper` filter that does this, as well as a `capitalize` filter that capitalizes the first character lowercases the rest. These also handle unicode conversion, but we’ll keep our example focused on the concept at hand.}
+{ NOTE: Jinja already has an `upper` filter that does this, as well as a `capitalize` filter that capitalizes the first character and lowercases the rest. These also handle unicode conversion, but we’ll keep our example focused on the concept at hand.}
 
 We’re going to define our filter in a module located at _myapp/util/filters.py_. This gives us a `util` package in which to put other miscellaneous modules.
 
@@ -143,7 +143,7 @@ def caps(text):
     return text.uppercase()
 ```
 
-We are registering our function as a Jinja filter by using the `@app.template_filter()` decorator. By default the filter is called using the function name, but you can pass an argument to the decorator to change that:
+We are registering our function as a Jinja filter by using the `@app.template_filter()` decorator. The default filter name is just the name of the function, but you can pass an argument to the decorator to change that:
 
 ```
 @app.template_filter('make_caps')
@@ -158,7 +158,7 @@ To make our filter available in the templates, we just need to import it in our 
 
 myapp/__init__.py
 ```
-# Make sure app has been initialized to prevent circular imports.
+# Make sure app has been initialized first to prevent circular imports.
 from .util import filters
 ```
 
