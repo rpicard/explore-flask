@@ -63,7 +63,7 @@ You’ll generally have one top-level _layout.html_ that defines the general lay
 
 ## Creating macros
 
-When writing our templates, we often find that we've repeated some snippet of code throughout several templates. Maybe we want to check each navigation link and give it a different class if it’s the “active” link (i.e. the link to the current page). One way to do this would be to use several if / then statements in the template that check whether each link goes to the active page. Macros provide a way to modularize that code; they work like functions. Let's look at how we'd mark the active link using a macro.
+We can implement DRY (Don't Repeat Yourself) principles in our templates by abstracting snippets of code that appear over and over into **macros**. If we're working on some HTML for our app's navigation, we might want to give a different class to the “active” link (i.e. the link to the current page). Without macros we'd end up with a block of if/else statements checking each link to find the acive one. Macros provide a way to modularize that code; they work like functions. Let's look at how we'd mark the active link using a macro.
 
 myapp/templates/layout.html
 ```
