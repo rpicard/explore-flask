@@ -1,6 +1,6 @@
 # Templates
 
-While Flask doesn't force you to use any particular templating language, it assumes that you're going to use Jinja. Most, if not all, of the developers in the Flask community use Jinja, and I recommend that you do the same. There are a few extensions that have been written to let you use other templating languages, but unless you have a good reason (not knowing Jinja yet is not a good reason!) stick with the default; you'll save yourself a lot of time and headache.
+While Flask doesn't force you to use any particular templating language, it assumes that you're going to use Jinja. Most of the developers in the Flask community use Jinja, and I recommend that you do the same. There are a few extensions that have been written to let you use other templating languages, but unless you have a good reason (not knowing Jinja yet is not a good reason!) stick with the default; you'll save yourself a lot of time and headache.
 
 { NOTE: “Jinja” and “Jinja2” are used interchangeably. Don’t worry about any difference; you won’t be dealing with a Jinja1. When you see Jinja, it’s talking about this: http://jinja.pocoo.org/ }
 
@@ -11,7 +11,7 @@ While Flask doesn't force you to use any particular templating language, it assu
 
 ## A quick primer on Jinja
 
-The Jinja documentation does a great job of explaining the syntax and all of the features. I'd like to quote just one part of it to make sure that you see it before going forward:
+The Jinja documentation does a great job of explaining the syntax and features of the language. I won't reiterate it all here, but I do want to make sure that you see this important note:
 
 > There are two kinds of delimiters. `{% ... %}` and `{{ ... }}`. The first one is used to execute statements such as for-loops or assign values, the latter prints the result of the expression to the template.
 
@@ -49,7 +49,7 @@ templates/
         analytics.html
 ```
 
-The templates are organized much as they would be if I was creating this site with static HTML. The route that renders templates/admin/analytics.html is myapp.com/admin/analytics. There are also some extra templates in there that won't be rendered directly. The "layout.html" are meant to be inherited by the child templates.
+For the most part, the templates are organized as if they are static pages. The route that renders templates/admin/analytics.html is myapp.com/admin/analytics. There are also some extra templates in there that won't be rendered directly. The _layout.html_ files are meant to be inherited by the child templates.
 
 ## Inheritance
 
