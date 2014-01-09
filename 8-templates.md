@@ -85,7 +85,7 @@ myapp/templates/layout.html
 
 What we are doing is calling an undefined macro — `nav_link` — and passing it two parameters: the target endpoint (i.e. the function name for the target view) and the text we want to show.
 
-{ NOTE: You may notice that we specified “with context” in the import statement. The Jinja **context** consists of the variables that are passed to the `render_template()` function from our Python code. These variables are made available in the tempalte that is being rendered. Some variables are explicitly passed by us, e.g. `render_template("index.html", color="red")`, but there are several variables and functions that Flask automatically includes in the context , e.g. `request`, `g` and `session`. When we say `{% from ... import ... with context %}` we are telling Jinja to make all of these variables available to the macro as well.
+{ NOTE: You may notice that we specified “with context” in the import statement. The Jinja **context** consists of the arguments passed to the `render_template()` function as well as the Jinja environment context from our Python code. These variables are made available in the template that is being rendered. Some variables are explicitly passed by us, e.g. `render_template("index.html", color="red")`, but there are several variables and functions that Flask automatically includes in the context , e.g. `request`, `g` and `session`. When we say `{% from ... import ... with context %}` we are telling Jinja to make all of these variables available to the macro as well.
 
 }
 
