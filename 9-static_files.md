@@ -1,10 +1,10 @@
 # Static files
 
-Static files are the files that don't change. In your average app, this is going to be the CSS files, JavaScript files, and images. They can also include audio files and other things of that nature.
+As their name suggests, static files are the files that don't change. In your average app, this includes CSS files, JavaScript files and images. They can also include audio files and other things of that nature.
 
-## Organizing your files
+## Organizing your static files
 
-We're going to put our static files in a directory called "static" inside our application package:
+We'll create a directory for our static files called "static" inside our application package.
 
 ```
 myapp/
@@ -16,7 +16,7 @@ myapp/
 run.py
 ```
 
-How you organize the files in static/ is a matter of personal preference. Personally, I get a little irked by having third-party libraries (e.g. jQuery, Bootstrap, etc.) mixed in with my own JavaScript and CSS files. To avoid this, I recommend separating third-party libraries out into a vendor/ folder within static/. Here's an example of what an average app's static/ folder might look like.
+How you organize the files in static/ is a matter of personal preference. Personally, I get a little irked by having third-party libraries (e.g. jQuery, Bootstrap, etc.) mixed in with my own JavaScript and CSS files. To avoid this, I recommend separating third-party libraries out into a _lib/_ folder within _static/_. Some projects use _vendor/_ instead of _lib/_. Here's an example of what an average app's static/ folder might look like.
 
 ```
 static/
@@ -30,7 +30,7 @@ static/
     img/
         logo.svg
         favicon.ico
-    vendor/
+    lib/
         jquery.js
         bootstrap.css
 ```
@@ -56,13 +56,13 @@ static/
     img/
         logo.svg
         favicon.ico
-    vendor/
+    lib/
         jquery-1.10.2.js
         Chart.js
         reset.css
 ```
 
-{ DECIDE HOW TO ORGANIZE vendor/ AND UPDATE THE EXAMPLES BELOW ACCORDINGLY }
+{ DECIDE HOW TO ORGANIZE lib/ AND UPDATE THE EXAMPLES BELOW ACCORDINGLY }
 
 ### Defining bundles
 
@@ -76,21 +76,21 @@ from .. import app
 bundles = {
 
     'home_js': Bundle(
-        'vendor/jquery-1.10.2.js',
+        'lib/jquery-1.10.2.js',
         'js/home.js'),
 
     'home_css': Bundle(
-        'vendor/reset.css',
+        'lib/reset.css',
         'css/common.css',
         'css/home.css'),
 
     'admin_js': Bundle(
-        'vendor/jquery-1.10.2.js',
-        'vendor/Chart.js',
+        'lib/jquery-1.10.2.js',
+        'lib/Chart.js',
         'js/admin.js'),
 
     'admin_css': Bundle(
-        'vendor/reset.css',
+        'lib/reset.css',
         'css/common.css',
         'css/admin.css')
 }
@@ -166,24 +166,24 @@ myapp/util/assets.py
 bundles = {
 
     'home_js': Bundle(
-        'vendor/jquery-1.10.2.js',
+        'lib/jquery-1.10.2.js',
         'js/home.js',
         filters='jsmin'),
 
     'home_css': Bundle(
-        'vendor/reset.css',
+        'lib/reset.css',
         'css/common.css',
         'css/home.css',
         filters='cssmin'),
 
     'admin_js': Bundle(
-        'vendor/jquery-1.10.2.js',
-        'vendor/Chart.js',
+        'lib/jquery-1.10.2.js',
+        'lib/Chart.js',
         'js/admin.js',
         filters='jsmin'),
 
     'admin_css': Bundle(
-        'vendor/reset.css',
+        'lib/reset.css',
         'css/common.css',
         'css/admin.css',
         filters='cssmin')
