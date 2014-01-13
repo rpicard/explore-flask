@@ -45,9 +45,9 @@ The files in your static directory will be served from yourapp.com/static/. By d
 
 ## Manage static assets with Flask-Assets
 
-The Flask-Assets extension is a tool for managing your static files, primarily JavaScript and CSS. Flask-Assets lets you do two really useful things. First, it lets you define "bundles" of assets in your Python code that can be used together later in your template. Second, it lets you pre-process those files. This means that you can combine and minify the files so that the user only has to load one minified file without forcing you to develop a complex asset pipeline. Not limited to minification of files, you can compile languages like SaSS and CoffeeScript here too.
+Flask-Assets is an extension for managing your static files. There are two really useful tools that Flask-Assets provides. First, it lets you define **bundles** of assets in your Python code that can be inserted together in your template. Second, it lets you pre-process those files. This means that you can combine and minify your CSS and JavaScript files so that the user only has to load two minified files (CSS and JavaScript) without forcing you to develop a complex asset pipeline. You can even compile your files from Sass, LESS, CoffeeScript and many other sources.
 
-Here's the static directory we'll be working worth:
+Here's basic the static directory we'll be working worth in this chapter:
 
 myapp/static/
 ```
