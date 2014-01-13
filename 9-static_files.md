@@ -16,7 +16,7 @@ myapp/
 run.py
 ```
 
-How you organize the files in static/ is a matter of personal preference. Personally, I get a little irked by having third-party libraries (e.g. jQuery, Bootstrap, etc.) mixed in with my own JavaScript and CSS files. To avoid this, I recommend separating third-party libraries out into a _lib/_ folder within _static/_. Some projects use _vendor/_ instead of _lib/_. Here's an example of what an average app's static/ folder might look like.
+How you organize the files in _static/_ is a matter of personal preference. Personally, I get a little irked by having third-party libraries (e.g. jQuery, Bootstrap, etc.) mixed in with my own JavaScript and CSS files. To avoid this, I recommend separating third-party libraries out into a _lib/_ folder within _static/_. Some projects use _vendor/_ instead of _lib/_. Here's an example of what an average app's _static/_ folder might look like.
 
 ```
 static/
@@ -35,7 +35,13 @@ static/
         bootstrap.css
 ```
 
-{ ADD A NOTE OR A PARAGRAPH ON SETTING THE FAVICON URL AS DONE HERE: http://maximebf.com/blog/2012/10/building-websites-in-python-with-flask/ }
+### Serving a favicon
+
+The files in your static directory will be served from yourapp.com/static/. By default web browsers and other software expects your favicon to be at yourapp.com/favicon.ico. To fix this discrepency, you can add the following in the `<head>` section of your site template.
+
+```
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+```
 
 ## Manage static assets with Flask-Assets
 
