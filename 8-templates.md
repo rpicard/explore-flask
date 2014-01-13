@@ -57,7 +57,38 @@ Much like Batman’s backstory, a well organized templates directory relies heav
 
 You’ll generally have one top-level _layout.html_ that defines the general layout for your application and one for each section of your site. If you take a look at the directory above, you’ll see that there is a top-level _myapp/templates/layout.html_ as well as _myapp/templates/profile/layout.html_ and _myapp/templates/admin/layout.html_. The last two files inherit and modify the first.
 
-{ SEE ALSO: For the details of how to implement this inheritence, refer to the Jinja Template Inheritence documentation.
+Inheritance is implemented with the `{% extends %}` and `{% block %}` tags. In the parent template, you can define blocks which will be populated by child templates.
+
+_myapp/templates/layout.html_
+```
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+    {% block body %}
+    	<h1>This heading is defined in the parent.</h1>
+    {% endblock %}
+    </body>
+</html>
+```
+
+In the child template, you can extend the parent template and define the contents of those blocks.
+
+_myapp/templates/index.html_
+```
+{% extends "layout.html" %}
+{% block title %}Hello world!{% endblock %}
+{% block body %}
+	{{ super() }}
+    <h2>This heading is defined in the child.</h2>
+{% endblock %}
+```
+
+The `super()` function lets us include the current contents of the block when we redefined them in the child.
+
+{ SEE ALSO: For more information on inheritance, refer to the Jinja Template Inheritence documentation.
 * http://jinja.pocoo.org/docs/templates/#template-inheritance
 }
 
@@ -167,7 +198,7 @@ from .util import filters
 * Use Jinja for templating.
 * Jinja has two kinds of delimeters: `{% ... %}` and `{{ ... }}`. The first one is used to execute statements such as for-loops or assign values, the latter prints the result of the contained expression to the template.
 * Templates should go in _myapp/templates/_ — i.e. a directory inside of the application package.
-* The structure of the _templates/_ directory should mirror the URL structure of the app.
+* I recommend that the structure of the _templates/_ directory mirror the URL structure of the app.
 * You should have a top-level _layout.html_ in _myapp/templates_ as well as one for each section of the site. The former extend the latter.
 * Macros are like functions made-up of template code.
 * Filters are functions made-up of Python code and used in templates.
