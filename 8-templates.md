@@ -2,7 +2,7 @@
 
 While Flask doesn't force you to use any particular templating language, it assumes that you're going to use Jinja. Most of the developers in the Flask community use Jinja, and I recommend that you do the same. There are a few extensions that have been written to let you use other templating languages, but unless you have a good reason (not knowing Jinja yet is not a good reason!) stick with the default; you'll save yourself a lot of time and headache.
 
-{ NOTE: “Jinja” and “Jinja2” are used interchangeably. Don’t worry about any difference; you won’t be dealing with a Jinja1. When you see Jinja, it’s talking about this: http://jinja.pocoo.org/ }
+{ NOTE: Almost all resources imply Jinj2 when they refer to "Jinja." There was a Jinja1, but we be dealing with it here. When you see Jinja, we're talking about this: http://jinja.pocoo.org/ }
 
 { SEE MORE: Here are a couple of those extensions for other templating languages.
 * Flask-Genshi: http://pythonhosted.org/Flask-Genshi/
@@ -49,7 +49,7 @@ templates/
         analytics.html
 ```
 
-For the most part, the templates are organized like a static site. The template for myapp.com/admin/analytics is _templates/admin/analytics.html_. There are also some extra templates in there that won't be rendered directly. The _layout.html_ files are meant to be inherited by the other templates.
+The structure of the templates parallels the structure of the routes. The template for route myapp.com/admin/analytics is _templates/admin/analytics.html_. There are also some extra templates in there that won't be rendered directly. The _layout.html_ files are meant to be inherited by the other templates.
 
 ## Inheritance
 
