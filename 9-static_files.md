@@ -50,7 +50,7 @@ Flask-Assets is an extension for managing your static files. There are two reall
 
 Here's basic the static directory we'll be working with in this chapter:
 
-myapp/static/
+_myapp/static/_
 ```
 static/
     css/
@@ -72,9 +72,9 @@ static/
 
 ### Defining bundles
 
-Our app has two sections: the public site and the admin panel (referred to as "home" and "admin" respectively). We'll define four bundles to cover this. JavaScript and CSS bundles for home and admin. We'll put these in a assets module in our util package.
+Our app has two sections: the public site and the admin panel (referred to as "home" and "admin" respectively). We'll define four bundles to cover this: a JavaScript and CSS bundle for each section. We'll put these in an assets module inside our util package.
 
-myapp/util/assets.py
+_myapp/util/assets.py_
 ```
 from flask.ext.assets import Bundle, Environment
 from .. import app
@@ -83,34 +83,40 @@ bundles = {
 
     'home_js': Bundle(
         'js/lib/jquery-1.10.2.js',
-        'js/home.js'),
+        'js/home.js',
+        output='gen/home.js),
 
     'home_css': Bundle(
         'css/lib/reset.css',
         'css/common.css',
-        'css/home.css'),
+        'css/home.css',
+        output='gen/home.css),
 
     'admin_js': Bundle(
         'js/lib/jquery-1.10.2.js',
         'js/lib/Chart.js',
-        'js/admin.js'),
+        'js/admin.js',
+        output='gen/admin.js),
 
     'admin_css': Bundle(
         'css/lib/reset.css',
         'css/common.css',
-        'css/admin.css')
+        'css/admin.css',
+        output='gen/admin.css)
 }
-
-{ CHECK IF WE HAVE TO DEFINE AN OUTPUT? }
 
 assets = Environment(app)
 
 assets.register(bundles)
 ```
 
+{ WARNING: Flask-Assets combines your files in the order in which they are listed here. If _admin.js_ requires _jquery-1.10.2.js_, make sure jquery is listed first.
+
 We're defining the bundles in a dictionary to make it easy to register them. webassets, the package behind Flask-Assets lets us register bundles in a number of ways, including passing a dictionary like the one we made in this snippet.
 
 { SOURCE: https://github.com/miracle2k/webassets/blob/0.8/src/webassets/env.py#L380 }
+
+Since we're registering our bundles in `util.assets`, all we have to do is import that module in __init__.py after our app has been initialized via `app = Flask(__name__)`.
 
 myapp/__init__.py
 ```
@@ -119,13 +125,11 @@ myapp/__init__.py
 from .util import assets
 ```
 
-Since we're doing all of the registering in util.assets, all we have to do is import the module from __init__.py after our app has been initialized (app = Flask(__name__)).
-
 ### Using your bundles
 
 Here's the templates folder of our hypothetical application:
 
-myapp/templates/
+_myapp/templates/_
 ```
 templates/
     home/
@@ -138,7 +142,7 @@ templates/
         stats.html
 ```
 
-Now, to use the asset bundles for the admin portion of our application, we'll insert the bundled files into admin/layout.html:
+To use our admin bundles, we'll insert them into the parent template for the admin section, _admin/layout.html_.
 
 myapp/templates/admin/layout.html
 ```
@@ -159,11 +163,11 @@ myapp/templates/admin/layout.html
 </html>
 ```
 
-We would do the same thing for the home bundles in templates/home/layout.html.
+We can do the same thing for the home bundles in _templates/home/layout.html_.
 
 ### Using filters
 
-We can use webassets filters to pre-process our static files. This is especially handy for minifying our JavaScript and CSS bundles. We'll modify our code to do just that.
+We can use webassets filters to pre-process our static files. This is especially handy for minifying our JavaScript and CSS bundles. We will now modify our code to do just that.
 
 myapp/util/assets.py
 ```
@@ -174,38 +178,46 @@ bundles = {
     'home_js': Bundle(
         'lib/jquery-1.10.2.js',
         'js/home.js',
+        output='gen/home.js',
         filters='jsmin'),
 
     'home_css': Bundle(
         'lib/reset.css',
         'css/common.css',
         'css/home.css',
+        output='gen/home.css',
         filters='cssmin'),
 
     'admin_js': Bundle(
         'lib/jquery-1.10.2.js',
         'lib/Chart.js',
         'js/admin.js',
+        output='gen/admin.js',
         filters='jsmin'),
 
     'admin_css': Bundle(
         'lib/reset.css',
         'css/common.css',
         'css/admin.css',
+        output='gen/admin.css',
         filters='cssmin')
 }
 
 # [...]
 ```
 
-{ NOTE: To use the jsmin and cssmin filters, you'll need to install the jsmin and cssmin packages (e.g. with pip install jsmin cssmin). Make sure to add them to requirements.txt too. }
+{ NOTE: To use the `jsmin` and `cssmin` filters, you'll need to install the jsmin and cssmin packages (e.g. with `pip install jsmin cssmin`). Make sure to add them to _requirements.txt_ too. }
 
-Now Flask-Assets will merge and compress our files the first time the template is rendered, and it'll automatically update the compressed file when a source file changes.
+Flask-Assets will merge and compress our files the first time the template is rendered, and it'll automatically update the compressed file when one of the source files changes.
 
-{ NOTE: If you set ASSETS_DEBUG = True in your config, Flask-Assets will output each source file individually instead of merging them. }
+{ NOTE: If you set `ASSETS_DEBUG = True` in your config, Flask-Assets will output each source file individually instead of merging them. }
 
-{ SEE ALSO: You can use Flask-Assets to automatically compile Sass, Less, CoffeeScript, and other pre-processors. Take a look at some of these other filters that you can use: http://elsdoerfer.name/docs/webassets/builtin_filters.html#js-css-compilers }
+{ SEE ALSO: You can use Flask-Assets filters to automatically compile Sass, Less, CoffeeScript, and other pre-processors. Take a look at some of these other filters that you can use: http://elsdoerfer.name/docs/webassets/builtin_filters.html#js-css-compilers }
 
 ## Summary
 
-We can clean up our static directory by separating third-party files from our own code. Flask-Assets lets us bundle several static files into one. It also lets us use filters to minify those static files, or even compile pre-processor languages (like Sass, Less, CoffeeScript and more).
+* Static files go in the _static/_ directory.
+* Separate third-party libraries from your own static files.
+* Specify the location of your favicon in your templates.
+* Use Flask-Assets to insert your static files in your templates.
+* Flask-Assets can compile, combine and compress your static files.
