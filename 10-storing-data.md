@@ -6,6 +6,8 @@ Plus, when you use a relational database you get to use SQLAlchemy and SQLAlchem
 
 # SQLAlchemy
 
+SQLAlchemy is an ORM (Object Relational Mapper). It is basically an abstraction that sits on top of the raw SQL queries being executed on your database. It provides a consistent API to a long list of database engines. The most popular include MySQL, PostgreSQL, and SQLite. This makes it easy to move data between your models and your databse and it makes it really easy to do other things like switch database engines and migrate your schemas.
+
 
 
 ## Alembic migrations
