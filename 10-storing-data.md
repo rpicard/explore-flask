@@ -25,7 +25,7 @@ app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 ```
 
-Initialize and configure your Flask app then use it to initialize your SQLAlchemy database handler. Then you can define your models.
+Initialize and configure your Flask app then use it to initialize your SQLAlchemy database handler. We are going to use an instance folder for our database configuration so we should use the `instance_relative_config` option when initializing the app and then call `app.config.from_pyfile`. Then you can define your models.
 
 _myapp/models.py_
 ```
@@ -43,6 +43,17 @@ class Engine(db.Model):
 ```
 
 `Column`, `Integer`, `String`, `Model` and other SQLAlchemy classes are all available via the `db` object constructed from Flask-SQLAlchemy. Here we have defined a model to store the current state of our spacecraft's engines. Each engine has an id, a title and a thrust level.
+
+We still need to add some database information to our configuration. We are using an instance folder to keep confidential configuration variables out of version control, so we are going to put it in _instance/config.py_.
+
+_instance/config.py_
+```
+SQLALCHEMY_DATABASE_URI = "postgresql://user:password@localhost/spaceshipDB"
+```
+
+## Initialize database (create_all)
+
+## Create and save data via the model
 
 
 ## Alembic migrations
