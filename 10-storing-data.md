@@ -8,6 +8,41 @@ Plus, when you use a relational database you get to use SQLAlchemy and SQLAlchem
 
 SQLAlchemy is an ORM (Object Relational Mapper). It is basically an abstraction that sits on top of the raw SQL queries being executed on your database. It provides a consistent API to a long list of database engines. The most popular include MySQL, PostgreSQL, and SQLite. This makes it easy to move data between your models and your databse and it makes it really easy to do other things like switch database engines and migrate your schemas.
 
+There is a great Flask extension that makes using SQLAlchemy in Flask even easier. It is called Flask-SQLAlchemy. Flask-SQLAlchemy configures a lot of sane defaults for SQLAlchemy. It also handles some sesssion management so that you don't have to deal with janitorial stuff in your application code.
+
+Let's dive into some code. We are going to define some models then configure some SQLAlchemy. The models are going to go in _myapp/models.py_, but first we are going to define our database in _myapp/__init__.py_
+
+_myapp/__init__.py_
+```
+from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+
+app = Flask(__name__, instance_relative_config=True)
+
+app.config.from_object('config')
+app.config.from_pyfile('config.py')
+
+db = SQLAlchemy(app)
+```
+
+Initialize and configure your Flask app then use it to initialize your SQLAlchemy database handler. Then you can define your models.
+
+_myapp/models.py_
+```
+from . import db 
+
+class Engine(db.Model):
+
+    # Columns
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    title = db.Column(db.String(128))
+
+    thrust = db.Column(db.Integer, default=0)
+```
+
+`Column`, `Integer`, `String`, `Model` and other SQLAlchemy classes are all available via the `db` object constructed from Flask-SQLAlchemy. Here we have defined a model to store the current state of our spacecraft's engines. Each engine has an id, a title and a thrust level.
 
 
 ## Alembic migrations
