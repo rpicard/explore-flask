@@ -122,6 +122,12 @@ Once we have our migration script ready, we can run `alembic upgrade head` to mi
 
 { WARNING: Don't forget to put a plan in place to back up your data. The details of that plan are outside the scope of this book, but you should always have your datbase backed up in a secure and robust way. }
 
-# NoSQL options
-# Search (WhooshAlchemy?)
+{ NOTE: The NoSQL scene is less established with Flask, but as long as the database engine of your choice has a Python library, you should be able to use it. There are even several extensions in the Flask extension registry to help integrate NoSQL engines with Flask: http://flask.pocoo.org/extensions/ }
+
 # Summary
+
+- Use SQLAlchemy to work with relational databases.
+- Use Flask-SQLAlchemy to work with SQLAlchemy.
+- Alembic helps you manage migrate your data between schema changes.
+- You can use NoSQL databases with Flask, but the methods and tools vary between engines.
+- Back up your data!
