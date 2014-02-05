@@ -51,7 +51,30 @@ _instance/config.py_
 SQLALCHEMY_DATABASE_URI = "postgresql://user:password@localhost/spaceshipDB"
 ```
 
-## Initialize database (create_all)
+{ SEE MORE: Your database URI will be different depending on the engine you use and where it is hosted. See the SQLAlchemy documentation for this here: http://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=database#database-urls }
+
+## Initializing the database
+
+Now that the database is configured and we have defined a model, we can initialize the database. This step basically involves creating that database scheme from the model definitions.
+
+Normally that might be a real pain in the neck to do. Lucky for us, SQLAlchemy has a really cool command that will do all of this for us.
+
+Let's open up a Python terminal in our repository root.
+
+```
+$ pwd
+/Users/me/Code/myapp
+$ workon myapp
+(myapp)$ python
+Python 2.7.5 (default, Aug 25 2013, 00:04:04) 
+[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from myapp import db
+>>> db.create_all()
+>>>
+```
+
+Now, thanks to SQLAlchemy if you check your database
 
 ## Create and save data via the model
 
