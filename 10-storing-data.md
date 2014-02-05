@@ -74,13 +74,53 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-Now, thanks to SQLAlchemy if you check your database
-
-## Create and save data via the model
-
+Now, thanks to SQLAlchemy, you will find that the tables have been created in the database specified in your configuration.
 
 ## Alembic migrations
-{ WARNING: Don't forget to back up your data! }
+
+The schema of a database is not set in stone. For example, you may want to add a `last_fired` column to the engine table. If you don't have any data, you can just update the model and run `db.create_all()` again. However, if you have six months of engine data logged in that table, you probably do not want to start over from scratch. That's where database migrations come in.
+
+Alembic is a database migration tool created specifically for use with SQLAlchemy. It lets you keep a versioned history of your database schema so that you can upgrade to a new schema and even downgrade back to an older one.
+
+Alembic has an extensive tutorial to get you started, so I'll just give you a quick overview and point out a couple of things to watch out for.
+
+You will create your alembic "migration environment" via an installed `alembic init` command. Run this in your repository root and you will end up with a new directory with the very clever name `alembic`. Your repository will end up looking something like this example adapted from the Alembic tutorial:
+
+```
+myapp/
+	alembic.ini
+    alembic/
+        env.py
+        README
+        script.py.mako
+        versions/
+            3512b954651e_add_account.py
+            2b1ae634e5cd_add_order_id.py
+            3adcc9a56557_rename_username_field.py
+    myapp/
+    	__init__.py
+        views.py
+        models.py
+      	templates/
+    run.py
+    config.py
+    requirements.txt
+    
+```
+
+The _alembic/_ directory has the scripts that migrate your data from version to version. There is also an _alembic.ini_ file that contains configuration information.
+
+{ WARNING: Add _alembic.ini_ to _.gitignore_! You are going to have your database credentials in the file so you **do not** want it to end up in version control.
+
+You do want to keep _alembic/_ in versin control though. It does not contain sensitive information (that can't already be derived from your source code) and keeping it in version control will mean having several copies should something happen to the files on your computer. }
+
+When it comes time to make a schema change, there are a couple of steps. First your run `alembic revision` to generate a migration script. Open up the newly generated Python file in _myapp/alembic/versions/_ and fill in the `upgrade` and `downgrade` functions using Alembic's `op` object.
+
+Once we have our migration script ready, we can run `alembic upgrade head` to migrade our data to the latest version.
+
+{ SEE MORE: For the details on configuring Alembic, creating your migration scripts and running your migrations see the Alembic tutorial: http://alembic.readthedocs.org/en/latest/tutorial.html }
+
+{ WARNING: Don't forget to put a plan in place to back up your data. The details of that plan are outside the scope of this book, but you should always have your datbase backed up in a secure and robust way. }
 
 # NoSQL options
 # Search (WhooshAlchemy?)
