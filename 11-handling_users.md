@@ -1,16 +1,16 @@
 # Patterns for handling users
 
-One of the most common things that modern web applications need to do is handle users. An application with basic account features needs to handle a lot of things like registration, email confirmation, securely storing passages, secure password reset, authentication, and more. Since a lot of security issues present themselves when it comes to handling users, it's generally best to stick to standard patterns in this area.
+One of the most common things that modern web applications need to do is handle users. An application with basic account features needs to handle a lot of things like registration, email confirmation, securely storing passwords, secure password reset, authentication and more. Since a lot of security issues present themselves when it comes to handling users, it's generally best to stick to standard patterns in this area.
 
-{ NOTE: In this chapter I'm going to assume that you're using SQLAlchemy models and WTForms to handle your form input. }
+{ NOTE: In this chapter I'm going to assume that you're using SQLAlchemy models and WTForms to handle your form input. If you aren't using those, you'll need to adapt these patterns to your preferred methods.}
 
 ## Email confirmation
 
-When a new user signs up with your site, you generally want to confirm that they actually own the email that they used to sign up. That way you can confidently send password reset links and other sensitive information to your users without wondering who is actually getting them.
+When a new user signs up with your site, you generally want to confirm that they actually own the email that they used to sign up. That way you can confidently send password reset links and other sensitive information to your users without wondering who is on the receiving end.
 
-One of the most common patterns for solving this problem is to send a link with a unique URL that, when visited, confirms that users email address. For example, John@gmail.com signs up at your application. Your application registers him in the database (with an email_confirmed column set to False) and, before returning, fires off an email to John@gmail.com with a unique URL. This URL usually points to an endpoint with a generated token, e.g. http://myapp.com/accounts/confirm/kj3kjhj3hj3.
+One of the most common patterns for solving this problem is to send a password reset link with a unique URL that, when visited, confirms that user's email address. For example, john@gmail.com signs up at your application. Your application registers him in the database (with an `email_confirmed` column set to `False`) and fires off an email to john@gmail.com with a unique URL. This URL usually contains a unique token, e.g. http://myapp.com/accounts/confirm/kj3kjhj3hj3.
 
-When John gets that email, he clicks the link. This time, your app sees the link that was visited and knows which email was supposed to be confirmed by that URL, and makes the changes in the database accordingly.
+When John gets that email, he clicks the link. Your app sees the token, knows which email to confirm and sets John's `email_confirmed` column to `True`.
 
 The question is how do we know which email was supposed to be confirmed by a given URL. One way would be to store the token in the database and look for the user associated with a given token when we get the activation request. That's a lot of overhead and, luckily, it's not necessary.
 
