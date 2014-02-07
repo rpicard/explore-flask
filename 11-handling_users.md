@@ -8,13 +8,11 @@ One of the most common things that modern web applications need to do is handle 
 
 When a new user signs up with your site, you generally want to confirm that they actually own the email that they used to sign up. That way you can confidently send password reset links and other sensitive information to your users without wondering who is on the receiving end.
 
-One of the most common patterns for solving this problem is to send a password reset link with a unique URL that, when visited, confirms that user's email address. For example, john@gmail.com signs up at your application. Your application registers him in the database (with an `email_confirmed` column set to `False`) and fires off an email to john@gmail.com with a unique URL. This URL usually contains a unique token, e.g. http://myapp.com/accounts/confirm/kj3kjhj3hj3.
+One of the most common patterns for solving this problem is to send a password reset link with a unique URL that, when visited, confirms that user's email address. For example, john@gmail.com signs up at your application. Your application registers him in the database (with an `email_confirmed` column set to `False`) and fires off an email to john@gmail.com with a unique URL. This URL usually contains a unique token, e.g. http://myapp.com/accounts/confirm/kj3kjhj3hj3. When John gets that email, he clicks the link. Your app sees the token, knows which email to confirm and sets John's `email_confirmed` column to `True`.
 
-When John gets that email, he clicks the link. Your app sees the token, knows which email to confirm and sets John's `email_confirmed` column to `True`.
+The question is, how do we take that token and match it up to an email address to confirm. One way would be to store the token in the database when it is created and check the database when we receive the confirmation request. That's a lot of overhead and, lucky for us, it's unnecessary.
 
-The question is how do we know which email was supposed to be confirmed by a given URL. One way would be to store the token in the database and look for the user associated with a given token when we get the activation request. That's a lot of overhead and, luckily, it's not necessary.
-
-We're going to create a token that actually includes the email address and a timestamp to let us set a time limit on how long the token is valid. To do this, we'll use the itsdangerous package. This package gives us some tools to send data into untrusted environments (like sending an email confirmation token in an email). In this case, we're going to use a URLSafeTimedSerializer.
+We're going to create a token that actually includes the email address. It even contains a timestamp to let us set a time limit on how long the token is valid. To do this, we'll use the `itsdangerous` package. This package gives us tools to send sensitive data into untrusted environments (like sending an email confirmation token to an unconfirmed email). In this case, we're going to use a `URLSafeTimedSerializer`.
 
 myapp/util/security.py
 ```
