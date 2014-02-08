@@ -6,15 +6,15 @@ One of the most common things that modern web applications need to do is handle 
 
 ## Email confirmation
 
-When a new user signs up with your site, you generally want to confirm that they actually own the email that they used to sign up. That way you can confidently send password reset links and other sensitive information to your users without wondering who is on the receiving end.
+When a new user gives you their email, you generally want to confirm that they gave you the right one. Once you have made that confirmation, you can confidently send password reset links and other sensitive information to your users without wondering who is on the receiving end.
 
-One of the most common patterns for solving this problem is to send a password reset link with a unique URL that, when visited, confirms that user's email address. For example, john@gmail.com signs up at your application. Your application registers him in the database (with an `email_confirmed` column set to `False`) and fires off an email to john@gmail.com with a unique URL. This URL usually contains a unique token, e.g. http://myapp.com/accounts/confirm/kj3kjhj3hj3. When John gets that email, he clicks the link. Your app sees the token, knows which email to confirm and sets John's `email_confirmed` column to `True`.
+One of the most common patterns for confirming emails is to send a password reset link with a unique URL that, when visited, confirms that user's email address. For example, john@gmail.com signs up at your application. Your application registers him in the database with an `email_confirmed` column set to `False` and fires off an email to john@gmail.com with a unique URL. This URL usually contains a unique token, e.g. http://myapp.com/accounts/confirm/kj3kjhj3hj3. When John gets that email, he clicks the link. Your app sees the token, knows which email to confirm and sets John's `email_confirmed` column to `True`.
 
-The question is, how do we take that token and match it up to an email address to confirm. One way would be to store the token in the database when it is created and check the database when we receive the confirmation request. That's a lot of overhead and, lucky for us, it's unnecessary.
+How do we know which email to confirm with a given token? One way would be to store the token in the database when it is created and check the database when we receive the confirmation request. That's a lot of overhead and, lucky for us, it's unnecessary.
 
-We're going to create a token that actually includes the email address. It even contains a timestamp to let us set a time limit on how long the token is valid. To do this, we'll use the `itsdangerous` package. This package gives us tools to send sensitive data into untrusted environments (like sending an email confirmation token to an unconfirmed email). In this case, we're going to use a `URLSafeTimedSerializer`.
+We're going to create a token that actually includes the email address. It'll also contain a timestamp to let us set a time limit on how long the token is valid. To do this, we'll use the `itsdangerous` package. This package gives us tools to send sensitive data into untrusted environments (like sending an email confirmation token to an unconfirmed email). In this case, we're going to use a `URLSafeTimedSerializer`.
 
-myapp/util/security.py
+_myapp/util/security.py_
 ```
 from itsdangerous import URLSafeTimedSerializer
 
@@ -23,9 +23,7 @@ from .. import app
 serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
 ```
 
-Now we can use that serializer to generate a confirmation token.
-
-{ HOW DO PEOPLE IMPLEMENT THE EMAIL SENDING? }
+Now we can use that serializer to generate a confirmation token when a user gives us their email address.
 
 ## Storing passwords
 
