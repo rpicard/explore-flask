@@ -178,18 +178,20 @@ Here we created an instance of the `LoginManager`, initialized it with our `app`
 
 { SEE MORE: You can see more ways to customize Flask-Login here: https://flask-login.readthedocs.org/en/latest/#customizing-the-login-process } 
 
-myapp/views.py
+Now we can define the `signin` view that will handle authentication.
+
+_myapp/views.py_
 ```
 from flask import redirect, url_for
 
 from flask.ext.login import login_user
 
 from . import app
-from .forms import SigninForm()
+from .forms import UsernamePasswordForm()
 
 @app.route('signin', methods=["GET", "POST"])
 def signin():
-    form = SigninForm()
+    form = UsernamePasswordForm()
 
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first_or_404()
@@ -202,9 +204,9 @@ def signin():
     return render_template('signin.html', form=form)
 ```
 
-We simply import the login_user function from Flask-Login and pass the user object to it. Later we can log the user out with logout_user().
+We simply import the `login_user` function from Flask-Login, check a user's login credentials and call `login_user(user)`. You can log the current user out with `logout_user()`.
 
-myapp/views.py
+_myapp/views.py_
 ```
 from flask import redirect, url_for
 from flask.ext.login import logout_user
@@ -218,7 +220,7 @@ def signout():
     return redirect(url_for('index'))
 ```
 
-{ NOTE: This simple implementation of logout is vulnerable to a CSRF where someone gets a user's browser to load an image with the source http://yourapp.com/signout, thereby signing them out of your application. The solution to this would be to make signout accept an empty form with a CSRF token. When the user clicks "Sign out" you can use JavaScript to submit the form.
+{ NOTE: This simple implementation of logout is vulnerable to a CSRF where someone gets a user's browser to load an image with the source http://yourapp.com/signout, thereby signing them out of your application
 
 Many web apps are content to leave their sites vulnerable to a logout CSRF because it is harmless (just a little annoying) and there are some technicalities that can make it futile to try and defend against. Google is one example of such a site. You can see more on Google's list of vulnerabilities that don't qualify for their bug bounty program: http://www.google.com/about/appsecurity/reward-program/#notavuln
 
