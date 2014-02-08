@@ -1,12 +1,10 @@
 # Handling forms
 
-One of the most fundamental parts of a web application is the form. The form is the basic element that lets users interact with your web application. Flask alone doesn't do anything to help you handle forms, but the Flask-WTF extension lets us use WTForms in our Flask applications with ease.
+The form is the basic element that lets users interact with your web application. Flask alone doesn't do anything to help you handle forms, but the Flask-WTF extension lets us use the popular WTForms package in our Flask applications. This package makes defining forms and handling submissions easy.
 
 ## Flask-WTF
 
 The first thing you want to do with Flask-WTF (after installing it) is to define a form in a myapp.forms package.
-
-{ MAYBE RETHINK WHERE forms.py IS LOCATED? MAYBE util.forms ? }
 
 myapp/forms.py
 ```
@@ -18,21 +16,25 @@ class EmailPasswordForm(Form):
     password = PasswordField('Password', validators=[Required()])
 ```
 
-{ NOTE: Until version 0.9, Flask-WTF provided its own wrappers around the WTForms fields and validators. You may see a lot of code out in the wild that imports TextField, PasswordField, etc. from flask.ext.wtforms instead of wtforms. You should be importing that stuff straight from wtforms. }
+{ NOTE: Until version 0.9, Flask-WTF provided its own wrappers around the WTForms fields and validators. You may see a lot of code out in the wild that imports `TextField`, `PasswordField`, etc. from `flask.ext.wtforms` instead of `wtforms`. You should be importing that stuff straight from `wtforms`. }
 
-This form is going to be a user sign-in form. We could have called it SignInForm(), but by keeping things a little more abstract, we can re-use this same form class for other things, like a sign-up form. If we were to define purpose-specific form classes we'd end up with a lot of identical forms for no good reason. It's much cleaner to name forms that may be re-used based on the fields they contain. Of course, sometimes you'll have long, unique forms that you'll want to give a more context-specific name.
+This form is going to be a user sign-in form. We could have called it `SignInForm()`, but by keeping things a little more abstract, we can re-use this same form class for other things, like a sign-up form. If we were to define purpose-specific form classes we'd end up with a lot of identical forms for no good reason. It's much cleaner to name forms based on the fields they contain, as that is what makes them unique. Of course, sometimes you'll have long, one-off forms that you might want to give a more context-specific name.
 
-This form can do a few of things for us. It can secure our app against CSRF vulnerabilites, validate user input and let us render the form in the template based on this class so that changes made here will propagate to the templates.
+This form can do a few of things for us. It can secure our app against CSRF vulnerabilites, validate user input and render the appropriate markup for whatever fields we define here.
 
 ### CSRF Protection and validation
 
-CSRF stands for cross site request forgery. CSRF attacks involve a third party forging a form by posting data to an app's server. A vulnerable server assumes that the data is coming from a form on its own site, so it takes action accordingly.
+CSRF stands for cross site request forgery. CSRF attacks involve a third party forging a form submission by posting data to an app's server. A vulnerable server assumes that the data is coming from a form on its own site and takes action accordingly.
 
-As an example, lets say that an application like Facebook has a form that sends a friend request by submitting a form via POST to an endpoint on their server. Someone else could set up a form on their website that sends data to that same endpoint. This data could be modified to send a friend request to anyone they want. Now, if the server on the receiving end of that POST request assumes that it comes from Facebook, there is a massive vulnerability.
+As an example, let's say that your email provider lets you delete your account by submitting a form. The form sends a POST request to an `account_delete` endpoint on their server and deletes the account that was logged-in when the form was submitted. You can create a form on your own site that sends a POST request to the same `account_delete` endpoint. Now, if you can get someone to click 'submit' on your form (or do it via JavaScript when they load your page) their logged-in account with the email provider will be deleted. Unless of course your email provider knows not to assume that form submissions are coming from their own forms.
 
-So how do we stop assuming that POST requests come from our own forms? WTForms does this by generating a unique token when rendering each form. That token is then passed along with the form data in the POST request and must be validated before the form is accepted. The key is that the token is tied to a value stored in the user's session (cookies) and expires after a certain amount of time (30 minutes by default). This way the only person who can submit a form is the person who loaded the page (or at least someone at the same computer), and they can only do it for 30 minutes after loading the page.
+So how do we stop assuming that POST requests come from our own forms? WTForms makes it possible by generating a unique token when rendering each form. That token is then passed along with the form data in the POST request and must be validated before the form is accepted. The key is that the token is tied to a value stored in the user's session (cookies) and expires after a certain amount of time (30 minutes by default). This way the only person who can submit a valid form is the person who loaded the page (or at least someone at the same computer), and they can only do it for 30 minutes after loading the page.
 
-{ SEE ALSO: Here's the documentation on how WTForms generates these tokens: http://wtforms.simplecodes.com/docs/1.0.1/ext.html#module-wtforms.ext.csrf.session }
+{ SEE ALSO:
+
+* Here's the documentation on how WTForms generates these tokens: http://wtforms.simplecodes.com/docs/1.0.1/ext.html#module-wtforms.ext.csrf.session 
+
+* Here's some more information about CSRF: https://www.owasp.org/index.php/CSRF}
 
 To start using Flask-WTF for CSRF protection, we'll need to define a view for our login form.
 
