@@ -220,12 +220,6 @@ def signout():
     return redirect(url_for('index'))
 ```
 
-{ NOTE: This simple implementation of logout is vulnerable to a CSRF where someone gets a user's browser to load an image with the source http://yourapp.com/signout, thereby signing them out of your application
-
-Many web apps are content to leave their sites vulnerable to a logout CSRF because it is harmless (just a little annoying) and there are some technicalities that can make it futile to try and defend against. Google is one example of such a site. You can see more on Google's list of vulnerabilities that don't qualify for their bug bounty program: http://www.google.com/about/appsecurity/reward-program/#notavuln
-
-You can also read more about these technicalities here: http://scarybeastsecurity.blogspot.com/2010/01/logout-xsrf-significant-web-app-bug.html }
-
 ## Forgot your password
 
 You'll generally want to implement a "Forgot your password" feature that lets a user who forgot their password recover their account. This area is ripe for vulnerabilities because the whole point is to let an unauthenticated user take over an account; we just want that user to be the person who is supposed to own the account. We'll implement our password reset using some of the same techniques as our email confirmation. We'll need a form to request a reset for a given account based on that account's email or username and a form to choose a new password once we've confirmed that the unauthenticated user is the right person. This assumes that our user model has an email and a password, where the password is a hybrid property as we previously created.
