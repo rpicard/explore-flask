@@ -27,11 +27,11 @@ Now we can use that serializer to generate a confirmation token when a user give
 
 ## Storing passwords
 
-Rule number one of handling users is to hash passwords with Bcrypt before storing them. You never store passwords in plain text. It's a massive security issue and it's unfair to your users. All of the hard work has already been done and abstracted away for us, so there's no excuse for not following the best practices here.
+Rule number one of handling users is to hash passwords with the Bcrypt algorithm before storing them. You never store passwords in plain text. It's a massive security issue and it's unfair to your users. All of the hard work has already been done and abstracted away for us, so there's no excuse for not following the best practices here.
 
-We'll go ahead and use the Flask-Bcrypt extension to implement the bcrypt package in our application. This extension is basically just a wrapper around the bcrypt package, but it does handle a few things that would be annoying to do ourselves (like checking string encodings before comparing).
+{ SEE MORE: OWASP is one of the industry's most trusted source for information regarding web application security. Take a look at some of their recommendations for secure coding here: https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage }
 
-{ EXPLAIN BCRYPT AND THE CONCEPT OF ROUNDS }
+We'll go ahead and use the Flask-Bcrypt extension to implement the bcrypt package in our application. This extension is basically just a wrapper around the `py-bcrypt` package, but it does handle a few things that would be annoying to do ourselves (like checking string encodings before comparing hashes).
 
 myapp/__init__.py
 ```
@@ -40,14 +40,38 @@ from flask.ext.bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 ```
 
-We'll specify the number of rounds to use in hashing in our configuration. A rule of thumb that I read once was to take the year and subtract 2000. I don't know how long that will hold, but for now it holds with most recommendations that I've seen. At the time of writing this, that formula gives us 13 rounds, so I'll set that in the configuration.
+One of the reasons that the Bcrypt algorithm is so highly recommended is that it is "future adaptable." This means that over time, as computing power becomes cheaper we can make it more and more difficult to brute force the hash by guessing millions of possible passwords. The more "rounds" we use to hash the password, the longer it will take to perform one iteration of a guess. If we hash our passwords 20 times with the algorithm before storing them the attacker has to hash each of their guesses 20 times.
+
+Keep in mind that if we're hashing our passwords 20 times then our application is going to take a long time to return a response that depends on that process completing. This means that when choosing the number of rounds to use, we have to balance security and usability. The number of rounds you can complete in a given amount of time will depend on the computational resources available to your application, so it's best to test out some different numbers and shoot for between 0.25 and 0.5 seconds to hash a password. Try to use at least 12 rounds though.
+
+To test the time it takes to hash a password, you can time a quick Python script that, well, hashes a password.
+
+_benchmark.py_
+```
+from flask.ext.bcrypt import generate_password_hash
+
+# Chance the number of rounds (second argument) until it takes between 0.25 and 0.5 seconds to run.
+generate_password_hash('password1', 12) 
+```
+
+Now we can keep timing our changes with the UNIX `time` utility.
+
+```
+$ time python test.py 
+
+real    0m0.496s
+user    0m0.464s
+sys     0m0.024s
+```
+
+I did a quick benchmark on a small server that I have handy and 12 rounds seemed to take the right amount of time, so I'll configure our example to use that. 
 
 config.py
 ```
-BCRYPT_LOG_ROUNDS = 13
+BCRYPT_LOG_ROUNDS = 12
 ```
 
-Now we want to use bcrypt to hash passwords when users sign-up -- before we save them in the database. We could do this manually in the view function that receives the POST request from the sign-up form. We would have to repeat that code for password reset and password changing components. Instead, what we'll do is abstract away the hashing so that our app does it without us thinking. We'll use a setter so that when we save a plaintext password attribute, it is automatically hashed with BCrypt before being stored.
+Now that Flask-Bcrypt is configured, it's time to start hashing passwords. We could do this manually in the view function that receives the sign-up form, but we would have to repeat that code in the password reset and password change views. Instead, what we'll do is abstract away the hashing so that our app does it without us even thinking about it. We'll use a **setter** so that when we set `user.password = 'password1'`, it is automatically hashed with BCrypt before being stored.
 
 myapp/models.py
 ```
@@ -69,17 +93,19 @@ class User(db.Model):
         self._password = bcrypt.generate_password_hash(plaintext)
 ```
 
-We're using SQLAlchemy's hybrid extension to define a special property that lets us define getters and setters. For our setter, we're hashing the plaintext password and storing it in the _password column in the database. We're using a hybrid property, password, so that later we can access the hashed password with user.password. Let's implement a sign-up view for an app using this model.
+We're using SQLAlchemy's hybrid extension to define a property with several different functions called from the same interface.. Our setter is called when we assign a value to the `user.password` property. In it, we hash the plaintext password and store it in the `_password` column of the user table. Since we're using a hybrid property we can then access the hashed password via the same `user.password` property.
+
+Now we can implement a sign-up view for an app using this model.
 
 myapp/views.py
 ```
 from . import app, db
-from .forms import SignupForm
+from .forms import EmailPasswordForm
 from .models import User
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-    form = SignupForm()
+    form = EmailPasswordForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, password=form.password.data)
         db.session.add(user)
