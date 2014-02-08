@@ -36,7 +36,7 @@ So how do we stop assuming that POST requests come from our own forms? WTForms m
 
 * Here's some more information about CSRF: https://www.owasp.org/index.php/CSRF}
 
-To start using Flask-WTF for CSRF protection, we'll need to define a view for our login form.
+To start using Flask-WTF for CSRF protection, we'll need to define a view for our login page.
 
 myapp/views.py
 ```
@@ -49,18 +49,21 @@ from .forms import EmailPasswordForm
 def login():
     form = EmailPasswordForm()
     if form.validate_on_submit():
+    
         # Check the password and log the user in
+        # [...]
+        
         return redirect(url_for('index'))
     return render_template('login.html', form=form)
 ```
 
-We import our form from our forms package and instantiate it in the view. Then we run form.validate_on_submit(). This function returns true if the form has been submitted (i.e. if the HTTP method is PUT or POST) and the form validates (remember those validators we defined in forms.py).
+We import our form from our `forms` package and instantiate it in the view. Then we run `form.validate_on_submit()`. This function returns `True` if the form has been both submitted (i.e. if the HTTP method is PUT or POST) and validated by the validators we defined in _forms.py_.
 
 { SEE ALSO: The documentation and source for validate_on_submit():
 * http://pythonhosted.org/Flask-WTF/#flask.ext.wtf.Form.validate_on_submit
 * https://github.com/ajford/flask-wtf/blob/v0.8.4/flask_wtf/form.py#L120 }
 
-If the form has been submitted and is valid, we can continue with the login logic. If it hasn't been submitted (i.e. it's just a GET request), we want to pass the form object to our template. Here's what the template looks like when we want to make use of that CSRF protection.
+If the form has been submitted and is valid, we can continue with the login logic. If it hasn't been submitted (i.e. it's just a GET request), we want to pass the form object to our template so it can be rendered. Here's what the template looks like when we use CSRF protection.
 
 myapp/templates/login.html
 ```
@@ -70,7 +73,7 @@ myapp/templates/login.html
         <title>Login Page</title>
     </head>
     <body>
-        <form action="" method="POST">
+        <form action="{{ url_for('login') }}" method="POST">
             <input type="text" name="email" />
             <input type="password" name="password" />
             {{ form.csrf_token }}
@@ -79,9 +82,7 @@ myapp/templates/login.html
 </html>
 ```
 
-{ SHOULD THE ACTION BE A url_for() CALL? SOMETHING ELSE? }
-
-form.csrf_token prints out the HTML for a hidden field containing a CSRF token. WTForms looks for that field when it validates the form. We don't actually have to worry about looking for it.
+`{{ form.csrf_token }}` renders a hidden field containing one of those fancy CSRF tokens and WTForms looks for that field when it validates the form. We don't have to worry about including any special "is the token valid" logic. Hooray!
 
 #### Custom validators
 
