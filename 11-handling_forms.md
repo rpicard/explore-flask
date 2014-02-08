@@ -121,7 +121,7 @@ This validator assumes that you're using SQLAlchemy to define your models. WTFor
 
 In *__init__.py* we can specify which arguments should be passed to the validator. In this case we want the relevant model (e.g. the `User` model in our case) and the field to check. When the validator is called, it will raise a `ValidationError` if any instance of the defined model matches the value submitted in the form. We've also made it possible to add a message with a generic default that will be included in the `ValidationError`.
 
-Now we can modify our sign-up form to use the Unique validator.
+Now we can modify `EmailPasswordForm` to use the `Unique` validator.
 
 _myapp/forms.py_
 ```
@@ -140,7 +140,7 @@ class EmailPasswordForm(Form):
 
 ### Rendering forms
 
-WTForms can also help us render the HTML forms themselves. The Field class implemented by WTForms renders an HTML representation of that field when called, so we just have to call our fields in our template to render it. That's how we were able to render the csrf_token field in the previous section. Here's how that template would look if we used WTForms to render our other fields too.
+WTForms can also help us render the HTML for the forms. The `Field` class implemented by WTForms renders an HTML representation of that field, so we just have to call the form fields to render them in our template. It's just like render the `csrf_token` field. Here's how the login template looks when we use WTForms to render our other fields too.
 
 myapp/templates/login.html
 ```
@@ -159,9 +159,7 @@ myapp/templates/login.html
 </html>
 ```
 
-{ SHOW THE RESULTING HTML }
-
-We can also get the values of various properties of each field to help us customize how it's rendered. We can also pass HTML elements as arguments to the field call and they will be rendered with the field. Here's what the form would look like if we wanted to add the field labels and a placeholder:
+We can customize how the fields are rendered by passing field properties as arguments to the field call. Here we add a `placeholder=` property to the email field:
 
 ```
 <form action="" method="POST">
@@ -171,9 +169,7 @@ We can also get the values of various properties of each field to help us custom
 </form>
 ```
 
-{ COULD WE ALSO ADD PLACEHOLDER AT FIELD DEFINITION? }
-
-{ NOTE: If we want to pass the "class" HTML attribute, we have to use "class_='our_class'" since "class" is a reserved keyword in Python. }
+{ NOTE: If we want to pass the "class" HTML attribute, we have to use `class_=''` since "class" is a reserved keyword in Python. }
 
 { SEE ALSO: The documented list of available field properties: http://wtforms.simplecodes.com/docs/1.0.4/fields.html#wtforms.fields.Field.name}
 
