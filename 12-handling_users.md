@@ -117,21 +117,21 @@ def signup():
 
 ## Authentication
 
-Now that we've got a user in the database, we can implement authentication. We'll want to let a user submit a form with their username and password (though this might be email and password for some apps), then check the password they submitted against the password that is stored for the username they submitted. If it all checks out, we'll mark them as authenticated by setting a cookie on their browser. That cookie will tell us that they're logged in for subsequent requests.
+Now that we've got a user in the database, we can implement authentication. We'll want to let a user submit a form with their username and password (though this might be email and password for some apps), then make sure that they gave us the correct password. If it all checks out, we'll mark them as authenticated by setting a cookie in their browser. The next time they make a request we'll know that they have already logged in by looking for that cookie.
 
-Let's start by defining a Sign-in form with WTForms.
+Let's start by defining a `UsernamePassword` form with WTForms.
 
 myapp/forms.py
 ```
 from flask.ext.wtforms import Form
 from wtforms import TextField, PasswordField, Required
 
-class SigninForm(Form):
+class UsernamePasswordForm(Form):
     username = TextField('Username', validators=[Required()])
     password = PasswordField('Password', validators=[Required()])
 ```
 
-Next we'll add a method to our User model that compares a given plaintext password with the hashed password stored for that user.
+Next we'll add a method to our user model that compares a given plaintext password with the hashed password stored for that user.
 
 myapp/models.py
 ```
@@ -150,9 +150,33 @@ class User(db.Model):
 
 ### Flask-Login
 
-Now we'll define a sign-in view that serves and accepts a form. If the user enters the correct credentials, we'll sign them in using the Flask-Login extension. This extension simplifies the process of handling user sessions and authentication.
+Our next goal is to define a sign-in view that serves and accepts our form. If the user enters the correct credentials, we will authenticate them using the Flask-Login extension. This extension simplifies the process of handling user sessions and authentication.
 
-{ SHOULD I INCLUDE INFO ABOUT SETTING UP Flask-Login ? }
+We need to do a little bit of configuration to get Flask-Login ready to roll.
+
+In *__init__.py* we will define the Flask-Login `login_manager`.
+
+*myapp/__init__.py*
+```
+from flask.ext.login import LoginManager
+
+# Create and configure app
+# [...]
+
+from .models import User
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view =  "signin"
+
+@login_manager.user_loader
+def load_user(userid):
+    return User.query.filter(User.id == userid).first()
+```
+
+Here we created an instance of the `LoginManager`, initialized it with our `app` object, defined the login view and told it how to get a user object with a user's `id`. This is the baseline configuration you should have for Flask-Login.
+
+{ SEE MORE: You can see more ways to customize Flask-Login here: https://flask-login.readthedocs.org/en/latest/#customizing-the-login-process } 
 
 myapp/views.py
 ```
