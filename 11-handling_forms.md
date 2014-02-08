@@ -4,9 +4,9 @@ The form is the basic element that lets users interact with your web application
 
 ## Flask-WTF
 
-The first thing you want to do with Flask-WTF (after installing it) is to define a form in a myapp.forms package.
+The first thing you want to do with Flask-WTF (after installing it) is to define a form in a `myapp.forms` package.
 
-myapp/forms.py
+_myapp/forms.py_
 ```
 from flask.ext.wtforms import Form
 from wtforms import TextField, PasswordField, Required, Email
@@ -84,7 +84,12 @@ myapp/templates/login.html
 
 `{{ form.csrf_token }}` renders a hidden field containing one of those fancy CSRF tokens and WTForms looks for that field when it validates the form. We don't have to worry about including any special "is the token valid" logic. Hooray!
 
-#### Custom validators
+#### Protecting AJAX calls with CSRF tokens
+
+Flask-WTF CSRF tokens aren't limited to protecting form submissions. If your app makes other requests that might be forged (especially AJAX calls) you can add CSRF protection there too! Check out the Flask-WTF documentation for the details: https://flask-wtf.readthedocs.org/en/latest/csrf.html#ajax
+
+
+### Custom validators
 
 In addition to the built-in form validators provided by WTForms (e.g. `Required()`, `Email()`, etc.), you can create your own validators. I'll demonstrate this by making a `Unique()` validator that will check the database and make sure that the value provided by the user doesn't already exist. This could be used to make sure that a username or email address isn't already in use. Without WTForms, we'd probably be doing these checks in the view, but now we can abstract that away to the form itself.
 
@@ -175,12 +180,11 @@ We can customize how the fields are rendered by passing field properties as argu
 
 { NOTE: You may notice that we don't need to use Jinja's |safe filter. This is because WTForms renders HTML safe strings. See more here: http://pythonhosted.org/Flask-WTF/#using-the-safe-filter }
 
-## File uploads
-
-### Ink File Picker
-
 ## Summary
 
-Forms can be a little complicated because when we accept arbitrary data, we have to bend over backwards to make sure that it isn't malicious. WTForms and the Flask extension Flask-WTF can make it much easier to define forms. We can define our forms as classes in our application. Then we validate, secure, and render them from that definition. Later we can make changes to the form in one place, and they will propagate to the rest of the application.
-
-{ FINISH SUMMARY TO COVER UPLOADS }
+* Forms can be scary from a security perspective.
+* WTForms (and Flask-WTF) make it easy to define, secure and render your forms.
+* Use the CSRF protection provided by Flask-WTF to secure your forms.
+* You can use these Flask-WTF to protect AJAX calls against CSRF attacks too.
+* Define custom form validators to keep validation logic out of your views.
+* Use the WTForms field rendering to render your form's HTML so you don't have to update it every time you make some changes to the form definition.
