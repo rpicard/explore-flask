@@ -86,11 +86,11 @@ myapp/templates/login.html
 
 #### Custom validators
 
-In addition to the built-in validators provided by WTForms, you can create your own validators. I'll demonstrate this by making a "Unique" validator that will check the database and make sure that the value provided by the user is unique. This could be used to make sure that there aren't any existing users with a certain email address. Normally, we'd have to do this in the view, but we can abstract that away to the form itself.
+In addition to the built-in form validators provided by WTForms (e.g. `Required()`, `Email()`, etc.), you can create your own validators. I'll demonstrate this by making a `Unique()` validator that will check the database and make sure that the value provided by the user doesn't already exist. This could be used to make sure that a username or email address isn't already in use. Without WTForms, we'd probably be doing these checks in the view, but now we can abstract that away to the form itself.
 
 Lets start by defining a simple sign-up form.
 
-myapp/forms.py
+_myapp/forms.py_
 ```
 from flask.ext.wtforms import Form
 from wtforms import TextField, PasswordField, Required, Email
@@ -100,14 +100,14 @@ class EmailPasswordForm(Form):
     password = PasswordField('Password', validators=[Required()])
 ```
 
-Now we want to add a validator to make sure that there isn't already a user account with the email they've submitted. We can put it in a new util module, .util.validators.
+Now we want to add a validator to make sure that email they provide isn't already in the database. We'll put the validator in a new `util` module, `util.validators`.
 
-myapp/util/validators.py
+_myapp/util/validators.py_
 ```
 from wtforms.validators import ValidationError
 
 class Unique(object):
-    def __init__(self, model, field, message=u'This element already exists'):
+    def __init__(self, model, field, message=u'This element already exists.'):
         self.model = model
         self.field = field
 
@@ -117,11 +117,13 @@ class Unique(object):
             raise ValidationError(self.message)
 ```
 
-This validator assumes that you're using SQLAlchemy. WTForms expects validators to return some sort of callable (e.g. a callable class). We can specify which arguments should be passed to the validator. In this case we want the model and field that we should be validating against. If an instance of that model exists where that field matches the value in the form, we will raise a ValidationError because it isn't unique. We also want to make it possible to add an optional message that will be included in the ValidationError. We can default to a generic one that will apply to all cases. We actually perform the validation in the __call__ function. This function is called with the "form" and "field" positional arguments.
+This validator assumes that you're using SQLAlchemy to define your models. WTForms expects validators to return some sort of callable (e.g. a callable class).
+
+In *__init__.py* we can specify which arguments should be passed to the validator. In this case we want the relevant model (e.g. the `User` model in our case) and the field to check. When the validator is called, it will raise a `ValidationError` if any instance of the defined model matches the value submitted in the form. We've also made it possible to add a message with a generic default that will be included in the `ValidationError`.
 
 Now we can modify our sign-up form to use the Unique validator.
 
-myapp/forms.py
+_myapp/forms.py_
 ```
 from flask.ext.wtforms import Form
 from wtforms import TextField, PasswordField, Required, Email
