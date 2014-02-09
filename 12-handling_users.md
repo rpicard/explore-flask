@@ -416,3 +416,10 @@ _myapp/templates/reset_with_token.html_
 </form>
 {% endblock %}
 ```
+
+## Summary
+
+- Use the itsdangerous package to create and validate tokens sent to an email address.
+- You can use these tokens to validate emails when a user creates an account, changes their email or forgets their password.
+- Authenticate users using the Flask-Login extension to avoid dealing with a bunch of session management stuff yourself.
+- Always think about how a malicious user could abuse your app to do things that you didn't intend.
