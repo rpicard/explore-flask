@@ -222,9 +222,11 @@ def signout():
 
 ## Forgot your password
 
-You'll generally want to implement a "Forgot your password" feature that lets a user who forgot their password recover their account. This area is ripe for vulnerabilities because the whole point is to let an unauthenticated user take over an account; we just want that user to be the person who is supposed to own the account. We'll implement our password reset using some of the same techniques as our email confirmation. We'll need a form to request a reset for a given account based on that account's email or username and a form to choose a new password once we've confirmed that the unauthenticated user is the right person. This assumes that our user model has an email and a password, where the password is a hybrid property as we previously created.
+You'll generally want to implement a "Forgot your password" feature that lets a user who recover their account by email. This area has a plethora of potential vulnerabilities because the whole point is to let an unauthenticated user take over an account. We'll implement our password reset using some of the same techniques as our email confirmation. We'll need a form to request a reset for a given account based on that account's email and a form to choose a new password once we've confirmed that the unauthenticated user has access to the account email address. This assumes that our user model has an email and a password, where the password is a hybrid property as we previously created.
 
-We're going to need two forms. One is to request a reset link and the other is to perform the reset.
+{ WARNING: Don't send password reset links to an unconfirmed email address! You want to be sure that you are sending this link to the right person. }
+
+We're going to need two forms. One is to request a reset link be sent to a certain email and the other is to change the password.
 
 myapp/forms.py
 ```
@@ -239,15 +241,15 @@ class PasswordForm(Form):
     password = PasswordField('Email', validators=[Required()])
 ```
 
-I'm assuming that our password reset form just needs one field for the password. Many apps require the user to enter their new password twice to confirm that they haven't made a typo (because you can't see the contents of a password input field). To do this, we'd simply add another PasswordField and add the EqualTo WTForms validator to the main password field.
+I'm assuming that our password reset form just needs one field for the password. Many apps require the user to enter their new password twice to confirm that they haven't made a typo. To do this, we'd simply add another `PasswordField` and add the `EqualTo` WTForms validator to the main password field.
 
-{ SEE ALSO: There a lot of interesting discussions in the User Experience (UX) community about the best way to handle this. I personally like the thoughts of one Stack Exchange user (Roger Attrill) who said, "We should not ask for password twice - we should ask for it once and make sure that the 'forgot password' system works seamlessly and flawlessly."
+{ SEE ALSO: There a lot of interesting discussions in the User Experience (UX) community about the best way to handle this in sign-up forms. I personally like the thoughts of one Stack Exchange user (Roger Attrill) who said, "We should not ask for password twice - we should ask for it once and make sure that the 'forgot password' system works seamlessly and flawlessly."
 
-* You can read more about this topic in this thread on the User Experience Stack Exchange (whence the quote came): http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141
+* You can read more about this topic in this thread on the User Experience Stack Exchange: http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141
 
-* There are also some cool ideas for simplifying the sign-ups and sign-ins in this Smashing Magazine article: http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/ }
+* There are also some cool ideas for simplifying the sign-up and sign-in forms in this Smashing Magazine article: http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/ }
 
-Now we'll implement the first view of our process, where a user can request a password reset for a given email address.
+Now we'll implement the first view of our process, where a user can request that a password reset link be sent for a given email address.
 
 myapp/views.py
 ```
