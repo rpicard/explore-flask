@@ -74,7 +74,7 @@ Your account was successfully created. Please click the link below<br>
 to confirm your email address and activate your account:
 
 <p>
-<a href="{{ activation_url }}">{{ activation_url }}</a>
+<a href="{{ confirm_url }}">{{ confirm_url }}</a>
 </p>
 
 <p>
@@ -85,7 +85,26 @@ Questions? Comments? Email hello@myapp.com.
 
 Okay, so now we just need to implement a view that handles the confirmation link in that email.
 
+_myapp/views.py_
 ```
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    try:
+        email = ts.loads(token, salt="email-confirm-key", max_age=86400)
+    except:
+        abort(404)
+
+    user = User.query.filter_by(email=email).first_or_404()
+
+    user.email_confirmed = True
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(url_for('signin'))
+```
+
+This view is a simple form view. We just add the `try ... except` bit at the beginning to check that the token is valid. The token contains a timestamp, so we can tell `ts.loads()` to raise an exception if it is older than `max_age`. In this case, we're setting `max_age` to 86400 seconds, i.e. 24 hours.
 
 { NOTE: You can use very similar methods to implement an email reset feature. Just send a confirmation link to the new email address with a token that contains both the old and the new addresses. If the token is valid, update the old address with the new one. }
 
@@ -361,7 +380,7 @@ from .forms import PasswordForm
 from .models import User
 from .util import ts
 
-@app.route('/reset/<token>')
+@app.route('/reset/<token>', methods=["GET", "POST"])
 def reset_with_token(token):
     try:
         email = ts.loads(token, salt="recover-key", max_age=86400)
@@ -383,9 +402,7 @@ def reset_with_token(token):
     return render_template('reset_with_token.html', form=form, token=token)
 ```
 
-This view is a simple form view. We just add the `try ... except` bit at the beginning to check that the token is valid. The token contains a timestamp, so we can tell `ts.loads()` to raise an exception if it is older than `max_age`. In this case, we're setting `max_age` to 86400 seconds, i.e. 24 hours.
-
-We pass the token to the template so that we can submit the form to the correct URL. Let's have a look at what that template might look like.
+We are using the same token validation method as we did to confirm the user's email address. The view passes the token to the template so tha the form submits to the correct URL. Let's have a look at what that template might look like.
 
 _myapp/templates/reset_with_token.html_
 ```
