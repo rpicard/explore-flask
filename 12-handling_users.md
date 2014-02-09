@@ -23,9 +23,71 @@ from .. import app
 ts = URLSafeTimedSerializer(app.config["SECRET_KEY"])
 ```
 
-Now we can use that serializer to generate a confirmation token when a user gives us their email address.
+Now we can use that serializer to generate a confirmation token when a user gives us their email address. We'll implement a simple account creation process using this method.
 
-{ IMPLEMENT THIS! }
+_myapp/views.py_
+```
+from flask import redirect, render_template, url_for
+
+from . import app, db
+from .forms import EmailPasswordForm
+from .util import ts, send_email
+
+@app.route('/accounts/create', methods=["GET", "POST"])
+def create_account():
+    form = EmailPasswordForm()
+    if form.validate_on_submit():
+        user = User(
+            email = form.email.data,
+            password = form.password.data
+        )
+        db.session.add(user)
+        db.session.commit()
+
+        # Now we'll send the email confirmation link
+        subject = "Confirm your email"
+
+        token = ts.dumps(self.email, salt='email-confirm-key')
+
+        confirm_url = url_for(
+            'confirm_email',
+            token=token,
+            _external=True)
+
+        html = render_template(
+            'email/activate.html',
+            confirm_url=confirm_url)
+
+		# We'll assume that send_email has been defined in myapp/util.py
+        send_email(user.email, subject, html)
+
+        return redirect(url_for("index"))
+
+    return render_template("accounts/create.html", form=form)
+```
+
+This handles the creation of the user and sends off an email to the given email address. You may notice that we're using a template to generate the HTML for the email. We can take a look at an example email template.
+
+_myapp/templates/email/activate.html_
+```
+Your account was successfully created. Please click the link below<br>
+to confirm your email address and activate your account:
+
+<p>
+<a href="{{ activation_url }}">{{ activation_url }}</a>
+</p>
+
+<p>
+--<br>
+Questions? Comments? Email hello@myapp.com.
+</p>
+```
+
+Okay, so now we just need to implement a view that handles the confirmation link in that email.
+
+```
+
+{ NOTE: You can use very similar methods to implement an email reset feature. Just send a confirmation link to the new email address with a token that contains both the old and the new addresses. If the token is valid, update the old address with the new one. }
 
 ## Storing passwords
 
@@ -279,11 +341,10 @@ def reset():
 
         html = render_template(
             'email/recover.html',
-            user=current_user,
             recover_url=recover_url)
             
         # Let's assume that send_email was defined in myapp/util.py
-        send_email(self.email, subject, html)
+        send_email(user.email, subject, html)
 
         return redirect(url_for('index'))
     return render_template('reset.html', form=form)
@@ -338,29 +399,3 @@ _myapp/templates/reset_with_token.html_
 </form>
 {% endblock %}
 ```
-
-## Email resets
-
-You'll also want to allow users to change the email address associated with their account. For this feature, you definitely want to require that the user is signed-in before letting them make any changes. What we'll do is let the authenticated user submit a form with a new email address. If that form is validated, we'll send a confirmation link to that new address and, when it's clicked we'll update the user's email address in the database. Let's start by defining the view with the email reset request form.
-
-myapp/views.py
-```
-from flask.ext.login import login_required
-
-from . import app
-from .forms import EmailForm
-
-@app.route('/account/email', methods=["GET", "POST"])
-def account_email():
-    form = EmailForm()
-
-    if form.validate_on_submit():
-        { IMPLEMENT SENDING NEW EMAIL TOKEN }
-        return redirect(url_for('account_email'))
-
-    return render_template('account/email.html', form=form)
-```
-
-Notice that we are able to re-use our EmailForm from the password reset. That's the benefit of keeping our form definitions abstract. We simply generate a serialized token that contains both the old email address and the new one. We need to include the old email address so that we can confirm that the user who is using the token is the same user who created it.
-
-{ CONTINUE: Implement view that receives the token and updates the email address. }
