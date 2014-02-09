@@ -322,11 +322,11 @@ def reset_with_token(token):
     return render_template('reset_with_token.html', form=form, token=token)
 ```
 
-This view is a simple form view. We just add the bit at the beginning to check that the token is valid. The token contains a timestamp, so we can tell loads() to raise an exception if it is older than max_age. In this case, we're setting max_age to 86400 seconds, i.e. 24 hours.
+This view is a simple form view. We just add the `try ... except` bit at the beginning to check that the token is valid. The token contains a timestamp, so we can tell `ts.loads()` to raise an exception if it is older than `max_age`. In this case, we're setting `max_age` to 86400 seconds, i.e. 24 hours.
 
 We pass the token to the template so that we can submit the form to the correct URL. Let's have a look at what that template might look like.
 
-myapp/templates/reset_with_token.html
+_myapp/templates/reset_with_token.html_
 ```
 {% extends "layout.html" %}
 
