@@ -20,10 +20,12 @@ from itsdangerous import URLSafeTimedSerializer
 
 from .. import app
 
-serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+ts = URLSafeTimedSerializer(app.config["SECRET_KEY"])
 ```
 
 Now we can use that serializer to generate a confirmation token when a user gives us their email address.
+
+{ IMPLEMENT THIS! }
 
 ## Storing passwords
 
@@ -131,7 +133,7 @@ class UsernamePasswordForm(Form):
     password = PasswordField('Password', validators=[Required()])
 ```
 
-Next we'll add a method to our user model that compares a given plaintext password with the hashed password stored for that user.
+Next we'll add a method to our user model that compares a string with the hashed password stored for that user.
 
 myapp/models.py
 ```
@@ -258,19 +260,36 @@ from flask import redirect, url_for, render_template
 from . import app
 from .forms import EmailForm
 from .models import User
+from .util import send_email, ts
 
 @app.route('/reset', methods=["GET", "POST"])
 def reset():
-    form = RequestPasswordResetForm()
+    form = EmailForm()
     if form.validate_on_submit()
         user = User.query.filter_by(email=form.email.data).first_or_404()
-        { IMPLEMENT SEND EMAIL }
+
+		subject = "Password reset requested"
+        # Here we use the URLSafeTimedSerializer we created in `util` at the beginning of the chapter
+        token = ts.dumps(self.email, salt='recover-key')
+
+        recover_url = url_for(
+            'reset_account_with_token',
+            token=token,
+            _external=True)
+
+        html = render_template(
+            'email/recover.html',
+            user=current_user,
+            recover_url=recover_url)
+            
+        # Let's assume that send_email was defined in myapp/util.py
+        send_email(self.email, subject, html)
 
         return redirect(url_for('index'))
     return render_template('reset.html', form=form)
 ```
 
-When the user submits their email address, we grab the user with that email address and send them a password reset URL. That URL has a special token that we can validate in the next view.
+When the form receives an email address, we grab the user with that email address, generate a reset token and send them a password reset URL. That URL has our token which we can validate in the next view.
 
 myapp/views.py
 ```
