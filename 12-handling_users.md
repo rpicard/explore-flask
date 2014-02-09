@@ -273,7 +273,7 @@ def reset():
         token = ts.dumps(self.email, salt='recover-key')
 
         recover_url = url_for(
-            'reset_account_with_token',
+            'reset_with_token',
             token=token,
             _external=True)
 
@@ -289,7 +289,7 @@ def reset():
     return render_template('reset.html', form=form)
 ```
 
-When the form receives an email address, we grab the user with that email address, generate a reset token and send them a password reset URL. That URL has our token which we can validate in the next view.
+When the form receives an email address, we grab the user with that email address, generate a reset token and send them a password reset URL. That URL routes them to a view that will validate the token and let them reset the password.
 
 myapp/views.py
 ```
@@ -298,15 +298,16 @@ from flask import redirect, url_for, render_template
 from . import app, db
 from .forms import PasswordForm
 from .models import User
+from .util import ts
 
 @app.route('/reset/<token>')
 def reset_with_token(token):
     try:
-        email = serializer.loads(token, salt="reset-key", max_age=86400)
+        email = ts.loads(token, salt="recover-key", max_age=86400)
     except:
         abort(404)
 
-    form = ResetPasswordForm()
+    form = PasswordForm()
 
     if form.validate_on_submit():
         user = User.query.filter_by(email=email).first_or_404()
