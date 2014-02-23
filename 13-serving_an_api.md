@@ -10,9 +10,9 @@ Resources are the things that users will be accessing. It's important to disting
 
 ### Methods
 
-HTTP methods, such as the familiar `GET` and `POST` methods are used to view and modify resources. We can perform an action on a resource by calling a URL, such as `/api/user` with a method that signals our intentions. This is the basic outline of the different methods used to access a REST resource:
+HTTP methods, such as the familiar `GET` and `POST` methods are used to view and modify resources. We can perform an action on a resource by calling a URL, such as `/api/user` with a method that signals our intentions. This is an outline of the basic methods used to access a REST resource:
 
-{Make this a table}
+{MAKE A TABLE}
 
 url             HTTP Method  Operation
 /api/users      GET          Get an array of all users
@@ -20,6 +20,8 @@ url             HTTP Method  Operation
 /api/users      POST         Add a new user and return the user with an id attribute added
 /api/users/:id  PUT          Update the user with id of :id
 /api/users/:id  DELETE       Delete the user with id of :id
+
+We can use this structure to back front-end frameworks like Backbone and Angular, or just make resources available to third-party developers.
 
 ## Flask-RESTful
 
