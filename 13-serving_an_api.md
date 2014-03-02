@@ -48,7 +48,7 @@ class UserListAPI(restful.Resource):
         return users, 200
 
 	def post(self):
-    	# Add a user
+    	# Add a user, return status code "201 Created"
         return new_user, 201
 
 class UserAPI(restful.Resource):
@@ -61,15 +61,17 @@ class UserAPI(restful.Resource):
         return updated_user, 200
 
 	def delete(self, id):
-    	# Delete the user
+    	# Delete the user, return status code "204 No Content"
         return '', 204
 
 api.add_resource(UserListAPI, '/api/v1.0/users', endpoint='users')
 api.add_resource(UserAPI, '/api/v1.0/users/<int:id>', endpoint='user')
 ```
 
-## Authentication
+I'll leave the implementation of each function as an exercise for the user, as it's a little out of the scope of this chapter. As you can see, it's trivial to define the methods that can be used on your resources.
 
-## CSRF Protection
+### Authentication
+
+### CSRF Protection
 
 ## Summary
