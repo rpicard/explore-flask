@@ -72,6 +72,8 @@ I'll leave the implementation of each function as an exercise for the user, as i
 
 ### Authentication
 
+{ WARNING: ###AUTHORIZATION WARNING HERE### }
+
 ### CSRF Protection
 
 ## Summary
