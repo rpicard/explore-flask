@@ -25,4 +25,8 @@ We can use this structure to back front-end frameworks like Backbone and Angular
 
 ## Flask-RESTful
 
+## Authentication
+
+## CSRF Protection
+
 ## Summary
