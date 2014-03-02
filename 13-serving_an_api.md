@@ -15,17 +15,23 @@ HTTP methods, such as the familiar `GET` and `POST` methods are used to view and
 {MAKE A TABLE}
 
 url             HTTP Method  Operation
-/api/v1/users      GET          Get an array of all users
-/api/v1/users/:id  GET          Get the user with id of :id
-/api/v1/users      POST         Add a new user and return the user with an id attribute added
-/api/v1/users/:id  PUT          Update the user with id of :id
-/api/v1/users/:id  DELETE       Delete the user with id of :id
+/api/v1.0/users      GET          Get an array of all users
+/api/v1.0/users/:id  GET          Get the user with id of :id
+/api/v1.0/users      POST         Add a new user and return the user with an id attribute added
+/api/v1.0/users/:id  PUT          Update the user with id of :id
+/api/v1.0/users/:id  DELETE       Delete the user with id of :id
 
 There are other HTTP methods often used in RESTful APIs, but these are the key players. We can use this structure to back front-end frameworks like Backbone and Angular, or to make resources available to third-party developers.
 
 ## Flask-RESTful
 
 Flask-RESTful is a Flask extension developed at Twilio that makes defining REST APIs simple. It uses a feature of Flask called `MethodViews`. When a request is routed to a `MethodView` class, the HTTP method of that request is used to determine which class method will handle the request. The `MethodView` class could have a `get()` method as well as a `post()` method, for example. Flask-RESTful wraps `MethodView` and gives us tools to use it for building REST APIs.
+
+{ SEE MORE:
+* Flask-RESTful documentation: http://flask-restful.readthedocs.org/en/latest/index.html
+* Flask documentation for `MethodView`: http://flask.pocoo.org/docs/views/ }
+
+### The View Structure
 
 Let's create a simple RESTful API that makes a `User` resource available.
 
@@ -36,11 +42,15 @@ from flask.ext import restful
 app = Flask(__name__)
 api = restful.Api(app)
 
-class UserAPI(restful.Resource):
-	def get(self, id):
+class UserListAPI(restful.Resource):
+	def get(self):
     	pass
 
-    def post(self, id):
+	def post(self):
+    	pass
+
+class UserAPI(restful.Resource):
+	def get(self, id):
     	pass
     
     def put(self, id):
@@ -48,11 +58,11 @@ class UserAPI(restful.Resource):
 
 	def delete(self, id):
     	pass
+
+api.add_resource(UserListAPI, '/api/v1.0/users', endpoint = 'users')
+api.add_resource(UserAPI, '/api/v1.0/users/<int:id>', endpoint = 'user')
 ```
 
-{ SEE MORE:
-* Flask-RESTful documentation: http://flask-restful.readthedocs.org/en/latest/index.html
-* Flask documentation for `MethodView`: http://flask.pocoo.org/docs/views/ }
 
 ## Authentication
 
