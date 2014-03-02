@@ -44,25 +44,29 @@ api = restful.Api(app)
 
 class UserListAPI(restful.Resource):
 	def get(self):
-    	pass
+    	# Get the list of users
+        return users, 200
 
 	def post(self):
-    	pass
+    	# Add a user
+        return new_user, 201
 
 class UserAPI(restful.Resource):
 	def get(self, id):
-    	pass
+    	# Get the user
+        return user, 200
     
     def put(self, id):
-    	pass
+    	# Update the user
+        return updated_user, 200
 
 	def delete(self, id):
-    	pass
+    	# Delete the user
+        return '', 204
 
-api.add_resource(UserListAPI, '/api/v1.0/users', endpoint = 'users')
-api.add_resource(UserAPI, '/api/v1.0/users/<int:id>', endpoint = 'user')
+api.add_resource(UserListAPI, '/api/v1.0/users', endpoint='users')
+api.add_resource(UserAPI, '/api/v1.0/users/<int:id>', endpoint='user')
 ```
-
 
 ## Authentication
 
