@@ -72,9 +72,11 @@ api.add_resource(UserListAPI, '/api/v1.0/users', endpoint='users')
 api.add_resource(UserAPI, '/api/v1.0/users/<int:id>', endpoint='user')
 ```
 
-I'll leave the implementation of each function as an exercise for the user, as it's a little out of the scope of this chapter. As you can see, it's trivial to define the methods that can be used to access your resources. We are also going to need to allow users to log in.
+I'll leave the implementation of each function as an exercise for the user, as it's a little out of the scope of this chapter. As you can see, it's trivial to define the methods that can be used to access your resources and how each type of request should be handled. We are also going to need to allow users to log in.
 
 ### Authentication
+
+
 
 { WARNING: ###AUTHORIZATION WARNING HERE### }
 
