@@ -76,7 +76,22 @@ I'll leave the implementation of each function as an exercise for the user, as i
 
 ### Authentication
 
+We can keep things simple and use our old friend Flask-Login. Let's take a closer look at the `UserAPI` class.
 
+```
+class UserAPI(restful.Resource):
+	def get(self, id):
+    	# Get the user
+        return user, 200
+    
+    def put(self, id):
+    	# Update the user
+        return updated_user, 200
+
+	def delete(self, id):
+    	# Delete the user, return status code "204 No Content"
+        return '', 204
+```
 
 { WARNING: ###AUTHORIZATION WARNING HERE### }
 
