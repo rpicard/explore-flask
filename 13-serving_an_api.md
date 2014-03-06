@@ -23,6 +23,10 @@ url             HTTP Method  Operation
 
 There are other HTTP methods often used in RESTful APIs, but these are the key players. We can use this structure to back front-end frameworks like Backbone and Angular, or to make resources available to third-party developers.
 
+{ NOTE: You may have noticed the "v1.0" in that URL. I'm including that in the URL to account for backwards compatibility. If you decide to make API changes after developers have been working with the old API, you can just increment the version number for the new one and tell developers to update their applications to use the new API. There are a lot of different ways to handle versioning, but this is my preference. }
+
+
+
 ## Flask-RESTful
 
 Flask-RESTful is a Flask extension developed at Twilio that makes defining REST APIs simple. It uses a feature of Flask called `MethodViews`. When a request is routed to a `MethodView` class, the HTTP method of that request is used to determine which class method will handle the request. The `MethodView` class could have a `get()` method as well as a `post()` method, for example. Flask-RESTful wraps `MethodView` and gives us tools to use it for building REST APIs.
