@@ -23,9 +23,9 @@ url             HTTP Method  Operation
 
 There are other HTTP methods often used in RESTful APIs, but these are the key players. We can use this structure to back front-end frameworks like Backbone and Angular, or to make resources available to third-party developers.
 
-{ NOTE: You may have noticed the "v1.0" in that URL. I'm including that in the URL to account for backwards compatibility. If you decide to make API changes after developers have been working with the old API, you can just increment the version number for the new one and tell developers to update their applications to use the new API. There are a lot of different ways to handle versioning, but this is my preference. }
+{ NOTE: You may have noticed the "v1.0" in those URLs. I'm including a version number in the URLs to account for backwards compatibility. If you decide to make API changes after developers have been working with the old API, you can just increment the version number for the new one and tell developers to update their applications to use the new API. There are a lot of different ways to handle versioning, but this is my preference. }
 
-
+{ NOTE: I'm not going to get too concerned with keeping things "purely RESTful." Sometimes people get worked up about APIs not keeping with the REST philosophy. I'm not one of those people. }
 
 ## Flask-RESTful
 
