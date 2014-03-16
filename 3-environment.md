@@ -110,7 +110,13 @@ Flask comes with a handy feature called "debug mode." To turn it on, you just ha
 
 { WARNING: Take care not to enable debug mode in production. The interactive console enables arbitrary code execution and would be a massive security vulnerability if it was left on in the live site. }
 
+{ SEE MORE:
+- Take a look at the quick start section on debug mode: http://flask.pocoo.org/docs/quickstart/#debug-mode
+- There is some good information on handling errors, logging and working with other debuggers here: flask.pocoo.org/docs/errorhandling }
+
 ### Flask-DebugToolbar
+
+Flask-DebugToolbar is another great tool for debugging problems with your application. In debug mode, it overlays a side-bar onto every page in your application. The side bar gives you debug information about SQL queries, logging, versions, templates, configuration and other fun stuff.
 
 
 ## Summary
