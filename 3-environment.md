@@ -106,7 +106,7 @@ instance/
 
 ### Debug Mode
 
-Flask comes with a handy feature called "debug mode." To turn it on, you just have to set `debug = True` in your development configuration. When it's on, the server will reload on coad changes and errors will come with a stack trace and an interactive console.
+Flask comes with a handy feature called "debug mode." To turn it on, you just have to set `debug = True` in your development configuration. When it's on, the server will reload on code changes and errors will come with a stack trace and an interactive console.
 
 { WARNING: Take care not to enable debug mode in production. The interactive console enables arbitrary code execution and would be a massive security vulnerability if it was left on in the live site. }
 
