@@ -126,3 +126,5 @@ Flask-DebugToolbar is another great tool for debugging problems with your applic
 * Keep track of dependencies with one or more text files.
 * Use a version control system. I recommend Git.
 * Use .gitignore to keep clutter and secrets out of version control.
+* Debug mode can give you information about problems in development.
+* The Flask-DebugToolbar extension will give you even more of that information.
