@@ -14,7 +14,9 @@ With regards to Flask, AWS is nice because it's just a regular old virtual serve
 
 ### Heroku
 
-Heroku is a really 
+Heroku is an application hosting service that is built on top of AWS services like EC2. They let you take advantage of the convenience of EC2 without the requisite systems administration experience.
+
+
 
 ### Digital Ocean
 
