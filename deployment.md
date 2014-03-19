@@ -99,7 +99,7 @@ If you run Gunicorn like we have been on a server, you won't be able to access i
 { SEE MORE:
 - Read more about running and deploying Gunicorn from the docs: http://docs.gunicorn.org/en/latest/ }
 
-### Front server
+### Reverse Proxy
 
 
 
