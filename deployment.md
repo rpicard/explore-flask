@@ -99,9 +99,56 @@ If you run Gunicorn like we have been on a server, you won't be able to access i
 { SEE MORE:
 - Read more about running and deploying Gunicorn from the docs: http://docs.gunicorn.org/en/latest/ }
 
-### Reverse Proxy
+### Nginx Reverse Proxy
 
+A reverse proxy handles public HTTP requests, sends them back to Gunicorn and gives the response back to the requesting client. Nginx can be used very effectively as a reverse proxy and Gunicorn "strongly advises" that we use it. To configure Nginx as a reverse proxy to Gunicorn running on 127.0.0.1:8000, we can create a file for our app in _/etc/nginx/sites-available_. We'll call it _exploreflask.com_.
 
+Here's a simple example configuration.
+
+_/etc/nginx/sites-available/exploreflask.com_
+```
+# Redirect www.exploreflask.com to exploreflask.com
+server {
+        server_name www.exploreflask.com;
+        rewrite ^ http://exploreflask.com/ permanent;
+}
+
+# Handle requests to exploreflask.com on port 80
+server {
+        listen 80;
+        server_name exploreflask.com;
+
+		# Handle all locations
+        location / {
+        		# Pass the request to Gunicorn
+                proxy_pass http://127.0.0.1:8000;
+                
+                # Set some HTTP headers so that our app knows where the request really came from
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+```
+
+You main run into some issues with Flask not properly handling the proxied requests. We can use the Werkzeug ProxyFix to, ugh, fix the proxy.
+
+_rocket.py_
+```
+from flask import Flask
+
+# Import the fixer
+from werkzeug.contrib.fixers import ProxyFix
+
+app = Flask(__name__)
+
+# Use the fixer
+app.wsgi_app = ProxyFix(app.wsgi_app)
+
+@app.route('/')
+def index():
+	return "Hello World!"
+```
 
 ### Database
 
