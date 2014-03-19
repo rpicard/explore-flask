@@ -96,6 +96,9 @@ If you run Gunicorn like we have been on a server, you won't be able to access i
 (myapp)$ gunicorn rocket:app -p rocket.pid -b 0.0.0.0:8000 -D
 ```
 
+{ SEE MORE:
+- Read more about running and deploying Gunicorn from the docs: http://docs.gunicorn.org/en/latest/ }
+
 ### Front server
 
 
