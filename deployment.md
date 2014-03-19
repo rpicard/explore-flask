@@ -1,3 +1,21 @@
-## A New Post
+# Deployment
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
+## The stack
+
+### Front server
+
+### Application runner
+
+### Database
+
+## Tools and Services
+
+### Fabric
+
+### Heroku
+
+### Digital Ocean
+
+### AWS
+
+## Summary
