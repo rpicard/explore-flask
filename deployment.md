@@ -178,3 +178,5 @@ def index():
 
 * Three good choices for Flask application hosting are AWS EC2, Heroku and Digital Ocean.
 * The basic deployment stack for a Flask application consists of the app, an application runner like Gunicorn and a reverse proxy like Nginx.
+* Gunicorn should sit behind Nginx and listen in 127.0.0.1 (internal requests) not 0.0.0.0 (external requests).
+* Use Werkzeug's ProxyFix to handle the appropriate proxy headers in your Flask application.
