@@ -23,6 +23,12 @@ With Heroku, you deploy your application with a `git push` to their server. This
 * Heroku has a tutorial on deploying Flask with their service: https://devcenter.heroku.com/articles/getting-started-with-python }
 
 
+{ A NOTE ON DATABASES: Administrating your own databases can be time consuming and doing it well requires some experience. It's great to learn about database administration by doing it yourself for your side projects, but sometimes you'd like to save time and effort by outsourcing that to part professionals. Both Heroku and AWS have database management offerings. I don't have personal experience with either yet, but I've heard great things and it's worth considering if you want to make sure your data is being secured and backed-up without having to do it yourself.
+
+- Heroku Postgres: https://www.heroku.com/postgres
+- Amazon RDS: https://aws.amazon.com/rds/ }
+
+
 ### Digital Ocean
 
 Digital Ocean is an EC2 competitor that has recently begun to take off. Like EC2, Digital Ocean lets you spin up virtual servers, now called droplets, quickly. All droplets run on SSDs, which isn't something you get at the lower levels of EC2. The biggest selling point for me is an interface that is far simpler and easier to use than the AWS control panel. Digital Ocean is my personal preference for hosting and I recommend that you take a look at them.
