@@ -63,11 +63,22 @@ A fine app indeed. Now, to serve it up with Gunicorn, we simply run this command
 2014-03-19 16:28:54 [62927] [INFO] Booting worker with pid: 62927
 ```
 
-Your should see "Hello World!" at http://127.0.0.1:8000. Now, to 
+You should see "Hello World!" at http://127.0.0.1:8000.
 
+To run this server in the background (i.e. daemonize it), we can pass in the `-D` option to Gunicorn. That way it'll run even after you close your current terminal session. If you do that, you might have a hard time finding the process to close later on when you want to stop the server. We can tell Gunicorn to stick the process ID in a file so that we can stop or restart it later without searching through lists of running processess. We use the `-p <file>` option to do that. Altogther, our Gunicorn deployment command looks like this:
 
+```
+(myapp)$ gunicorn rocket:app -p rocket.pid -D
+(myapp)$ cat rocket.pid
+63101
+```
 
+To restart and kill the server, we can run these commands respectively:
 
+```
+(myapp)$ kill -HUP `cat rocket.pid`
+(myapp)$ kill `cat rocket.pid`
+```
 
 ### Front server
 
