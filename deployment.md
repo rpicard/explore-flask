@@ -16,6 +16,11 @@ With regards to Flask, AWS is just a regular old virtual server. You can spin it
 
 Heroku is an application hosting service that is built on top of AWS services like EC2. They let you take advantage of the convenience of EC2 without the requisite systems administration experience.
 
+With Heroku, you deploy your application with a `git push` to their server. This is really convenient when you don't want to spend you time SSHing into a server, installing and configuring software and coming up with a sane deployment procedure. This convenience comes at a price of course, though both AWS and Heroku offer a certain amount of free service.
+
+{ SEE MORE: 
+
+* Heroku has a tutorial on deploying Flask with their service: https://devcenter.heroku.com/articles/getting-started-with-python }
 
 
 ### Digital Ocean
