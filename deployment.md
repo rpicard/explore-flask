@@ -57,7 +57,17 @@ A fine app indeed. Now, to serve it up with Gunicorn, we simply run this command
 
 ```
 (myapp)$ gunicorn rocket:app
+2014-03-19 16:28:54 [62924] [INFO] Starting gunicorn 18.0
+2014-03-19 16:28:54 [62924] [INFO] Listening at: http://127.0.0.1:8000 (62924)
+2014-03-19 16:28:54 [62924] [INFO] Using worker: sync
+2014-03-19 16:28:54 [62927] [INFO] Booting worker with pid: 62927
 ```
+
+Your should see "Hello World!" at http://127.0.0.1:8000. Now, to 
+
+
+
+
 
 ### Front server
 
