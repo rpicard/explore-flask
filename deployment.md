@@ -80,6 +80,22 @@ To restart and kill the server, we can run these commands respectively:
 (myapp)$ kill `cat rocket.pid`
 ```
 
+By default Gunicorn runs on port 8000. If that's taken by another application you can change the port by adding the `-b` bind option. It looks like this:
+
+```
+(myapp)$ gunicorn rocket:app -p rocket.pid -b 127.0.0.1:7999 -D
+```
+
+#### Making Gunicorn public
+
+{ WARNING: Gunicorn is meant to sit behind a reverse proxy. If you tell it to listen to requests coming in from the public, it makes an easy target for denial of service attacks. It is just not meant to handle those kinds of requests. Only allow outside connections for debugging purposes and make sure to switch it back to only allowing internal connections when you're done. }
+
+If you run Gunicorn like we have been on a server, you won't be able to access it from your local system. That's because by default Gunicorn binds to 127.0.0.1. This means that it will only listen to connections coming from the server itself. This is the behavior that you want when you have a reverse proxy server that is sitting between the public and your Gunicorn server. If, however, you need to make requests from outside of the server for debugging purposes, you can tell Gunicorn to bind to 0.0.0.0. This tells it to listen for all requests.
+
+```
+(myapp)$ gunicorn rocket:app -p rocket.pid -b 0.0.0.0:8000 -D
+```
+
 ### Front server
 
 
