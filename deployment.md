@@ -103,7 +103,8 @@ If you run Gunicorn like we have been on a server, you won't be able to access i
 ```
 
 { SEE MORE:
-- Read more about running and deploying Gunicorn from the docs: http://docs.gunicorn.org/en/latest/ }
+- Read more about running and deploying Gunicorn from the docs: http://docs.gunicorn.org/en/latest/ 
+- Fabric is a tool that lets you run all of these deployment and management commands from the comfort of your local machine without SSHing into every server running your application: http://docs.fabfile.org/en/latest }
 
 ### Nginx Reverse Proxy
 
