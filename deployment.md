@@ -175,3 +175,6 @@ def index():
 - Read more about ProxyFix in the Werkzeug docs: http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix }
 
 ## Summary
+
+* Three good choices for Flask application hosting are AWS EC2, Heroku and Digital Ocean.
+* The basic deployment stack for a Flask application consists of the app, an application runner like Gunicorn and a reverse proxy like Nginx.
