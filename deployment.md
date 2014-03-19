@@ -131,7 +131,17 @@ server {
 }
 ```
 
-You main run into some issues with Flask not properly handling the proxied requests. We can use the Werkzeug ProxyFix to, ugh, fix the proxy.
+Now create a symlink to this file in _/etc/nginx/sites-enabled_ and restart Nginx.
+
+```
+$ sudo ln -s /etc/nginx/sites-available/exploreflask.com /etc/nginx/sites-enabled/exploreflask.com
+```
+
+You should now be able to make your requests to Nginx and receive the response from your app.
+
+#### ProxyFix
+
+You main run into some issues with Flask not properly handling the proxied requests. It has to do with those headers we set in the Nginx configuration. We can use the Werkzeug ProxyFix to, ugh, fix the proxy.
 
 _rocket.py_
 ```
