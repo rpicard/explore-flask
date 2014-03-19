@@ -167,8 +167,6 @@ def index():
 
 - Read more about ProxyFix in the Werkzeug docs: http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix }
 
-### Database
-
 ## Tools and Services
 
 ### Fabric
