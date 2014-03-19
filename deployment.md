@@ -25,6 +25,12 @@ With Heroku, you deploy your application with a `git push` to their server. This
 
 ### Digital Ocean
 
+Digital Ocean is an EC2 competitor that has recently begun to take off. Like EC2, Digital Ocean lets you spin up virtual servers, now called droplets, quickly. All droplets run on SSDs, which isn't something you get at the lower levels of EC2. The biggest selling point for me is an interface that is far simpler and easier to use than the AWS control panel. Digital Ocean is my personal preference for hosting and I recommend that you take a look at them.
+
+The Flask deployment experience on Digital Ocean is roughly the same as on EC2. You're starting with a clean linux distribution and installing your server stack from there.
+
+{ NOTE: Digital Ocean was nice enough to make a contribution to the Kickstarter campaign for *Explore Flask*. With that said, I promise that my recommendation comes from my own experience as a user. If I didn't like them, I wouldn't have asked them to pledge in the first place. }
+
 
 ## The stack
 
