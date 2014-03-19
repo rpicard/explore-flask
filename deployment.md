@@ -139,6 +139,9 @@ $ sudo ln -s /etc/nginx/sites-available/exploreflask.com /etc/nginx/sites-enable
 
 You should now be able to make your requests to Nginx and receive the response from your app.
 
+{ SEE MORE:
+- Nginx configuration section in the Gunicorn docs will give you more information about setting Nginx up for this purpose: http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration }
+
 #### ProxyFix
 
 You main run into some issues with Flask not properly handling the proxied requests. It has to do with those headers we set in the Nginx configuration. We can use the Werkzeug ProxyFix to, ugh, fix the proxy.
@@ -159,6 +162,10 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 def index():
 	return "Hello World!"
 ```
+
+{ SEE MORE:
+
+- Read more about ProxyFix in the Werkzeug docs: http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix }
 
 ### Database
 
