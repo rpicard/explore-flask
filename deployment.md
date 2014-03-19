@@ -34,9 +34,34 @@ The Flask deployment experience on Digital Ocean is roughly the same as on EC2. 
 
 ## The stack
 
-### Front server
+This section will cover some of the software that you'll need to install on your server to serve your Flask application to the world. The basic stack is a front server that reverse proxies requests to an application runner that is running your Flask app. You'll usually have a database too, so we'll talk a little about those options as well.
 
 ### Application runner
+
+The server used to run Flask locally when you're developing your application isn't good at handling real requests. When you're actually serving your application to the public, you want to run it with an application runner like Gunicorn. Gunicorn handles requests and takes care of complicated things like threading.
+
+To use Gunicorn, install the `gunicorn` package in your virtual environment with Pip. Running your app is a simple command away. For the sake of illustration, let's assume that this is our Flask app:
+
+_rocket.py_
+```
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+	return "Hello World!"
+```
+
+A fine app indeed. Now, to serve it up with Gunicorn, we simply run this command:
+
+```
+(myapp)$ gunicorn rocket:app
+```
+
+### Front server
+
+
 
 ### Database
 
