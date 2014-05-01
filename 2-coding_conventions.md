@@ -12,13 +12,13 @@ There are a few PEPs, like PEP 8 and PEP 257 that affect the way we write our co
 
 ### PEP 8: Style Guide for Python Code
 
-PEP 8 is the official style guide for Python code. I recommend that you read it and apply its recommendations to your Flask projects (and all other Python code). Your code will be much more approachable when it starts growing to many files with hundreds, or thousands, of lines of code. The PEP 8 recommendations are all about having more readable code. Plus, if your project is going to be open source, potential contributors will likely expect and be comfortable with code written with PEP 8 in mind.
+[PEP 8](http://legacy.python.org/dev/peps/pep-0008/) is the official style guide for Python code. I recommend that you read it and apply its recommendations to your Flask projects (and all other Python code). Your code will be much more approachable when it starts growing to many files with hundreds, or thousands, of lines of code. The PEP 8 recommendations are all about having more readable code. Plus, if your project is going to be open source, potential contributors will likely expect and be comfortable with code written with PEP 8 in mind.
 
 One particularly important recommendation is to use 4 spaces per indentation level. No real tabs. If you break this convention, it’ll be a burden on you and other developers when switching between projects. That sort of inconsistency is a pain in any language, but white-space is especially important in Python, so switching between real tabs and spaces could result in any number of errors that are very difficult to debug.
 
 ### PEP 257: Docstring Conventions
 
-PEP 257 [LINK TO PEP] covers another Python standard: **docstrings**. You can read the definition and recommendations in the PEP itself, but here’s an example to give you an idea of what a docstring looks like:
+[PEP 257](http://legacy.python.org/dev/peps/pep-0257/) covers another Python standard: **docstrings**. You can read the definition and recommendations in the PEP itself, but here’s an example to give you an idea of what a docstring looks like:
 
 ```
 def launch_rocket():
@@ -47,8 +47,9 @@ from ..models import User
 The advantage of this method is that the package becomes a heck of a lot more modular. Now you can rename your package and re-use modules from other projects without the need to update the hard-coded import statements.
 
 { SEE MORE:
-* You can read a little more about the syntax for relative imports from this section in PEP 328: http://www.python.org/dev/peps/pep-0328/#guido-s-decision
-* Here’s a Tweet that I came across that makes a good testimonial for using relative imports: https://twitter.com/dabeaz/status/372059407711887360
+* You can read a little more about the syntax for relative imports from this section in [PEP 328](http://www.python.org/dev/peps/pep-
+0328/#guido-s-decision)
+* Here’s a [Tweet](https://twitter.com/dabeaz/status/372059407711887360) that I came across that makes a good testimonial for using relative imports: 
 }
 
 
