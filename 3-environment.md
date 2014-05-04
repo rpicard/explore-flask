@@ -116,7 +116,7 @@ Flask comes with a handy feature called "debug mode." To turn it on, you just ha
 
 ### Flask-DebugToolbar
 
-Flask-DebugToolbar is another great tool for debugging problems with your application. In debug mode, it overlays a side-bar onto every page in your application. The side bar gives you debug information about SQL queries, logging, versions, templates, configuration and other fun stuff.
+[Flask-DebugToolbar](http://flask-debugtoolbar.readthedocs.org/en/latest/) is another great tool for debugging problems with your application. In debug mode, it overlays a side-bar onto every page in your application. The side bar gives you debug information about SQL queries, logging, versions, templates, configuration and other fun stuff.
 
 
 ## Summary
