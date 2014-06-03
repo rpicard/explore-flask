@@ -1,7 +1,7 @@
 Handling forms
 ==============
 
-.. figure:: images/forms.png
+.. figure:: _static/images/forms.png
    :alt: Handling forms
 
    Handling forms

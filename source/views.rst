@@ -1,7 +1,7 @@
 Advanced patterns for views and routing
 =======================================
 
-.. figure:: images/views.png
+.. figure:: _static/images/views.png
    :alt: Advanced patterns for views and routing
 
    Advanced patterns for views and routing

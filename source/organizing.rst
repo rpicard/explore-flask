@@ -1,7 +1,7 @@
 Organizing your project
 =======================
 
-.. figure:: images/organizing.png
+.. figure:: _static/images/organizing.png
    :alt: Organizing your project
 
    Organizing your project

@@ -1,7 +1,7 @@
 Static files
 ============
 
-.. figure:: images/static.png
+.. figure:: _static/images/static.png
    :alt: Static files
 
    Static files

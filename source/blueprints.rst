@@ -1,7 +1,7 @@
 Blueprints
 ==========
 
-.. figure:: images/blueprints.png
+.. figure:: _static/images/blueprints.png
    :alt: Blueprints
 
    Blueprints

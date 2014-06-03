@@ -1,7 +1,7 @@
 Deployment
 ==========
 
-.. figure:: images/deployment.png
+.. figure:: _static/images/deployment.png
    :alt: Deployment
 
    Deployment

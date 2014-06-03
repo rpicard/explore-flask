@@ -1,7 +1,7 @@
 Environment
 ===========
 
-.. figure:: images/environment.png
+.. figure:: _static/images/environment.png
    :alt: Environment
 
    Environment

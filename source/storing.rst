@@ -1,7 +1,7 @@
 Storing data
 ============
 
-.. figure:: images/storing.png
+.. figure:: _static/images/storing.png
    :alt: Storing data
 
    Storing data

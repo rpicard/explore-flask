@@ -30,7 +30,7 @@ women who pledged $50 or more:
 
 Balanced Payments [https://balancedpayments.com\ ]
 
-.. figure:: images/balanced-logo.png
+.. figure:: _static/images/balanced-logo.png
    :alt: Balanced Logo
 
    Balanced Logo

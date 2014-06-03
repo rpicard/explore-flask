@@ -1,10 +1,9 @@
 Coding conventions
 ==================
 
-.. figure:: images/conventions.png
+.. image:: _static/images/conventions.png
    :alt: Coding conventions
-
-   Coding conventions
+   :height: 100 pt
 There are a number of conventions in the Python community to guide the
 way you format your code. If you've been developing with Python for a
 while, then you might already be familiar with some of these
@@ -51,36 +50,26 @@ PEP 257 covers another Python standard: **docstrings**. You can read the
 definition and recommendations in the PEP itself, but here's an example
 to give you an idea of what a docstring looks like:
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:pep257}
-   \codecaption{Using a docstring to document code}
-   ```python
    def launch_rocket():
-       """Main launch sequence director.
+      """Main launch sequence director.
 
-       Locks seatbelts, initiates radio and fires engines.
-       """
-       # [...]
-   ```
-   \end{codelisting}
+      Locks seatbelts, initiates radio and fires engines.
+      """
+      # [...]
 
 These kinds of docstrings can be used by software such as Sphinx to
 generate documentation files in HTML, PDF and other formats. They also
 make it easier to understand your code.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:pep_links}
-   \heading{Related Links}
+   **Related Links**
 
-   - PEP 8: [http://legacy.python.org/dev/peps/pep-0008/](http://legacy.python.org/dev/peps/pep-0008/)
-   - PEP 257: [http://legacy.python.org/dev/peps/pep-0257/](http://legacy.python.org/dev/peps/pep-0257/)
-   - Sphinx, the documentation generator created by the same folks who brought us Flask: [http://sphinx-doc.org/](http://sphinx-doc.org/)
-
-   \end{aside}
+   - `PEP 8 <http://legacy.python.org/dev/peps/pep-0008/>`_
+   - `PEP 257 <http://legacy.python.org/dev/peps/pep-0257/>`_
+   - `Sphinx <http://sphinx-doc.org/>`_, the documentation generator created by the same folks who brought us Flask
 
 Relative imports
 ----------------
@@ -94,12 +83,8 @@ this we use a dot notation where the first dot indicates the current
 directory and each subsequent dot represents the next parent directory.
 Listing~ illustrates the diffence in syntax.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:rel_imports}
-   \codecaption{Relative versus absolute imports}
-   ```python
    # myapp/views.py
 
    # An absolute import gives us the User model
@@ -107,8 +92,6 @@ Listing~ illustrates the diffence in syntax.
 
    # A relative import does the same thing
    from .models import User
-   ```
-   \end{codelisting}
 
 The advantage of this method is that the package becomes a heck of a lot
 more modular. Now you can rename your package and re-use modules from
@@ -118,22 +101,13 @@ statements.
 In my research I came across a Tweet that illustrates the benefit of
 relative imports.
 
-.. raw:: latex
-
-   \begin{quote}
    Just had to rename our whole package. Took 1 second. Package relative imports FTW!
-   --- David Beazley, @dabeaz [^rel_tweet]
-   \end{quote}
 
-.. raw:: latex
+   --- `David Beazley, @dabeaz <https://twitter.com/dabeaz/status/372059407711887360>`_
 
-   \begin{aside}
-   \label{aside:rel_imports}
-   \heading{Related Links}
+.. note::
 
-   - You can read a little more about the syntax for relative imports from this section in PEP 328: [http://www.python.org/dev/peps/pep-0328/#guido-s-decision](http://www.python.org/dev/peps/pep-0328/#guido-s-decision)
-
-   \end{aside}
+   You can read a little more about the syntax for relative imports from this section in `PEP 328 <http://www.python.org/dev/peps/pep-0328/#guido-s-decision>`_.
 
 Summary
 -------

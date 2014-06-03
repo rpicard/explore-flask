@@ -1,7 +1,7 @@
 Patterns for handling users
 ===========================
 
-.. figure:: images/users.png
+.. figure:: _static/images/users.png
    :alt: Patterns for handling users
 
    Patterns for handling users

@@ -1,10 +1,9 @@
 Configuration
 =============
 
-.. figure:: images/configuration.png
+.. figure:: _static/images/configuration.png
    :alt: Configuration
 
-   Configuration
 When you're learning Flask, configuration seems simple. You just define
 some variables in *config.py* and everything works. That simplicity
 starts to fade away when you have to manage configuration for a

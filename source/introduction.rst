@@ -139,25 +139,14 @@ things up.  [1]_
 
 **Bold text** will be used to denote a new or important term.
 
-Supplemental information may appear in one of several boxes:
+.. warning::
 
-.. raw:: latex
+   Common pitfalls that could cause major problems will be shown in a warning box.
 
-   \begin{aside}
-   \label{aside:example_warning}
-   \heading{WARNING}
+.. note::
 
-   Common pitfalls that could cause major problems may be shown in a warning box.
-   \end{aside}
+   Supplemental information will appear in note boxes.
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:example_links}
-   \heading{Related Links}
-
-   I may provide some links with more information on a given topic in a "see also" box.
-   \end{aside}
 
 Easter eggs
 -----------

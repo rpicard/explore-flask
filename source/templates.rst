@@ -1,7 +1,7 @@
 Templates
 =========
 
-.. figure:: images/templates.png
+.. figure:: _static/images/templates.png
    :alt: Templates
 
    Templates
