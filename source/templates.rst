@@ -92,7 +92,7 @@ one program to another.
    \label{aside:}
    \heading{Related Links}
 
-   There are loads of built-in filters like `title`. See the full list here: [http://ji\-nja.pocoo.org/docs/templates/#builtin-filters](http://jinja.pocoo.org/docs/templates/#builtin-filters)
+   There are loads of built-in filters like `title`. See the full list here: [http://jinja.pocoo.org/docs/templates/#builtin-filters](http://jinja.pocoo.org/docs/templates/#builtin-filters)
 
    \end{aside}
 
@@ -150,7 +150,7 @@ decorator to change that.
    \end{codelisting}
 
 Now we can call ``make_caps`` in the template rather than ``caps``:
-``{{ "he\-llo world!"|make_caps }}``.
+``{{ "hello world!"|make_caps }}``.
 
 To make our filter available in the templates, we just need to import it
 in our top-level *\_\_init.py\_\_*.

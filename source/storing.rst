@@ -66,8 +66,8 @@ configure some SQLAlchemy. The models are going to go in
 First we initialize and configure our Flask app and then we use it to
 initialize our SQLAlchemy database handler. We're going to use an
 instance folder for our database configuration so we should use the
-``instance_relative\-_config`` option when initializing the app and then
-call ``app.config.fr\-om_pyfile`` to load it. Then we can define our
+``instance_relative_config`` option when initializing the app and then
+call ``app.config.from_pyfile`` to load it. Then we can define our
 models.
 
 .. raw:: latex

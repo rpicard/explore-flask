@@ -200,7 +200,7 @@ decorator. The decorator syntax is just a little syntactic sugar.
    \end{codelisting}
 
 Listing~ shows an example using our custom decorator and the
-``@lo\-gin_required`` decorator from the Flask-Login extension. We can
+``@login_required`` decorator from the Flask-Login extension. We can
 use multiple decorators by stacking them.
 
 .. raw:: latex

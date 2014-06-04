@@ -39,7 +39,7 @@ unique URL. This URL usually contains a unique token, e.g.
 *http://myapp.com/accounts/confirm-/Q2hhZCBDYXRsZXR0IHJvY2tzIG15IHNvY2tz*.
 When John gets that email, he clicks the link. Our app sees the token,
 knows which email to confirm and sets John's ``email_confirmed`` column
-to ``Tr\-ue``.
+to ``True``.
 
 How do we know which email to confirm with a given token? One way would
 be to store the token in the database when it is created and check that
@@ -209,7 +209,7 @@ practices here.
    \label{aside:}
    \heading{Related Links}
 
-   - OWASP is one of the industry's most trusted source for information regarding web application security. Take a look at some of their recommendations for secure coding here: [https://www.owasp.org/index.php/Secure_Cod\-ing_Cheat_Sheet#Password_Storage](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage)
+   - OWASP is one of the industry's most trusted source for information regarding web application security. Take a look at some of their recommendations for secure coding here: [https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage)
 
    \end{aside}
 
@@ -600,7 +600,7 @@ to the main password field.
 
    - Read more about this topic in this thread on the User Experience Stack Exchange: [http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141](http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141)
 
-   - There are also some cool ideas for simplifying sign-up and sign-in forms in this Smashing Magazine article: [http://uxdesign.smash\-ingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/](http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/)
+   - There are also some cool ideas for simplifying sign-up and sign-in forms in this Smashing Magazine article: [http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/](http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/)
 
    \end{aside}
 

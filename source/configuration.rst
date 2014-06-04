@@ -21,8 +21,8 @@ it in *app.py* or *yourapp/\_\_init\_\_.py*
 
 The *config.py* file should contain one variable assignment per line.
 When your app is initialized, the variables in *config.py* are configure
-Flask and it's extensions are accessible via the ``app.\-config``
-dictionary -- e.g. ``app.\-config["DEBUG"]``.
+Flask and it's extensions are accessible via the ``app.config``
+dictionary -- e.g. ``app.config["DEBUG"]``.
 
 .. raw:: latex
 
@@ -116,9 +116,9 @@ Using instance folders
 ~~~~~~~~~~~~~~~~~~~~~~
 
 To load configuration variables from an instance folder, we use
-``app.con\-fig.from_pyfile()``. If we set
-``instance_relative_config=Tr\-ue`` when we create our app with the
-``Flask()`` call, ``app.con\-fig.from_\-pyfile()`` will load the
+``app.config.from_pyfile()``. If we set
+``instance_relative_config=True`` when we create our app with the
+``Flask()`` call, ``app.config.from_pyfile()`` will load the
 specified file from the *instance/* directory.
 
 \\begin{codelisting}
@@ -170,7 +170,7 @@ If the difference between your production and development environments
 are pretty minor, you may want to use your instance folder to handle the
 configuration changes. Variables defined in the *instance/config.py*
 file can override the value in *config.py*. You just need to make the
-call to ``app.config.from_\-pyfile()`` after
+call to ``app.config.from_pyfile()`` after
 ``app.config.from_object()``. One way to take advantage of this is to
 change the way your app is configured on different machines.
 
@@ -203,7 +203,7 @@ In production, we would leave the variables in Listing~ out of
    \label{aside:instance_links}
    \heading{Related Links}
 
-   - Read about Flask-SQLAlchemy's configuration keys here: [http://pyth\-onhosted.org/Flask-SQLAlchemy/config.html#configuration-keys](http://pythonhosted.org/Flask-SQLAlchemy/config.html#configuration-keys)
+   - Read about Flask-SQLAlchemy's configuration keys here: [http://pythonhosted.org/Flask-SQLAlchemy/config.html#configuration-keys](http://pythonhosted.org/Flask-SQLAlchemy/config.html#configuration-keys)
 
    \end{aside}
 
@@ -266,7 +266,7 @@ In Listing~ we have a few different configuration files.
 \\end{table}
 
 To decide which configuration file to load, we'll call
-``app.config.fr\-om_envvar()``.
+``app.config.from_envvar()``.
 
 \\begin{codelisting}
 
@@ -321,6 +321,6 @@ Summary
 -  Instance folders can be used to alter an application's configuration
    for a specific environment.
 -  We should use environment variables and
-   ``app.config.from_env\-var()`` for more complicated environment-based
+   ``app.config.from_envvar()`` for more complicated environment-based
    configurations.
 

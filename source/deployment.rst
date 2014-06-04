@@ -139,7 +139,7 @@ response from our app.
    \label{aside:}
    \heading{Related Links}
 
-   - Nginx configuration section in the Gunicorn docs will give you more information about setting Nginx up for this purpose: [http://docs.g\-unicorn.org/en/latest/deploy.html#nginx-configuration](http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration)
+   - Nginx configuration section in the Gunicorn docs will give you more information about setting Nginx up for this purpose: [http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration](http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration)
 
    \end{aside}
 
@@ -178,7 +178,7 @@ configuration. We can use the Werkzeug ProxyFix to ... fix the proxy.
    \label{aside:}
    \heading{Related Links}
 
-   - Read more about ProxyFix in the Werkzeug docs: [http://werkzeug.p\-ocoo.org/docs/contrib/fixers/#werkzeug.con\-trib.fixers.ProxyFix](http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix)
+   - Read more about ProxyFix in the Werkzeug docs: [http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix](http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix)
 
    \end{aside}
 

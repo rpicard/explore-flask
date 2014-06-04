@@ -1,10 +1,9 @@
 Organizing your project
 =======================
 
-.. figure:: _static/images/organizing.png
+.. image:: _static/images/organizing.png
    :alt: Organizing your project
 
-   Organizing your project
 Flask leaves the organization of your application up to you. This is one
 of the reasons I liked Flask as a beginner, but it does mean that you
 have to put some thought into how to structure your code. You could put
@@ -32,16 +31,10 @@ sub-directory of the repository.
 other Python files. A package is essentially multiple modules packaged
 together.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:def_links}
-   \heading{Related Links}
-
-   - Read more about Python modules here: [http://docs.python.org/2/tut\-orial/modules.html](http://docs.python.org/2/tutorial/modules.html)
-   - That same page has a section on packages as well: [http://docs.pyth\-on.org/2/tutorial/modules.html#packages](http://docs.python.org/2/tutorial/modules.html#packages)
-
-   \end{aside}
+   - Read more about Python modules in `Python tutorial <http://docs.python.org/2/tutorial/modules.html>`_.
+   - That same page has a `section on packages <http://docs.python.org/2/tutorial/modules.html#packages>`_.
 
 Organization patterns
 ---------------------
@@ -54,19 +47,13 @@ code in a single file, often *app.py*. This is great for quick projects
 (like the ones used for tutorials), where you just need to serve a few
 routes and you've got less than a few hundred lines of application code.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:1module}
-   \codecaption{A repository containing a single module application}
-   ```
    app.py
    config.py
    requirements.txt
    static/
    templates/
-   ```
-   \end{codelisting}
 
 Application logic would sit in *app.py* for the example in Listing~.
 
@@ -79,8 +66,6 @@ forms, and they'll get mixed in with the code for your routes and
 configuration. All of this can frustrate development. To solve this
 problem, we can factor out the different components of our app into a
 group of inter-connected modules — a package.
-
-\\begin{codelisting}
 
 ::
 
@@ -97,41 +82,58 @@ group of inter-connected modules — a package.
         static/
         templates/
 
-\\end{codelisting}
-
-The structure shown in Listing~ allows you to group the different
+The structure shown in this listing allows you to group the different
 components of your application in a logical way. The class definitions
 for models are together in *models.py*, the route definitions are in
-*views.py* and forms are defined in *forms.py* (we'll talk about forms
-in Chapter~).
+*views.py* and forms are defined in *forms.py* (we have a whole chapter
+for forms later).
 
-Table~ provides a basic rundown of the components you'll find in most
+This table provides a basic rundown of the components you'll find in most
 Flask applications. You'll probably end up with a lot of other files in
 your repository, but these are common to most Flask applications.
 
-\\begin{table}
-
-\\begin{tabular}{ll}
-
-.. raw:: latex
-
-   \begin{tabular}{lp{0.7\linewidth}}
-   \fi
-
-       \textit{/run.py} & This is the file that is invoked to start up a development server. It gets a copy of the app from your package and runs it. This won't be used in production, but it will see a lot of mileage in development. \\
-       \textit{/requirements.txt} & This file lists all of the Python packages that your app depends on. You may have separate files for production and development dependencies. \\
-       \textit{/config.py} & This file contains most of the configuration variables that your app needs. \\
-       \textit{/instance/config.py} & This file contains configuration variables that shouldn't be in version control. This includes things like API keys and database URIs containing passwords. This also contains variables that are specific to this particular instance of your application. For example, you might have DEBUG = False in config.py, but set DEBUG = True in instance/config.py on your local machine for development. Since this file will be read in after config.py, it will override it and set DEBUG = False. \\
-       \textit{/yourapp/} & This is the package that contains your application. \\
-       \textit{/yourapp/\_\_init\_\_.py} & This file initializes your application and brings together all of the various components. \\
-       \textit{/yourapp/views.py} & This is where the routes are defined. It may be split into a package of its own (\textit{yourapp/views/}) with related views grouped together into modules. \\
-       \textit{/yourapp/models.py} & This is where you define the models of your application. This may be split into several modules in the same way as views.py. \\
-       \textit{/yourapp/static/} & This file contains the public CSS, JavaScript, images and other files that you want to make public via your app. It is accessible from yourapp.com/static/ by default. \\
-       \textit{/yourapp/templates/} & This is where you'll put the Jinja2 templates for your app. \\
-
-   \end{tabular}
-
-\\end{table}
++-------------------------+-------------------------------------------------------------+
+| run.py                  | This is the file that is invoked to start up a development  |
+|                         | server.It gets a copy of the app from your package and runs |
+|                         | it. This won't be used in production, but it will see a lot |
+|                         | of mileage in development.                                  |
++-------------------------+-------------------------------------------------------------+
+| requirements.txt        | This file lists all of the Python packages that your app    |
+|                         | depends on. You may have separate files for production and  |
+|                         | development dependencies.                                   |
++-------------------------+-------------------------------------------------------------+
+| config.py               | This file contains most of the configuration variables that |
+|                         | your app needs.                                             |
++-------------------------+-------------------------------------------------------------+
+| /instance/config.py     | This file contains configuration variables that shouldn't   |
+|                         | be in version control. This includes things like API keys   |
+|                         | and database URIs containing passwords. This also contains  |
+|                         | variables that are specific to this particular instance of  |
+|                         | your application. For example, you might have DEBUG = False |
+|                         | in config.py, but set DEBUG = True in instance/config.py on |
+|                         | your local machine for development. Since this file will be |
+|                         | read in after config.py, it will override it and set        |
+|                         | DEBUG = False.                                              |
++-------------------------+-------------------------------------------------------------+
+| /yourapp/               | This is the package that contains your application.         |
++-------------------------+-------------------------------------------------------------+
+| /yourapp/\_\_init\_\_.py| This file initializes your application and brings together  |
+|                         | all of the various components.                              |
++-------------------------+-------------------------------------------------------------+
+| /yourapp/views.py       | This is where the routes are defined. It may be split into  |
+|                         | a package of its own (\textit{yourapp/views/}) with related |
+|                         | views grouped together into modules.                        |
++-------------------------+-------------------------------------------------------------+
+| /yourapp/models.py      | This is where you define the models of your application.    |
+|                         | This may be split into several modules in the same way as   |
+|                         | views.py.                                                   |
++-------------------------+-------------------------------------------------------------+
+| /yourapp/static/        | This file contains the public CSS, JavaScript, images and   |
+|                         | other files that you want to make public via your app. It   |
+|                         | is accessible from yourapp.com/static/ by default.          |
++-------------------------+-------------------------------------------------------------+
+| /yourapp/templates/     | This is where you'll put the Jinja2 templates for your app. |
++-------------------------+-------------------------------------------------------------+
 
 Blueprints
 ~~~~~~~~~~
@@ -147,7 +149,7 @@ might have different blueprints for the admin panel, the front-end and
 the user dashboard. This lets you group views, static files and
 templates by components, while letting you share models, forms and other
 aspects of your application between these components. We'll talk about
-using Blueprints to organize your application in Chapter~.
+using Blueprints to organize your application soon.
 
 Summary
 -------

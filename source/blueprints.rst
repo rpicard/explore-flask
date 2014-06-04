@@ -35,7 +35,7 @@ that each do one thing.
    \label{aside:whybp_links}
    \heading{Related Links}
 
-   - "Why Blueprints" from the Flask docs: [http://flask.pocoo.org/docs/blue\-prints/#why-blueprints](http://flask.pocoo.org/docs/blueprints/#why-blueprints)
+   - "Why Blueprints" from the Flask docs: [http://flask.pocoo.org/docs/blueprints/#why-blueprints](http://flask.pocoo.org/docs/blueprints/#why-blueprints)
 
    \end{aside}
 
@@ -86,7 +86,7 @@ how this is implemented later in this chapter.
    \label{aside:}
    \heading{Related Links}
 
-   - At the time of writing this, the Flask website at [http://flask.pocoo.org](http://flask.pocoo.org) uses this structure: [https://github.com/mitsuhiko/flask/tree/website/flask_we\-bsite](https://github.com/mitsuhiko/flask/tree/website/flask_website)
+   - At the time of writing this, the Flask website at [http://flask.pocoo.org](http://flask.pocoo.org) uses this structure: [https://github.com/mitsuhiko/flask/tree/website/flask_website](https://github.com/mitsuhiko/flask/tree/website/flask_website)
 
    \end{aside}
 
@@ -243,7 +243,7 @@ Facebook example.
 
 To create a blueprint object, we import the ``Blueprint()`` class and
 initialize it with the arguments ``name`` and ``import_name``. Usually
-``import_\-name`` will just be ``__name__``, which is a special Python
+``import_name`` will just be ``__name__``, which is a special Python
 variable containing the name of the current module.
 
 We're using a functional structure for this Facebook example. If we were
@@ -279,7 +279,7 @@ app.
 \\end{codelisting}
 
 Now the routes defined in *facebook/views/profile.py* (e.g.
-``/<user_url_\-slug>``) are registered on the application and act just
+``/<user_url_slug>``) are registered on the application and act just
 as if you'd defined them with ``@app.route()``.
 
 Using a dynamic URL prefix
@@ -400,7 +400,7 @@ information we need will be available in the template.
    \label{aside:}
    \heading{Related Links}
 
-   - The Flask documentation has a great tutorial on using prefixes for internationalizing your URLs: [http://flask.pocoo.org/docs/patterns/urlpro\-cessors/#internationalized-blueprint-urls](http://flask.pocoo.org/docs/patterns/urlprocessors/#internationalized-blueprint-urls)
+   - The Flask documentation has a great tutorial on using prefixes for internationalizing your URLs: [http://flask.pocoo.org/docs/patterns/urlprocessors/#internationalized-blueprint-urls](http://flask.pocoo.org/docs/patterns/urlprocessors/#internationalized-blueprint-urls)
 
    \end{aside}
 
@@ -525,7 +525,7 @@ Now we have the site information from the database that we'll use to
 display the user's site to the visitor who requests their subdomain.
 
 To get Flask to work with subdomains, we'll need to specify the
-``SERV\-ER_NAME`` configuration variable.
+``SERVER_NAME`` configuration variable.
 
 .. raw:: latex
 
