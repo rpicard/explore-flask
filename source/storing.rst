@@ -1,10 +1,9 @@
 Storing data
 ============
 
-.. figure:: _static/images/storing.png
+.. image:: _static/images/storing.png
    :alt: Storing data
 
-   Storing data
 Most Flask applications are going to deal with storing data at some
 point. There are many different ways to store data. Finding the best one
 depends entirely on the data you are going to store. If you are storing
@@ -45,9 +44,7 @@ configure some SQLAlchemy. The models are going to go in
 *myapp/models.py*, but first we are going to define our database in
 *myapp/\ **init**.py*
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # ourapp/__init__.py
 
@@ -61,8 +58,6 @@ configure some SQLAlchemy. The models are going to go in
 
     db = SQLAlchemy(app)
 
-\\end{codelisting}
-
 First we initialize and configure our Flask app and then we use it to
 initialize our SQLAlchemy database handler. We're going to use an
 instance folder for our database configuration so we should use the
@@ -70,12 +65,8 @@ instance folder for our database configuration so we should use the
 call ``app.config.from_pyfile`` to load it. Then we can define our
 models.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:engine_model1}
-   \codecaption{An example class for an "Engine" object}
-   ```python
    # ourapp/models.py
 
    from . import db 
@@ -89,12 +80,10 @@ models.
        title = db.Column(db.String(128))
 
        thrust = db.Column(db.Integer, default=0)
-   ```
-   \end{codelisting}
 
 ``Column``, ``Integer``, ``String``, ``Model`` and other SQLAlchemy
 classes are all available via the ``db`` object constructed from
-Flask-SQLAlchemy. In Listing~ we have defined a model to store the
+Flask-SQLAlchemy. We have defined a model to store the
 current state of our spacecraft's engines. Each engine has an id, a
 title and a thrust level.
 
@@ -103,39 +92,19 @@ We're using an instance folder to keep confidential configuration
 variables out of version control, so we are going to put it in
 *instance/config.py*.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Configuring our database}
-   ```python
    # instance/config.py
 
    SQLALCHEMY_DATABASE_URI = "postgresql://user:password@localhost/spaceshipDB"
-   ```
-   \end{codelisting}
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{WARNING}
+.. warning::
 
    Don't forget to put a plan in place to back up your data. The details of that plan are outside the scope of this book, but you should always have your datbase backed up in a secure and robust way.
 
-   \end{aside}
+.. note::
 
---------------
-
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{A note on NoSQL}
-
-   The NoSQL scene is less established with Flask, but as long as the database engine of your choice has a Python library, you should be able to use it. There are even several extensions in the Flask extension registry to help integrate NoSQL engines with Flask: [http://flask.pocoo.org/extensions/](http://flask.pocoo.org/extensions/)
-
-   \end{aside}
+   The NoSQL scene is less established with Flask, but as long as the database engine of your choice has a Python library, you should be able to use it. There are even several extensions in `the Flask extension registry <http://flask.pocoo.org/extensions/>`_ to help integrate NoSQL engines with Flask.
 
 Summary
 -------

@@ -1,10 +1,9 @@
 Patterns for handling users
 ===========================
 
-.. figure:: _static/images/users.png
+.. image:: _static/images/users.png
    :alt: Patterns for handling users
 
-   Patterns for handling users
 One of the most common things that modern web applications need to do is
 handle users. An application with basic account features needs to handle
 a lot of things like registration, email confirmation, securely storing
@@ -12,15 +11,9 @@ passwords, secure password reset, authentication and more. Since a lot
 of security issues present themselves when it comes to handling users,
 it's generally best to stick to standard patterns in this area.
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{A note on assumptions}
+.. note::
 
    In this chapter I'm going to assume that you're using SQLAlchemy models and WTForms to handle your form input. If you aren't using those, you'll need to adapt these patterns to your preferred methods.
-
-   \end{aside}
 
 Email confirmation
 ------------------
@@ -54,12 +47,8 @@ sending an email confirmation token to an unconfirmed email). In this
 case, we're going to use an instance of the ``URLSafeTimedSerializer``
 class.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Creating our instance of \texttt{URLSafeTimedSerializer}}
-   ```python
    # ourapp/util/security.py
 
    from itsdangerous import URLSafeTimedSerializer
@@ -67,19 +56,13 @@ class.
    from .. import app
 
    ts = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-   ```
-   \end{codelisting}
 
 We can use that serializer to generate a confirmation token when a user
 gives us their email address. We'll implement a simple account creation
 process using this method.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:confirm1}
-   \codecaption{Sending a verification email during registration}
-   ```python
    # ourapp/views.py
 
    from flask import redirect, render_template, url_for
@@ -119,19 +102,13 @@ process using this method.
            return redirect(url_for("index"))
 
        return render_template("accounts/create.html", form=form)
-   ```
-   \end{codelisting}
 
-The view in Listing~ handles the creation of the user and sends off an
+The view that we've defined handles the creation of the user and sends off an
 email to the given email address. You may notice that we're using a
 template to generate the HTML for the email.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{An example template for the email}
-   ```jinja
    {# ourapp/templates/email/activate.html #}
 
    Your account was successfully created. Please click the link below<br>
@@ -145,18 +122,12 @@ template to generate the HTML for the email.
    --<br>
    Questions? Comments? Email hello@myapp.com.
    </p>
-   ```
-   \end{codelisting}
 
 Okay, so now we just need to implement a view that handles the
 confirmation link in that email.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{A view that handles a confirmation token}
-   ```python
    # ourapp/views.py
 
    @app.route('/confirm/<token>')
@@ -174,8 +145,6 @@ confirmation link in that email.
        db.session.commit()
 
        return redirect(url_for('signin'))
-   ```
-   \end{codelisting}
 
 This view is a simple form view. We just add the ``try ... except`` bit
 at the beginning to check that the token is valid. The token contains a
@@ -183,15 +152,9 @@ timestamp, so we can tell ``ts.loads()`` to raise an exception if it is
 older than ``max_age``. In this case, we're setting ``max_age`` to 86400
 seconds, i.e. 24 hours.
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{A note on updating emails}
+.. note::
 
    You can use very similar methods to implement an email update feature. Just send a confirmation link to the new email address with a token that contains both the old and the new addresses. If the token is valid, update the old address with the new one.
-
-   \end{aside}
 
 Storing passwords
 -----------------
@@ -203,15 +166,9 @@ it's unfair to our users. All of the hard work has already been done and
 abstracted away for us, so there's no excuse for not following the best
 practices here.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
-
-   - OWASP is one of the industry's most trusted source for information regarding web application security. Take a look at some of their recommendations for secure coding here: [https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage)
-
-   \end{aside}
+   OWASP is one of the industry's most trusted source for information regarding web application security. Take a look at some of their `recommendations for secure coding <https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage>`_.
 
 We'll go ahead and use the Flask-Bcrypt extension to implement the
 bcrypt package in our application. This extension is basically just a
@@ -219,17 +176,13 @@ wrapper around the ``py-bcrypt`` package, but it does handle a few
 things that would be annoying to do ourselves (like checking string
 encodings before comparing hashes).
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # ourapp/__init__.py
 
     from flask.ext.bcrypt import Bcrypt
 
     bcrypt = Bcrypt(app)
-
-\\end{codelisting}
 
 One of the reasons that the Bcrypt algorithm is so highly recommended is
 that it is "future adaptable." This means that over time, as computing
@@ -252,12 +205,8 @@ though.
 To test the time it takes to hash a password, we can time a quick Python
 script that, well, hashes a password.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Benchmarking our system}
-   ```python
    # benchmark.py
 
    from flask.ext.bcrypt import generate_password_hash
@@ -265,15 +214,11 @@ script that, well, hashes a password.
    # Chance the number of rounds (second argument) until it takes between
    # 0.25 and 0.5 seconds to run.
    generate_password_hash('password1', 12) 
-   ```
-   \end{codelisting}
 
 Now we can keep timing our changes to the number of rounds with the UNIX
 ``time`` utility.
 
-\\begin{codelisting}
-
-.. code:: console
+::
 
     $ time python test.py 
 
@@ -281,23 +226,14 @@ Now we can keep timing our changes to the number of rounds with the UNIX
     user    0m0.464s
     sys     0m0.024s
 
-\\end{codelisting}
-
 I did a quick benchmark on a small server that I have handy and 12
 rounds seemed to take the right amount of time, so I'll configure our
 example to use that.
 
-.. raw:: latex
-
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Configuring our application to use 12 rounds of hashing}
-   ```python
+::
    # config.py
 
    BCRYPT_LOG_ROUNDS = 12
-   ```
-   \end{codelisting}
 
 Now that Flask-Bcrypt is configured, it's time to start hashing
 passwords. We could do this manually in the view that receives the
@@ -308,12 +244,8 @@ thinking about it. We'll use a **setter** so that when we set
 ``user.password = 'password1'``, it's automatically hashed with Bcrypt
 before being stored.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Creating a setter}
-   ```python
    # ourapp/models.py
 
    from sqlalchemy.ext.hybrid import hybrid_property
@@ -332,8 +264,6 @@ before being stored.
        @password.setter
        def _set_password(self, plaintext):
            self._password = bcrypt.generate_password_hash(plaintext)
-   ```
-   \end{codelisting}
 
 We're using SQLAlchemy's hybrid extension to define a property with
 several different functions called from the same interface. Our setter
@@ -344,12 +274,8 @@ then access the hashed password via the same ``user.password`` property.
 
 Now we can implement a sign-up view for an app using this model.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{A sign-up view using our setter}
-   ```python
    # ourapp/views.py
 
    from . import app, db
@@ -366,8 +292,6 @@ Now we can implement a sign-up view for an app using this model.
            return redirect(url_for('index'))
 
        return render_template('signup.html', form=form)
-   ```
-   \end{codelisting}
 
 Authentication
 --------------
@@ -382,12 +306,8 @@ have already logged in by looking for that cookie.
 
 Let's start by defining a ``UsernamePassword`` form with WTForms.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Our \texttt{UsernamePassword} form}
-   ```python
    # ourapp/forms.py
 
    from flask.ext.wtforms import Form
@@ -396,18 +316,12 @@ Let's start by defining a ``UsernamePassword`` form with WTForms.
    class UsernamePasswordForm(Form):
        username = TextField('Username', validators=[Required()])
        password = PasswordField('Password', validators=[Required()])
-   ```
-   \end{codelisting}
 
 Next we'll add a method to our user model that compares a string with
 the hashed password stored for that user.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Adding a method to check a password}
-   ```python
    # ourapp/models.py
 
    from . import db
@@ -421,8 +335,6 @@ the hashed password stored for that user.
                return True
 
            return False
-   ```
-   \end{codelisting}
 
 Flask-Login
 ~~~~~~~~~~~
@@ -437,9 +349,7 @@ roll.
 
 In *\_\_init\_\_.py* we'll define the Flask-Login ``login_manager``.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # ourapp/__init__.py
 
@@ -458,31 +368,19 @@ In *\_\_init\_\_.py* we'll define the Flask-Login ``login_manager``.
     def load_user(userid):
         return User.query.filter(User.id == userid).first()
 
-\\end{codelisting}
-
-In Listing~ we created an instance of the ``LoginManager``, initialized
+Here we created an instance of the ``LoginManager``, initialized
 it with our ``app`` object, defined the login view and told it how to
 get a user object with a user's ``id``. This is the baseline
 configuration we should have for Flask-Login.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
-
-   - See more ways to customize Flask-Login here: [https://flask-login.readthedocs.org/en/latest/#customizing-the-login-process](https://flask-login.readthedocs.org/en/latest/#customizing-the-login-process)
-
-   \end{aside}
+   See more `ways to customize Flask-Login <https://flask-login.readthedocs.org/en/latest/#customizing-the-login-process>`_.
 
 Now we can define the ``signin`` view that will handle authentication.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{Handling authentication}
-   ```python
    # ourapp/views.py
 
    from flask import redirect, url_for
@@ -505,19 +403,13 @@ Now we can define the ``signin`` view that will handle authentication.
            else:
                return redirect(url_for('signin'))
        return render_template('signin.html', form=form)
-   ```
-   \end{codelisting}
 
 We simply import the ``login_user`` function from Flask-Login, check a
 user's login credentials and call ``login_user(user)``. You can log the
 current user out with ``logout_user()``.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{}
-   ```python
    # ourapp/views.py
 
    from flask import redirect, url_for
@@ -530,8 +422,6 @@ current user out with ``logout_user()``.
        logout_user()
 
        return redirect(url_for('index'))
-   ```
-   \end{codelisting}
 
 Forgot your password
 --------------------
@@ -548,26 +438,16 @@ unauthenticated user has access to that email address. The code in this
 section assumes that our user model has an email and a password, where
 the password is a hybrid property as we previously created.
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{WARNING}
+.. warning::
 
    Don't send password reset links to an unconfirmed email address! You want to be sure that you are sending this link to the right person.
-
-   \end{aside}
 
 We're going to need two forms. One is to request that a reset link be
 sent to a certain email and the other is to change the password once the
 email has been verified.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:reset1}
-   \codecaption{Defining our forms}
-   ```python
    # ourapp/forms.py
 
    from flask.ext.wtforms import Form
@@ -579,40 +459,28 @@ email has been verified.
 
    class PasswordForm(Form):
        password = PasswordField('Email', validators=[Required()])
-   ```
-   \end{codelisting}
 
-Listing~ assumes that our password reset form just needs one field for
+This code assumes that our password reset form just needs one field for
 the password. Many apps require the user to enter their new password
 twice to confirm that they haven't made a typo. To do this, we'd simply
 add another ``PasswordField`` and add the ``EqualTo`` WTForms validator
 to the main password field.
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
+.. note::
 
    There a lot of interesting discussions in the User Experience (UX) community about the best way to handle this in sign-up forms. I personally like the thoughts of one Stack Exchange user (Roger Attrill) who said:
 
    "We should not ask for password twice - we should ask for it once and make sure that the 'forgot password' system works seamlessly and flawlessly."
 
-   - Read more about this topic in this thread on the User Experience Stack Exchange: [http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141](http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141)
+   - Read more about this topic in the `thread on the User Experience Stack Exchange <http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141>`_.
 
-   - There are also some cool ideas for simplifying sign-up and sign-in forms in this Smashing Magazine article: [http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/](http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/)
-
-   \end{aside}
+   - There are also some cool ideas for simplifying sign-up and sign-in forms in an `article on Smashing Magazine article <http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/>`_.
 
 Now we'll implement the first view of our process, where a user can
 request that a password reset link be sent for a given email address.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{The reset view}
-   ```python
    # ourapp/views.py
 
    from flask import redirect, url_for, render_template
@@ -648,20 +516,14 @@ request that a password reset link be sent for a given email address.
 
            return redirect(url_for('index'))
        return render_template('reset.html', form=form)
-   ```
-   \end{codelisting}
 
 When the form receives an email address, we grab the user with that
 email address, generate a reset token and send them a password reset
 URL. That URL routes them to a view that will validate the token and let
 them reset the password.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:}
-   \codecaption{A view that handles the reset}
-   ```python
    # ourapp/views.py
 
    from flask import redirect, url_for, render_template
@@ -691,17 +553,13 @@ them reset the password.
            return redirect(url_for('signin'))
 
        return render_template('reset_with_token.html', form=form, token=token)
-   ```
-   \end{codelisting}
 
 We're using the same token validation method as we did to confirm the
 user's email address. The view passes the token from the URL back into
 the template. Then the template uses the token to submit the form to the
 right URL. Let's have a look at what that template might look like.
 
-\\begin{codelisting}
-
-.. code:: jinja
+::
 
     {# ourapp/templates/reset_with_token.html #}
 
@@ -714,8 +572,6 @@ right URL. Let's have a look at what that template might look like.
         <input type="submit" value="Change my password" />
     </form>
     {% endblock %}
-
-\\end{codelisting}
 
 Summary
 -------
