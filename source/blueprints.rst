@@ -1,10 +1,9 @@
 Blueprints
 ==========
 
-.. figure:: _static/images/blueprints.png
+.. image:: _static/images/blueprints.png
    :alt: Blueprints
 
-   Blueprints
 What is a blueprint?
 --------------------
 
@@ -29,15 +28,9 @@ distinct area of the site can be separated into distinct areas of the
 code as well. This lets us structure our app as several smaller "apps"
 that each do one thing.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:whybp_links}
-   \heading{Related Links}
-
-   - "Why Blueprints" from the Flask docs: [http://flask.pocoo.org/docs/blueprints/#why-blueprints](http://flask.pocoo.org/docs/blueprints/#why-blueprints)
-
-   \end{aside}
+    Read more about the benefits of using blueprints in `"Why Blueprints" <http://flask.pocoo.org/docs/blueprints/#why-blueprints>`_ from the Flask docs.
 
 Where do you put them?
 ----------------------
@@ -53,8 +46,6 @@ Functional structure
 With a functional structure, you organize the pieces of your app by what
 they do. Templates are grouped together in one directory, static files
 in another and views in a third.
-
-\\begin{codelisting}
 
 ::
 
@@ -72,23 +63,15 @@ in another and views in a third.
             admin.py
         models.py
 
-\\end{codelisting}
-
 With the exception of *yourapp/views/\_\_init\_\_.py*, each of the *.py*
-files in the *yourapp/views/* directory from Listing~ is a blueprint. In
+files in the *yourapp/views/* directory from this listing is a blueprint. In
 *yourapp/\_\_init\_\_-.py* we would import those blueprints and
 **register** them on our ``Flask()`` object. We'll look a little more at
 how this is implemented later in this chapter.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
-
-   - At the time of writing this, the Flask website at [http://flask.pocoo.org](http://flask.pocoo.org) uses this structure: [https://github.com/mitsuhiko/flask/tree/website/flask_website](https://github.com/mitsuhiko/flask/tree/website/flask_website)
-
-   \end{aside}
+    At the time of writing this, the Flask website at `http://flask.pocoo.org <http://flask.pocoo.org>`_ uses this structure. Take a look for yourself `on GitHub <https://github.com/mitsuhiko/flask/tree/website/flask_website>`_.
 
 Divisional
 ~~~~~~~~~~
@@ -97,8 +80,6 @@ With the divisional structure, you organize the pieces of the
 application based on which part of the app they contribute to. All of
 the templates, views and static files for the admin panel go in one
 directory, and those for the user control panel go in another.
-
-\\begin{codelisting}
 
 ::
 
@@ -121,9 +102,7 @@ directory, and those for the user control panel go in another.
             templates/
         models.py
 
-\\end{codelisting}
-
-With a divisional structure like the app in Listing~, each directory
+With a divisional structure like the app in this listing, each directory
 under *yourapp/* is a separate blueprint. All of the blueprints are
 applied to the ``Flask()`` app in the top-level *\_\_init\_\_.py*
 
@@ -151,11 +130,9 @@ blueprints for the static pages (i.e. signed-out home, register, about,
 etc.), the dashboard (i.e. the news feed), profiles (*/robert/about* and
 */robert/photos*), settings (*/settings/security* and
 */settings/privacy*) and many more. These components all share a general
-layout and styles, but each has its own layout as well. Listing~ shows a
+layout and styles, but each has its own layout as well. The following listing shows a
 heavily abridged version of what Facebook might look like it if were
 built with Flask.
-
-\\begin{codelisting}
 
 ::
 
@@ -197,8 +174,6 @@ built with Flask.
             logo.png
         models.py
 
-\\end{codelisting}
-
 The blueprints in *facebook/views/* are little more than collections of
 views rather than wholly independent components. The same static files
 will be used for the views in most of the blueprints. Most of the
@@ -214,9 +189,7 @@ Basic usage
 Let's take a look at the code for one of the blueprints from that
 Facebook example.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # facebook/views/profile.py
 
@@ -239,8 +212,6 @@ Facebook example.
         # Do some stuff
         return render_template('profile/about.html')
 
-\\end{codelisting}
-
 To create a blueprint object, we import the ``Blueprint()`` class and
 initialize it with the arguments ``name`` and ``import_name``. Usually
 ``import_name`` will just be ``__name__``, which is a special Python
@@ -248,25 +219,19 @@ variable containing the name of the current module.
 
 We're using a functional structure for this Facebook example. If we were
 using a divisional structure, we'd want to tell Flask that the blueprint
-has its own template and static directories. Listing~ shows what that
+has its own template and static directories. This code block shows what that
 would look like.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     profile = Blueprint('profile', __name__,
                         template_folder='templates',
                         static_folder='static')
 
-\\end{codelisting}
-
 We have now defined our blueprint. It's time to register it on our Flask
 app.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # facebook/__init__.py
 
@@ -275,8 +240,6 @@ app.
 
     app = Flask(__name__)
     app.register_blueprint(profile)
-
-\\end{codelisting}
 
 Now the routes defined in *facebook/views/profile.py* (e.g.
 ``/<user_url_slug>``) are registered on the application and act just
@@ -302,9 +265,7 @@ We have a choice to make when defining our prefix. We can define the
 prefix in one of two places: when we instantiate the ``Blueprint()``
 class or when we register it with ``app.register_blueprint()``.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # facebook/views/profile.py
 
@@ -314,11 +275,7 @@ class or when we register it with ``app.register_blueprint()``.
 
     # [...]
 
-\\end{codelisting}
-
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # facebook/__init__.py
 
@@ -327,8 +284,6 @@ class or when we register it with ``app.register_blueprint()``.
 
     app = Flask(__name__)
     app.register_blueprint(profile, url_prefix='/<user_url_slug>')
-
-\\end{codelisting}
 
 While there aren't any technical limitations to either method, it's nice
 to have the prefixes available in the same file as the registrations.
@@ -343,9 +298,7 @@ user object based on the URL slug passed into our profile blueprint.
 We'll do that by decorating a function with
 ``url_value_preprocessor()``.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # facebook/views/profile.py
 
@@ -373,16 +326,12 @@ We'll do that by decorating a function with
     def about():
         return render_template('profile/about.html')
 
-\\end{codelisting}
-
 We're using the ``g`` object to store the profile owner and ``g`` is
 available in the Jinja2 template context. This means that for a
 barebones case all we have to do in the view is render the template. The
 information we need will be available in the template.
 
-\\begin{codelisting}
-
-.. code:: jinja
+::
 
     {# facebook/templates/profile/photos.html #}
 
@@ -392,17 +341,9 @@ information we need will be available in the template.
         <img src="{{ photo.source_url }}" alt="{{ photo.alt_text }}" />
     {% endfor %}
 
-\\end{codelisting}
+.. note::
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
-
-   - The Flask documentation has a great tutorial on using prefixes for internationalizing your URLs: [http://flask.pocoo.org/docs/patterns/urlprocessors/#internationalized-blueprint-urls](http://flask.pocoo.org/docs/patterns/urlprocessors/#internationalized-blueprint-urls)
-
-   \end{aside}
+   - The Flask documentation has `a great tutorial <http://flask.pocoo.org/docs/patterns/urlprocessors/#internationalized-blueprint-urls>`_ on using prefixes for internationalizing your URLs.
 
 Using a dynamic subdomain
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -420,8 +361,6 @@ blueprints for distinct sections: the home page where users sign-up, the
 user administration panel where the user builds their website and the
 user's website. Since these three parts are relatively unconnected,
 we'll organize them in a divisional structure.
-
-\\begin{codelisting}
 
 ::
 
@@ -450,35 +389,29 @@ we'll organize them in a divisional structure.
                 site/
         models.py
 
-\\end{codelisting}
+This table explains the different blueprints in this app.
 
-Table~ explains the different blueprints in this app.
-
-\\begin{table} \\begin{tabular}{lll}
-
-.. raw:: latex
-
-   \begin{tabular}{llp{0.5\linewidth}}
-   \fi
-
-       URL & Route & Description \\
-       \hline
-       sitemaker.com & \textit{sitemaker/home} & Just a vanilla blueprint. Views, templates and static files for \textit{index.html}, \textit{about.html} and \textit{pricing.html}. \\
-       bigdaddy.sitemaker.com & \textit{sitemaker/site} & This blueprint uses a dynamic subdomain and includes the elements of the user's website. We'll go over some of the code used to implement this blueprint below. \\
-       bigdaddy.sitemaker.com/admin & \textit{sitemaker/dash} & This blueprint could use both a dynamic subdomain and a URL prefix by combining the techniques in this section with those from the previous section. \\
-
-   \end{tabular}
-
-\\end{table}
++-------------------------------+-------------------+-----------------------------------------------------------+
+| URL                           | Route             | Description                                               |
++===============================+===================+===========================================================+
+| sitemaker.com                 | *sitemaker/home*  | Just a vanilla blueprint. Views, templates and static     |
+|                               |                   | files for *index.html*, *about.html* and *pricing.html*.  | 
++-------------------------------+-------------------+-----------------------------------------------------------+
+| bigdaddy.sitemaker.com        | *sitemaker/site*  | This blueprint uses a dynamic subdomain and includes the  |
+|                               |                   | elements of the user's website. We'll go over some of the |
+|                               |                   | code used to implement this blueprint below.              |
++-------------------------------+-------------------+-----------------------------------------------------------+
+| bigdaddy.sitemaker.com/admin  | *sitemaker/dash*  | This blueprint could use both a dynamic subdomain and a   |
+|                               |                   | URL prefix by combining the techniques in this section    |
+|                               |                   | with those from the previous section.                     |
++-------------------------------+-------------------+-----------------------------------------------------------+
 
 We can define our dynamic subdomain the same way we defined our URL
 prefix. Both options (in the blueprint directory or in the top-level
 *\_\_init\_\_.py*) are available, but once again we'll keep the
 definitions in *sitemaker/\_\_init.py\_\_*.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # sitemaker/__init__.py
 
@@ -488,14 +421,10 @@ definitions in *sitemaker/\_\_init.py\_\_*.
     app = Flask(__name__)
     app.register_blueprint(site, subdomain='<site_subdomain>')
 
-\\end{codelisting}
-
 Since we're using a divisional structure, we'll define the blueprint in
 *sitema-ker/site/\_\_init\_\_.py*.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # sitemaker/site/__init__py
 
@@ -519,46 +448,28 @@ Since we're using a divisional structure, we'll define the blueprint in
     # sure that we import views after site has been defined.
     import .views
 
-\\end{codelisting}
-
 Now we have the site information from the database that we'll use to
 display the user's site to the visitor who requests their subdomain.
 
 To get Flask to work with subdomains, we'll need to specify the
 ``SERVER_NAME`` configuration variable.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:subd4}
-   \codecaption{Setting \texttt{SERVER\_NAME} to use subdomains}
-   ```python
    # config.py
 
    SERVER_NAME = 'sitemaker.com'
-   ```
-   \end{codelisting}
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:subd5}
-   \heading{A note on setting \texttt{SERVER\_NAME}}
+.. note::
 
    A few minutes ago, as I was drafting this section, somebody in IRC said that their subdomains were working fine in development, but not in production. I asked if they had the `SERVER_NAME` configured, and it turned out that they had it in development but not production. Setting it in production solved their problem.
 
-   See the conversation between myself (imrobert in the log) and aplavin: [http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log](http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log)
+   See the conversation between myself (imrobert in the log) and aplavin: `http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log <http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log>`_
 
    It was enough of a coincidence that I felt it warranted inclusion in the section.
 
-   \end{aside}
+::
 
-.. raw:: latex
-
-   \begin{codelisting}
-   \label{code:refact8}
-   \codecaption{An API route after the refactor}
-   ```python
    # U2FtIEJsYWNr/api/views.py
 
    from . import api
@@ -566,8 +477,6 @@ To get Flask to work with subdomains, we'll need to specify the
    @api.route('/search')
    def search():
        pass
-   ```
-   \end{codelisting}
 
 Step 5: Enjoy
 ~~~~~~~~~~~~~
