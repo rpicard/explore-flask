@@ -65,8 +65,6 @@ make it easier to understand your code.
 
 .. note::
 
-   **Related Links**
-
    - `PEP 8 <http://legacy.python.org/dev/peps/pep-0008/>`_
    - `PEP 257 <http://legacy.python.org/dev/peps/pep-0257/>`_
    - `Sphinx <http://sphinx-doc.org/>`_, the documentation generator created by the same folks who brought us Flask

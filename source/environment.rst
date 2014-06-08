@@ -63,11 +63,11 @@ virtual environment.
    (venv)$ which python
    /Users/robert/Code/myapp/venv/bin/python
 
-The *bin/activate* script makes some changes to your shell's environment variables so that everything points to the new virtual environment instead of your global system. You can see the effect in code block above. After activation, the `python` command refers to the Python binary inside the virtual environment. When a virtual environment is active, dependencies installed with Pip will be downloaded to that virtual environment instead of the global system.
+The *bin/activate* script makes some changes to your shell's environment variables so that everything points to the new virtual environment instead of your global system. You can see the effect in code block above. After activation, the ``python`` command refers to the Python binary inside the virtual environment. When a virtual environment is active, dependencies installed with Pip will be downloaded to that virtual environment instead of the global system.
 
 You may notice that the shell prompt has been changed too. virtualenv prepends the name of the currently activated virtual environment, so you know that you're not working on the global system.
 
-You can deactivate your virtual environment by running the `deactivate` command.
+You can deactivate your virtual environment by running the ``deactivate`` command.
 
 ::
 
@@ -87,7 +87,7 @@ To install virtualenvwrapper, follow the instructions in the documentation. See 
 
    Make sure that you've deactivated all virtual environments before installing virtualenvwrapper. You want it installed globally, not in a pre-existing environment.
 
-Now, instead of running `virtualenv` to create an environment, you'll run `mkvirtualenv`:
+Now, instead of running ``virtualenv`` to create an environment, you'll run ``mkvirtualenv``:
 
 ::
 
@@ -97,7 +97,7 @@ Now, instead of running `virtualenv` to create an environment, you'll run `mkvir
    Installing pip..................[...].....done.
    (rocket)$
 
-`mkvirtualenv` creates a directory in your virtual environments folder and activates it for you. Just like with plain old `virtualenv`, `python` and `pip` now point to that virtual environment instead of the system binaries. To activate a particular environment, use the command: `workon [environment name]`. `deactivate` still deactivates the environment.
+``mkvirtualenv`` creates a directory in your virtual environments folder and activates it for you. Just like with plain old ``virtualenv``, ``python`` and ``pip`` now point to that virtual environment instead of the system binaries. To activate a particular environment, use the command: ``workon [environment name]``. ``deactivate`` still deactivates the environment.
 
 Keeping track of dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,8 +126,8 @@ Manually tracking dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As your project grows, you may find that certain packages listed by
-`pip freeze` aren't actually needed to run the application. You'll
-have packages that are installed for development only. `pip freeze`
+``pip freeze`` aren't actually needed to run the application. You'll
+have packages that are installed for development only. ``pip freeze``
 doesn't discriminate between the two, it just lists the packages that
 are currently installed. As a result, you may want to manually track
 your depencies as you add them. You can separate those packages needed
@@ -190,7 +190,7 @@ Debug Mode
 ~~~~~~~~~~
 
 Flask comes with a handy feature called debug mode. To turn it on, you
-just have to set `debug = True` in your development configuration.
+just have to set ``debug = True`` in your development configuration.
 When it's on, the server will reload on code changes and errors will
 come with a stack trace and an interactive console.
 

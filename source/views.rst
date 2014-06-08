@@ -144,23 +144,23 @@ the billing page and tell them to upgrade.
 
        return decorated_function
 
-+----+---------------------------------------------------------------------+
-| 10 | When a function is decorated with @check\_expired, check\_expired() |
-|    | is called and the decorated function is passed as a parameter.      |
-+----+---------------------------------------------------------------------+
-| 11 | @wraps is a decorator that does some bookkeeping so that            |
-|    | decorated\_function() appears as func() for the purposes of         |
-|    | documentation and debugging. This makes the behavior of the         |
-|    | functions a little more natural.                                    |
-+----+---------------------------------------------------------------------+
-| 12 | decorated\_function will get all of the args and kwargs that were   |
-|    | passed to the original view function func(). This is where we       |
-|    | check if the user's account is expired. If it is, we'll flash a     |
-|    | message and redirect them to the billing page.                      |
-+----+---------------------------------------------------------------------+
-| 16 | Now that we've done what we wanted to do, we run the decorated      |
-|    | view function func() with its original arguments.                   |
-+----+---------------------------------------------------------------------+
++----+-------------------------------------------------------------------------------+
+| 10 | When a function is decorated with ``@check_expired``, ``check_expired()``     |
+|    | is called and the decorated function is passed as a parameter.                |
++----+-------------------------------------------------------------------------------+
+| 11 | ``@wraps`` is a decorator that does some bookkeeping so that                  |
+|    | ``decorated_function()`` appears as ``func()`` for the purposes of            |
+|    | documentation and debugging. This makes the behavior of the                   |
+|    | functions a little more natural.                                              |
++----+-------------------------------------------------------------------------------+
+| 12 | ``decorated_function`` will get all of the args and kwargs that were          |
+|    | passed to the original view function ``func()``. This is where we             |
+|    | check if the user's account is expired. If it is, we'll flash a               |
+|    | message and redirect them to the billing page.                                |
++----+-------------------------------------------------------------------------------+
+| 16 | Now that we've done what we wanted to do, we run the decorated                |
+|    | view function ``func()`` with its original arguments.                         |
++----+-------------------------------------------------------------------------------+
 
 When we stack decorators, the topmost decorator will run first, then
 call the next function in line: either the view function or the next
@@ -221,7 +221,7 @@ function.
 
 .. note::
 
-   Read more about what the `wraps()` function does `in the Python docs <http://docs.python.org/2/library/functools.html#functools.wraps>`_.
+   Read more about what the ``wraps()`` function does `in the Python docs <http://docs.python.org/2/library/functools.html#functools.wraps>`_.
 
 URL Converters
 --------------
@@ -323,9 +323,9 @@ exists.
 
 .. warning::
 
-   This is another chance to run into some circular import problems if your `util` module has a `from . import app` line. That's why I waited until app had been initialized to import `ListConverter`.
+   This is another chance to run into some circular import problems if your ``util`` module has a ``from . import app`` line. That's why I waited until app had been initialized to import ``ListConverter``.
 
-   Now we can use our converter just like one of the built-ins. We specified the key in the dictionary as "list" so that's how we use it in `@app.route()`.
+   Now we can use our converter just like one of the built-ins. We specified the key in the dictionary as "list" so that's how we use it in ``@app.route()``.
 
 ::
 

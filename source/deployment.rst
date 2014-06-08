@@ -129,9 +129,9 @@ A fine app indeed. Now, to serve it up with Gunicorn, we simply run the
 
 At this point, we should see "Hello World!" when we navigate our browser to *http://127.0.0.1:8000*.
 
-To run this server in the background (i.e. daemonize it), we can pass the `-D` option to Gunicorn. That way it'll run even after we close our current terminal session.
+To run this server in the background (i.e. daemonize it), we can pass the ``-D`` option to Gunicorn. That way it'll run even after we close our current terminal session.
 
-If we daemonize Gunicorn, we might have a hard time finding the process to close later when we want to stop the server. We can tell Gunicorn to stick the process ID in a file so that we can stop or restart it later without searching through lists of running processess. We use the `-p <file>` option to do that.
+If we daemonize Gunicorn, we might have a hard time finding the process to close later when we want to stop the server. We can tell Gunicorn to stick the process ID in a file so that we can stop or restart it later without searching through lists of running processess. We use the ``-p <file>`` option to do that.
 
 ::
 
@@ -139,14 +139,14 @@ If we daemonize Gunicorn, we might have a hard time finding the process to close
    (ourapp)$ cat rocket.pid
    63101
 
-To restart and kill the server, we can run `kill -HUP` and `kill` respectively.
+To restart and kill the server, we can run ``kill -HUP`` and ``kill`` respectively.
 
 ::
 
    (ourapp)$ kill -HUP `cat rocket.pid`
    (ourapp)$ kill `cat rocket.pid`
 
-By default Gunicorn runs on port 8000. We can change the port by adding the `-b` bind option.
+By default Gunicorn runs on port 8000. We can change the port by adding the ``-b`` bind option.
 
 ::
 

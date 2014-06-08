@@ -29,9 +29,9 @@ define a form in a ``myapp.forms`` package.
 
 .. note::
 
-   Until version 0.9, Flask-WTF provided its own wrappers around the WTForms fields and validators. You may see a lot of code out in the wild that imports `TextField`, `PasswordField`, etc. from `flask.ext.wtforms` instead of `wtforms`.
+   Until version 0.9, Flask-WTF provided its own wrappers around the WTForms fields and validators. You may see a lot of code out in the wild that imports ``TextField``, ``PasswordField``, etc. from ``flask.ext.wtforms`` instead of ``wtforms``.
 
-   As of 0.9, we should be importing that stuff straight from `wtforms`.
+   As of 0.9, we should be importing that stuff straight from ``wtforms``.
 
 The form we defined is going to be a user sign-in form. We could have
 called it ``SignInForm()``, but by keeping things a little more

@@ -137,7 +137,7 @@ by abstracting snippets of code that appear over and over into
 **macros**. If we're working on some HTML for our app's navigation, we
 might want to give a different class to the "active" link (i.e. the link
 to the current page). Without macros we'd end up with a block of
-``if``/``else`` statements that check each link to find the active one.
+``if ... else`` statements that check each link to find the active one.
 
 Macros provide a way to modularize that code; they work like functions.
 Let's look at how we'd mark the active link using a macro.
@@ -193,7 +193,7 @@ show.
        the Jinja context with context processors:
        http://flask.pocoo.org/docs/templating/#context-processors
 
-Now it's time to define the `nav_link` macro that we used in our template.
+Now it's time to define the ``nav_link`` macro that we used in our template.
 
 ::
 
@@ -238,7 +238,7 @@ one program to another.
 
 .. note::
 
-   There are loads of built-in filters like `title`. See `the full list <http://jinja.pocoo.org/docs/templates/#builtin-filters>`_ in the Jinja docs.
+   There are loads of built-in filters like ``title``. See `the full list <http://jinja.pocoo.org/docs/templates/#builtin-filters>`_ in the Jinja docs.
 
 We can define our own filters for use in our Jinja templates. As an
 example, we'll implement a simple ``caps`` filter to capitalize all of
@@ -246,7 +246,7 @@ the letters in a string.
 
 .. note::
 
-   Jinja already has an `upper` filter that does this, and a `capitalize` filter that capitalizes the first character and lowercases the rest. These also handle unicode conversion, but we'll keep our example simple to focus on the concept at hand.
+   Jinja already has an ``upper`` filter that does this, and a ``capitalize`` filter that capitalizes the first character and lowercases the rest. These also handle unicode conversion, but we'll keep our example simple to focus on the concept at hand.
 
 We're going to define our filter in a module located at
 *myapp/util/filters.py*. This gives us a ``util`` package in which to

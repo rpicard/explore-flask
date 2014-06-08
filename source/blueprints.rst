@@ -462,7 +462,7 @@ To get Flask to work with subdomains, we'll need to specify the
 
 .. note::
 
-   A few minutes ago, as I was drafting this section, somebody in IRC said that their subdomains were working fine in development, but not in production. I asked if they had the `SERVER_NAME` configured, and it turned out that they had it in development but not production. Setting it in production solved their problem.
+   A few minutes ago, as I was drafting this section, somebody in IRC said that their subdomains were working fine in development, but not in production. I asked if they had the ``SERVER_NAME`` configured, and it turned out that they had it in development but not production. Setting it in production solved their problem.
 
    See the conversation between myself (imrobert in the log) and aplavin: `http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log <http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log>`_
 
