@@ -1,4 +1,4 @@
-Introduction
+Preface
 ============
 
 This book is a collection of the best practices for using Flask. There
@@ -20,8 +20,8 @@ Audience
 ~~~~~~~~
 
 The content of this book builds upon the information in the official
-documentation. I highly recommend that you go through the user guide and
-follow along with the tutorial. This will give you a chance to become
+documentation. I highly recommend that you go through `the user guide <http://flask.pocoo.org/docs/#user-s-guide>`_ and
+follow along with `the tutorial <http://flask.pocoo.org/docs/tutorial/>`_. This will give you a chance to become
 familiar with the vocabulary of Flask. You should understand what views
 are, the basics of Jinja templating and other fundamental concepts
 defined for beginners. I've tried to avoid overlap with the information
@@ -36,17 +36,6 @@ with the official documentation, you may find that I reiterate certain
 concepts to make sure that they're familiar. You shouldn't need to have
 the beginner's tutorial open while you read this.
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:flask_guide_links}
-   \heading{Related Links}
-
-   - Flask user guide: [http://flask.pocoo.org/docs/#user-s-guide](http://flask.pocoo.org/docs/#user-s-guide)
-   - Flask tutorial: [http://flask.pocoo.org/docs/tutorial/](http://flask.pocoo.org/docs/tutorial/)
-
-   \end{aside}
-
 Versions
 ~~~~~~~~
 
@@ -57,23 +46,15 @@ As I write this, the Python community is in the midst of a transition
 from Python 2 to Python 3. The official stance of the Python Software
 Foundation is as follows:
 
-.. raw:: latex
-
-   \begin{quote}
-   Python 2.x is the status quo, Python 3.x is the present and future of the language. [^psf_2v3]
-   \end{quote}
+   Python 2.x is the status quo, Python 3.x is the present and future of the language. [1]_
 
 As of version 0.10, Flask runs with Python 3.3. When I asked Armin
 Ronacher about whether new Flask apps should begin using Python 3, he
 said that he's not yet recommending it to people.
 
-.. raw:: latex
-
-   \begin{quote}
    I'm not using it myself currently, and I don't ever recommend to people things that I don't believe in myself, so I'm very cautious about recommending Python 3.
 
-   --- Armin Ronacher, creator of Flask [^armin_2v3]
-   \end{quote}
+   --- Armin Ronacher, creator of Flask [2]_
 
 One reason for holding off on Python 3 is that many common dependencies
 haven't been ported yet. You don't want to build a project around Python
@@ -82,15 +63,9 @@ X, Y and Z. It's possible that eventually Flask will officially
 recommend Python 3 for new projects, but for now it's all about Python
 2.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:py3_links}
-   \heading{Related Links}
-
-   - The Python 3 Wall of Superpowers tracks which major Python packages have been ported to Python 3: [https://python3wos.appspot.com/](https://python3wos.appspot.com/) 
-
-   \end{aside}
+   The `Python 3 Wall of Superpowers <https://python3wos.appspot.com/>`_ tracks which major Python packages have been ported to Python 3.
 
 Since this book is meant to provide practical advice, I think it makes
 sense to write with the assumption of Python 2. Specifically, I'll be
@@ -106,15 +81,17 @@ to be exact). Most of the lessons in this book aren't going to change
 with minor updates to Flask, but it's something to keep in mind
 nonetheless.
 
-Update schedule
+Living document
 ---------------
 
-I'm hesitant to commit to any one update schedule, since there are a lot
-of variables that will determine the appropriate time for an update.
-Essentially, if it looks like things are getting out of date, I'll work
-on releasing an update. Eventually I might stop, but I'll make sure to
-announce that if it happens. In the mean time, never hesitate to contact
-me and point out things you think should change for future versions.
+The content of this books is going to be updated on the fly, rather than with
+periodic releases. That is one of the benefits of putting the content out
+there for free, rather than putting it behind a walled garden. The web is a
+much more fluid distribution channel than print or even PDFs.
+
+The book's source is hosted `on GitHub <https://github.com/rpicard/explore-flask>`_
+and that is where "development" will be happening. Contributions and ideas are
+always welcome!
 
 Conventions used in this book
 -----------------------------
@@ -133,7 +110,7 @@ Formatting
 ~~~~~~~~~~
 
 Footnotes will be used for citations so you don't think I'm making
-things up.  [1]_
+things up.  [3]_
 
 *Italic text* will be used to denote a file name.
 
@@ -170,4 +147,8 @@ Summary
    chapters.
 
 .. [1]
+   Source: `The Python wiki <http://wiki.python.org/moin/Python2orPython3>`_
+.. [2]
+   Source: `My conversation with Armin Ronacher <https://www.youtube.com/watch?feature=player_detailpage&v=fs20qdvm0K4#t=190>`_
+.. [3]
    See, it *must* be true!
