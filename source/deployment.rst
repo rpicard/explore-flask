@@ -1,10 +1,9 @@
 Deployment
 ==========
 
-.. figure:: _static/images/deployment.png
+.. image:: _static/images/deployment.png
    :alt: Deployment
 
-   Deployment
 We're finally ready to show our app to the world. It's time to deploy.
 This process can be a pain because there are so many moving parts. There
 are a lot of choices to make when it comes to our production stack as
@@ -52,26 +51,131 @@ with a sane deployment procedure. This convenience comes at a price of
 course, though both AWS and Heroku offer a certain amount of free
 service.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
+   Heroku has a `tutorial on deploying Flask <https://devcenter.heroku.com/articles/getting-started-with-python>`_ with their service.
 
-   - Heroku has a tutorial on deploying Flask with their service: https://devcenter.heroku.com/articles/getting-started-with-python
+.. note::
 
-   \end{aside}
+   Administrating your own databases can be time consuming and doing it well requires some experience. It's great to learn about database administration by doing it yourself for your side projects, but sometimes you'd like to save time and effort by outsourcing that part to professionals.
 
-.. raw:: latex
+   Both Heroku and AWS have database management offerings. I don't have personal experience with either yet, but I've heard great things. It's worth considering if you want to make sure your data is being secured and backed-up without having to do it yourself.
 
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
+   - `Heroku Postgres <https://www.heroku.com/postgres>`_
+   - `Amazon RDS <https://aws.amazon.com/rds/>`_
 
-   - Read more about running and deploying Gunicorn from the docs: [http://docs.gunicorn.org/en/latest/](http://docs.gunicorn.org/en/latest/) 
-   - Fabric is a tool that lets you run all of these deployment and management commands from the comfort of your local machine without SSHing into every server: [http://docs.fabfile.org/en/latest](http://docs.fabfile.org/en/latest)
+Digital Ocean
+~~~~~~~~~~~~~
 
-   \end{aside}
+Digital Ocean is an EC2 competitor that has recently begun to take off.
+Like EC2, Digital Ocean lets us spin up virtual servers - now called
+**droplets** - quickly. All droplets run on SSDs, which isn't something
+we get at the lower levels of EC2. The biggest selling point for me
+personally is an interface that is far simpler and easier to use than
+the AWS control panel. Digital Ocean is my preference for hosting and I
+recommend that you take a look at them.
+
+The Flask deployment experience on Digital Ocean is roughly the same as
+on EC2. We're starting with a clean linux distribution and installing
+our server stack from there.
+
+.. note::
+
+   Digital Ocean was nice enough to make a contribution to the Kickstarter campaign for *Explore Flask*. With that said, I promise that my recommendation comes from my own experience as a user. If I didn't like them, I wouldn't have asked them to pledge in the first place.
+
+The stack
+---------
+
+This section will cover some of the software that we'll need to install
+on our server to serve our Flask application to the world. The basic
+stack is a front server that reverse proxies requests to an application
+runner that is running our Flask app. We'll usually have a database too,
+so we'll talk a little about those options as well.
+
+Application runner
+~~~~~~~~~~~~~~~~~~
+
+The server that we use to run Flask locally when we're developing our
+application isn't good at handling real requests. When we're actually
+serving our application to the public, we want to run it with an
+application runner like Gunicorn. Gunicorn handles requests and takes
+care of complicated things like threading.
+
+To use Gunicorn, we install the ``gunicorn`` package in our virtual
+environment with Pip. Running our app is a simple command away.
+
+::
+
+    # app.py
+
+    from flask import Flask
+
+    app = Flask(__name__)
+
+    @app.route('/')
+    def index():
+            return "Hello World!"
+
+A fine app indeed. Now, to serve it up with Gunicorn, we simply run the
+``gunicorn`` command.
+
+::
+
+   (ourapp)$ gunicorn rocket:app
+   2014-03-19 16:28:54 [62924] [INFO] Starting gunicorn 18.0
+   2014-03-19 16:28:54 [62924] [INFO] Listening at: http://127.0.0.1:8000 (62924)
+   2014-03-19 16:28:54 [62924] [INFO] Using worker: sync
+   2014-03-19 16:28:54 [62927] [INFO] Booting worker with pid: 62927
+
+At this point, we should see "Hello World!" when we navigate our browser to *http://127.0.0.1:8000*.
+
+To run this server in the background (i.e. daemonize it), we can pass the `-D` option to Gunicorn. That way it'll run even after we close our current terminal session.
+
+If we daemonize Gunicorn, we might have a hard time finding the process to close later when we want to stop the server. We can tell Gunicorn to stick the process ID in a file so that we can stop or restart it later without searching through lists of running processess. We use the `-p <file>` option to do that.
+
+::
+
+   (ourapp)$ gunicorn rocket:app -p rocket.pid -D
+   (ourapp)$ cat rocket.pid
+   63101
+
+To restart and kill the server, we can run `kill -HUP` and `kill` respectively.
+
+::
+
+   (ourapp)$ kill -HUP `cat rocket.pid`
+   (ourapp)$ kill `cat rocket.pid`
+
+By default Gunicorn runs on port 8000. We can change the port by adding the `-b` bind option.
+
+::
+
+   (ourapp)$ gunicorn rocket:app -p rocket.pid -b 127.0.0.1:7999 -D
+
+Making Gunicorn public
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. warning::
+
+   Gunicorn is meant to sit behind a reverse proxy. If you tell it to listen to requests coming in from the public, it makes an easy target for denial of service attacks. It's just not meant to handle those kinds of requests. Only allow outside connections for debugging purposes and make sure to switch it back to only allowing internal connections when you're done.
+
+If we run Gunicorn like we have in the listings, we won't be able to
+access it from our local system. That's because Gunicorn binds to
+127.0.0.1 by default. This means that it will only listen to connections
+coming from the server itself. This is the behavior that we want when we
+have a reverse proxy server that is sitting between the public and our
+Gunicorn server. If, however, we need to make requests from outside of
+the server for debugging purposes, we can tell Gunicorn to bind to
+0.0.0.0. This tells it to listen for all requests.
+
+::
+
+    (ourapp)$ gunicorn rocket:app -p rocket.pid -b 0.0.0.0:8000 -D
+
+.. note::
+
+   - Read more about running and deploying Gunicorn `in the documentation <http://docs.gunicorn.org/en/latest/>`_.
+   - `Fabric <http://docs.fabfile.org/en/latest>`_ is a tool that lets you run all of these deployment and management commands from the comfort of your local machine without SSHing into every server.
 
 Nginx Reverse Proxy
 ~~~~~~~~~~~~~~~~~~~
@@ -85,9 +189,7 @@ To configure Nginx as a reverse proxy to a Gunicorn server running on
 127.0.0.1:8000, we can create a file for our app:
 */etc/nginx/sites-available/expl-oreflask.com*.
 
-\\begin{codelisting}
-
-.. code:: nginx
+::
 
     # /etc/nginx/sites-available/exploreflask.com
 
@@ -115,33 +217,21 @@ To configure Nginx as a reverse proxy to a Gunicorn server running on
             }
     }
 
-\\end{codelisting}
-
 Now we'll create a symlink to this file at */etc/nginx/sites-enabled*
 and restart Nginx.
 
-\\begin{codelisting}
-
-.. code:: console
+::
 
     $ sudo ln -s \
     /etc/nginx/sites-available/exploreflask.com \
     /etc/nginx/sites-enabled/exploreflask.com
 
-\\end{codelisting}
-
 We should now be able to make our requests to Nginx and receive the
 response from our app.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
-
-   - Nginx configuration section in the Gunicorn docs will give you more information about setting Nginx up for this purpose: [http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration](http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration)
-
-   \end{aside}
+   The `Nginx configuration section <http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration>`_ in the Gunicorn docs will give you more information about setting Nginx up for this purpose.
 
 ProxyFix
 ^^^^^^^^
@@ -150,9 +240,7 @@ We may run into some issues with Flask not properly handling the proxied
 requests. It has to do with those headers we set in the Nginx
 configuration. We can use the Werkzeug ProxyFix to ... fix the proxy.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # app.py
 
@@ -170,17 +258,9 @@ configuration. We can use the Werkzeug ProxyFix to ... fix the proxy.
     def index():
             return "Hello World!"
 
-\\end{codelisting}
+.. note::
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:}
-   \heading{Related Links}
-
-   - Read more about ProxyFix in the Werkzeug docs: [http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix](http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix)
-
-   \end{aside}
+   - Read more about ProxyFix in `the Werkzeug docs <http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix>`_.
 
 Summary
 -------
