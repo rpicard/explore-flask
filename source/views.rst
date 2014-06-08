@@ -1,10 +1,9 @@
 Advanced patterns for views and routing
 =======================================
 
-.. figure:: _static/images/views.png
+.. image:: _static/images/views.png
    :alt: Advanced patterns for views and routing
 
-   Advanced patterns for views and routing
 View decorators
 ---------------
 
@@ -14,19 +13,13 @@ instead. The decorator can then take action, modify the arguments, halt
 execution or call the original function. We can use decorators to wrap
 views with code we'd like to run before they are executed.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:decorate}
-   \codecaption{Decorating a function}
-   ```python
    @decorator_function
    def decorated():
        pass
-   ```
-   \end{codelisting}
 
-If you've gone through the Flask tutorial, the syntax in Listing~ might
+If you've gone through the Flask tutorial, the syntax in this code block might
 look familiar to you. ``@app.route`` is a decorator used to match URLs
 to view functions in Flask apps.
 
@@ -41,12 +34,8 @@ addition to handling the details of user authentication, Flask-Login
 gives us a decorator to restrict certain views to authenticated users:
 ``@login_required``.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:login_required}
-   \codecaption{Restricting views with @login\_required}
-   ```python
    # app.py
 
    from Flask import render_template
@@ -61,32 +50,20 @@ gives us a decorator to restrict certain views to authenticated users:
    @login_required
    def account():
        return render_template("account.html")
-   ```
-   \end{codelisting}
 
-.. raw:: latex
+.. warning::
 
-   \begin{aside}
-   \label{aside:decorator_order}
-   \heading{WARNING}
+   ``@app.route`` should always be the outermost view decorator.
 
-   `@app.route` should always be the outermost view decorator.
-   \end{aside}
 
 Only an authenticated user will be able to access the */dashboard*
 route. We can configure Flask-Login to redirect unauthenticated users to
 a login page, return an HTTP 401 status or anything else we'd like it to
 do with them.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:login_links}
-   \heading{Related Links}
-
-   - Read more about using Flask-Login in the official docs: [http://flask-login.readthedocs.org/en/latest/](http://flask-login.readthedocs.org/en/latest/)
-
-   \end{aside}
+   Read more about using Flask-Login in `the official docs <http://flask-login.readthedocs.org/en/latest/>`_.
 
 Caching
 ~~~~~~~
@@ -108,12 +85,8 @@ backends. A popular choice is Redis, which is easy to set-up and use.
 Assuming Flask-Cache is already configured, Listing~ shows what our
 decorated view would look like.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:cache}
-   \codecaption{Using Flask-Cache}
-   ```python
    # app.py
 
    from flask.ext.cache import Cache
@@ -134,51 +107,38 @@ decorated view would look like.
            recent_users=recent_users,
            recent_photos=recent_photos
        )
-   ```
-   \end{codelisting}
 
 Now the function will only be run once every 60 seconds, when the cache
 expires. The response will be saved in our cache and pulled from there
 for any intervening requests.
 
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:memoize}
-   \heading{A note on Flask-Cache}
+.. note::
 
    Flask-Cache also lets us **memoize** functions — or cache the result of a function being called with certain arguments. You can even cache computationally expensive Jinja2 template snippets.
 
-   \end{aside}
-
-\\begin{table} }
-
-\\begin{tabular}{ll}
-
-.. raw:: latex
-
-   \begin{tabular}{lp{0.7\linewidth}}
-   \fi
-
-     10 & When a function is decorated with @check\_expired, check\_expired() is called and the decorated function is passed as a parameter. \\
-     11 & @wraps is a decorator that does some bookkeeping so that decorated\_function() appears as func() for the purposes of documentation and debugging. This makes the behavior of the functions a little more natural. \\
-     12 & decorated\_function will get all of the args and kwargs that were passed to the original view function func(). This is where we check if the user's account is expired. If it is, we'll flash a message and redirect them to the billing page. \\
-     16 & Now that we've done what we wanted to do, we run the decorated view function func() with its original arguments. \\
-
-   \end{tabular}
-
-\\end{table}
++----+---------------------------------------------------------------------+
+| 10 | When a function is decorated with @check\_expired, check\_expired() |
+|    | is called and the decorated function is passed as a parameter.      |
++----+---------------------------------------------------------------------+
+| 11 | @wraps is a decorator that does some bookkeeping so that            |
+|    | decorated\_function() appears as func() for the purposes of         |
+|    | documentation and debugging. This makes the behavior of the         |
+|    | functions a little more natural.                                    |
++----+---------------------------------------------------------------------+
+| 12 | decorated\_function will get all of the args and kwargs that were   |
+|    | passed to the original view function func(). This is where we       |
+|    | check if the user's account is expired. If it is, we'll flash a     |
+|    | message and redirect them to the billing page.                      |
++----+---------------------------------------------------------------------+
+| 16 | Now that we've done what we wanted to do, we run the decorated      |
+|    | view function func() with its original arguments.                   |
++----+---------------------------------------------------------------------+
 
 When we stack decorators, the topmost decorator will run first, then
 call the next function in line: either the view function or the next
 decorator. The decorator syntax is just a little syntactic sugar.
 
-.. raw:: latex
-
-   \begin{codelisting}
-   \label{code:stack_demo}
-   \codecaption{An illustration of how decorators works}
-   ```python
+::
 
    # This code:
    @foo
@@ -196,19 +156,13 @@ decorator. The decorator syntax is just a little syntactic sugar.
    r2 = two()
 
    r1 == r2 # True
-   ```
-   \end{codelisting}
 
-Listing~ shows an example using our custom decorator and the
+This code block shows an example using our custom decorator and the
 ``@login_required`` decorator from the Flask-Login extension. We can
 use multiple decorators by stacking them.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:stack_decorators}
-   \codecaption{Using more than one decorator on a view}
-   ```python
    # myapp/views.py
 
    from flask import render_template
@@ -232,22 +186,14 @@ use multiple decorators by stacking them.
        """Update your billing info."""
        # [...]
        return render_template('account/billing.html')
-   ```
-   \end{codelisting}
 
 Now when a user tries to access */use\_app*, ``check_expired()`` will
 make sure that their account hasn't expired before running the view
 function.
 
-.. raw:: latex
+.. note::
 
-   \begin{aside}
-   \label{aside:custom_links}
-   \heading{Related Links}
-
-   Read more about what the `wraps()` function does in the Python docs: [http://docs.python.org/2/library/functools.html#functools.wraps](http://docs.python.org/2/library/functools.html#functools.wraps)
-
-   \end{aside}
+   Read more about what the `wraps()` function does `in the Python docs <http://docs.python.org/2/library/functools.html#functools.wraps>`_.
 
 URL Converters
 --------------
@@ -258,35 +204,23 @@ Built-in converters
 When you define a route in Flask, you can specify parts of it that will
 be converted into Python variables and passed to the view function.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:converters1}
-   \codecaption{Getting a username from the URL}
-   ```python
    @app.route('/user/<username>')
    def profile(username):
        pass
-   ```
-   \end{codelisting}
 
 Whatever is in the part of the URL labeled ``<username>`` will get
 passed to the view as the username argument. You can also specify a
 converter to filter the variable before it's passed to the view.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:converters2}
-   \codecaption{Filtering out everything except integers}
-   ```python
    @app.route('/user/id/<int:user_id>')
    def profile(user_id):
        pass
-   ```
-   \end{codelisting}
 
-In Listing~, the URL *http://myapp.com/user/id/Q29kZUxlc3NvbiEh* will
+In this code block, the URL *http://myapp.com/user/id/Q29kZUxlc3NvbiEh* will
 return a 404 status code -- not found. This is because the part of the
 URL that is supposed to be an integer is actually a string.
 
@@ -294,22 +228,17 @@ We could have a second view that looks for a string as well. That would
 be called for */user/id/Q29kZUxlc3NvbiEh/* while the first would be
 called for */user/id/124*.
 
-Table~ shows Flask's built-in URL converters.
+This table shows Flask's built-in URL converters.
 
-.. raw:: latex
-
-   \begin{table}
-   \caption{Flask's built-in converters \label{table:builtin_converters}}
-
-   \begin{tabular}{ll}
-
-       string & Accepts any text without a slash (the default). \\
-       int & Accepts integers. \\
-       float & Like int but for floating point values. \\
-       path & Like string but accepts slashes. \\
-
-   \end{tabular}
-   \end{table}
++--------+-------------------------------------------------+
+| string | Accepts any text without a slash (the default). |
++--------+-------------------------------------------------+
+| int    | Accepts integers.                               |
++--------+-------------------------------------------------+
+| float  | Like int but for floating point values.         |
++--------+-------------------------------------------------+
+| path   | Like string but accepts slashes.                |
++--------+-------------------------------------------------+
 
 Custom converters
 ~~~~~~~~~~~~~~~~~
@@ -328,12 +257,8 @@ apps. We'll take an arbitrary number of elements separated by
 plus-signs, convert them to a list with a ``ListConverter`` class and
 pass the list of elements to the view function.
 
-.. raw:: latex
+::
 
-   \begin{codelisting}
-   \label{code:list_converter}
-   \codecaption{The \texttt{ListConverter} class}
-   ```python
    # myapp/util.py
 
    from werkzeug.routing import BaseConverter
@@ -346,8 +271,6 @@ pass the list of elements to the view function.
        def to_url(self, values):
            return '+'.join(BaseConverter.to_url(value)
                            for value in values)
-   ```
-   \end{codelisting}
 
 We need to define two methods: ``to_python()`` and ``to_url()``. As the
 names suggest, ``to_python()`` is used to convert the path in the URL to
@@ -358,9 +281,7 @@ URL.
 To use our ``ListConverter``, we first have to tell Flask that it
 exists.
 
-\\begin{codelisting}
-
-.. code:: python
+::
 
     # /myapp/__init__.py
 
@@ -372,26 +293,14 @@ exists.
 
     app.url_map.converters['list'] = ListConverter
 
-\\end{codelisting}
-
-.. raw:: latex
-
-   \begin{aside}
-   \label{aside:circular_warning}
-   \heading{WARNING}
+.. warning::
 
    This is another chance to run into some circular import problems if your `util` module has a `from . import app` line. That's why I waited until app had been initialized to import `ListConverter`.
 
    Now we can use our converter just like one of the built-ins. We specified the key in the dictionary as "list" so that's how we use it in `@app.route()`.
 
-   \end{aside}
+::
 
-.. raw:: latex
-
-   \begin{codelisting}
-   \label{code:using_listconverter}
-   \codecaption{Using our new custom converter}
-   ```python
    # myapp/views.py
 
    from . import app
@@ -404,8 +313,6 @@ exists.
            posts.extend(subreddit.posts)
 
        return render_template('/r/index.html', posts=posts)
-   ```
-   \end{codelisting}
 
 This should work just like Reddit's multi-reddit system. This same
 method can be used to make any URL converter we can dream of.
