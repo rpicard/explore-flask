@@ -76,13 +76,13 @@ can we speed things up quickly, so all of these visitors don't miss out
 on our site?
 
 There are a lot of good answers, but this section is about caching, so
-we'll talk about that. Specifically, we're going to use the Flask-Cache
+we'll talk about that. Specifically, we're going to use the `Flask-Cache <http://pythonhosted.org/Flask-Cache/>`_
 extension. This extension provides us with a decorator that we can use
 on our index view to cache the response for some period of time.
 
 Flask-Cache can be configured to work with a bunch of different caching
-backends. A popular choice is Redis, which is easy to set-up and use.
-Assuming Flask-Cache is already configured, Listing~ shows what our
+backends. A popular choice is `Redis <http://redis.io/>`_, which is easy to set-up and use.
+Assuming Flask-Cache is already configured, this code block shows what our
 decorated view would look like.
 
 ::
@@ -115,6 +115,34 @@ for any intervening requests.
 .. note::
 
    Flask-Cache also lets us **memoize** functions — or cache the result of a function being called with certain arguments. You can even cache computationally expensive Jinja2 template snippets.
+
+Custom decorators
+~~~~~~~~~~~~~~~~~
+
+For this section, let's imagine we have an application that charges
+users each month. If a user's account is expired, we'll redirect them to
+the billing page and tell them to upgrade.
+
+::
+
+   # myapp/util.py
+
+   from functools import wraps
+   from datetime import datetime
+
+   from flask import flash, redirect, url_for
+
+   from flask.ext.login import current_user
+
+   def check_expired(func):
+       @wraps(func)
+       def decorated_function(*args, **kwargs):
+           if datetime.utcnow() > current_user.account_expires:
+               flash("Your account has expired. Update your billing info.")
+               return redirect(url_for('account_billing'))
+           return func(*args, **kwargs)
+
+       return decorated_function
 
 +----+---------------------------------------------------------------------+
 | 10 | When a function is decorated with @check\_expired, check\_expired() |

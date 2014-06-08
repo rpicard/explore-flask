@@ -468,6 +468,156 @@ To get Flask to work with subdomains, we'll need to specify the
 
    It was enough of a coincidence that I felt it warranted inclusion in the section.
 
+.. note::
+
+    You can set both a subdomain and url\_prefix. Think about how we would
+    configure the blueprint in *sitemaker/dash* with the URL structure from
+    the table above.
+
+Refactoring small apps to use blueprints
+----------------------------------------
+
+I'd like to go over a brief example of the steps we can take to convert
+an app to use blueprints. We'll start off with a typical Flask app and
+restructure it.
+
+::
+
+    config.txt
+    requirements.txt
+    run.py
+    U2FtIEJsYWNr/
+      __init__.py
+      views.py
+      models.py
+      templates/
+      static/
+    tests/
+
+The *views.py* file has grown to 10,000 lines of code! We've been
+putting off refactoring it, but it's finally time. The file contains the
+views for every section of our site. The sections are the home page, the
+user dashboard, the admin dashboard, the API and the company blog.
+
+Step 1: Divisional or functional?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This application is made up of very distinct sections. Templates and
+static files probably aren't going to be shared between the user
+dashboard and the company blog, for example. We'll go with a divisional
+structure.
+
+Step 2: Move some files around
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. warning::
+
+   Before you make any changes to your app, commit everything to version control. You don't want to accidentally delete something for good.
+
+Next we'll go ahead and create the directory tree for our new app. We
+can start by creating a folder for each blueprint within the package
+directory. Then we'll copy *views.py*, *static/* and *templates/* in
+their entirety to each blueprint directory. We can then remove them from
+the top-level package directory.
+
+::
+
+    config.txt
+    requirements.txt
+    run.py
+    U2FtIEJsYWNr/
+      __init__.py
+      home/
+        views.py
+        static/
+        templates/
+      dash/
+        views.py
+        static/
+        templates/
+      admin/
+        views.py
+        static/
+        templates/
+      api/
+        views.py
+        static/
+        templates/
+      blog/
+        views.py
+        static/
+        templates/
+      models.py
+    tests/
+
+Step 3: Cut the crap
+~~~~~~~~~~~~~~~~~~~~
+
+Now we can go into each blueprint and remove the views, static files and
+templates that don't apply to that blueprint. How you go about this step
+largely depends on how your app was organized to begin with.
+
+The end result should be that each blueprint has a *views.py* file with
+all of the views for that blueprint. No two blueprints should define a
+view for the same route. Each *templates/* directory should only include
+the templates for the views in that blueprint. Each *static/* directory
+should only include the static files that should be exposed by that
+blueprint.
+
+.. note::
+
+   Make it a point to eliminate all unnecessary imports. It's easy to forget about them, but at best they clutter your code and at worst they slow down your application.
+
+Step 4: Blueprint...ifi...cation or something
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is the part where we turn our directories into blueprints. The key
+is in the *\_\_init\_\_.py* files. For starters, let's take a look at
+the definition of the API blueprint.
+
+::
+
+    # U2FtIEJsYWNr/api/__init__.py
+
+    from flask import Blueprint
+
+    api = Blueprint(
+        'site',
+        __name__,
+        template_folder='templates',
+        static_folder='static'
+    )
+
+    import .views
+
+Next we can register this blueprint in the U2FtIEJsYWNr package's
+top-level *\_\_init\_\_.py* file.
+
+::
+
+    # U2FtIEJsYWNr/__init__.py
+
+    from flask import Flask
+    from .api import api
+
+    app = Flask(__name__)
+
+    # Puts the API blueprint on api.U2FtIEJsYWNr.com.
+    app.register_blueprint(api, subdomain='api')
+
+Make sure that the routes are registered on the blueprint now rather
+than the app object.
+
+::
+
+   # U2FtIEJsYWNr/views.py
+
+   from . import app
+
+   @app.route('/search', subdomain='api')
+   def api_search():
+       pass
+
 ::
 
    # U2FtIEJsYWNr/api/views.py

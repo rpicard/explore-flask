@@ -179,6 +179,73 @@ the admin section: *admin/layout.html*.
            dash.html
            stats.html
 
+::
+
+    {# myapp/templates/admin/layout.html #}
+
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            {% assets "admin_js" %}
+                <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+            {% endassets %}
+            {% assets "admin_css" %}
+                <link rel="stylesheet" href="{{ ASSET_URL }}" />
+            {% endassets %}
+        </head>
+        <body>
+        {% block body %}
+        {% endblock %}
+        </body>
+    </html>
+
+We can do the same thing for the home bundles in
+*templates/home/layout-.html*.
+
+Using filters
+~~~~~~~~~~~~~
+
+We can use filters to pre-process our static files. This is especially
+handy for minifying our JavaScript and CSS bundles.
+
+::
+
+   # myapp/util/assets.py
+
+   # [...]
+
+   bundles = {
+
+       'home_js': Bundle(
+           'lib/jquery-1.10.2.js',
+           'js/home.js',
+           output='gen/home.js',
+           filters='jsmin'),
+
+       'home_css': Bundle(
+           'lib/reset.css',
+           'css/common.css',
+           'css/home.css',
+           output='gen/home.css',
+           filters='cssmin'),
+
+       'admin_js': Bundle(
+           'lib/jquery-1.10.2.js',
+           'lib/Chart.js',
+           'js/admin.js',
+           output='gen/admin.js',
+           filters='jsmin'),
+
+       'admin_css': Bundle(
+           'lib/reset.css',
+           'css/common.css',
+           'css/admin.css',
+           output='gen/admin.css',
+           filters='cssmin')
+   }
+
+   # [...]
+
 .. note::
 
     To use the ``jsmin`` and ``cssmin`` filters, you'll need to install the

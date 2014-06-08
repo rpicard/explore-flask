@@ -98,6 +98,112 @@ variables out of version control, so we are going to put it in
 
    SQLALCHEMY_DATABASE_URI = "postgresql://user:password@localhost/spaceshipDB"
 
+.. note::
+
+   Your database URI will be different depending on the engine you use and where it's hosted. See the `SQLAlchemy documentation for this syntax <http://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=database#database-urls>`_.
+
+Initializing the database
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Now that the database is configured and we have defined a model, we can
+initialize the database. This step basically involves creating the
+database schema from the model definitions.
+
+Normally that process might be a pain in the ... neck. Lucky for us,
+SQLAlchemy has a really cool command that will do all of this for us.
+
+Let's open up a Python terminal in our repository root.
+
+::
+
+    $ pwd
+    /Users/me/Code/myapp
+    $ workon myapp
+    (myapp)$ python
+    Python 2.7.5 (default, Aug 25 2013, 00:04:04) 
+    [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> from myapp import db
+    >>> db.create_all()
+    >>>
+
+Now, thanks to SQLAlchemy, our tables have been created in the database
+specified in our configuration.
+
+Alembic migrations
+~~~~~~~~~~~~~~~~~~
+
+The schema of a database is not set in stone. For example, we may want
+to add a ``last_fired`` column to the engine table. If we don't have any
+data, we can just update the model and run ``db.create_all()`` again.
+However, if we have six months of engine data logged in that table, we
+probably don't want to start over from scratch. That's where database
+migrations come in.
+
+Alembic is a database migration tool created specifically for use with
+SQL-Alchemy. It lets us keep a versioned history of our database schema
+so that we can later upgrade to a new schema and even downgrade back to
+an older one.
+
+Alembic has an extensive tutorial to get you started, so I'll just give
+you a quick overview and point out a couple of things to watch out for.
+
+We'll create our alembic "migration environment" via the
+``alembic init`` command. Once we run this in our repository root
+we'll have a new directory with the very creative name *alembic*. Our
+repository will end up looking something like the example in this listing,
+adapted from the Alembic tutorial.
+
+::
+
+    ourapp/
+        alembic.ini
+        alembic/
+            env.py
+            README
+            script.py.mako
+            versions/
+                3512b954651e_add_account.py
+                2b1ae634e5cd_add_order_id.py
+                3adcc9a56557_rename_username_field.py
+        myapp/
+            __init__.py
+            views.py
+            models.py
+            templates/
+        run.py
+        config.py
+        requirements.txt
+
+
+The *alembic/* directory has the scripts that migrate our data between
+versions. There is also an *alembic.ini* file that contains
+configuration information.
+
+.. note::
+
+    Add *alembic.ini* to *.gitignore*! You are going to have your database
+    credentials in this file, so you **do not** want it to end up in version
+    control.
+
+    You do want to keep *alembic/* in version control though. It does not
+    contain sensitive information (that can't already be derived from your
+    source code) and keeping it in version control will mean having multiple
+    copies should something happen to the files on your computer.
+
+When it comes time to make a schema change, there are a couple of steps.
+First we run ``alembic revision`` to generate a migration script. Then
+we'll open up the newly generated Python file in
+*myapp/alembic/versions/* and fill in the ``upgrade`` and ``downgrade``
+functions using the tools provided by Alembic's ``op`` object.
+
+Once we have our migration script ready, we can run
+``alembic upgrade head`` to migrade our data to the latest version.
+
+.. note::
+
+   For the details on configuring Alembic, creating your migration scripts and running your migrations, see `the Alembic tutorial <http://alembic.readthedocs.org/en/latest/tutorial.html>`_.
+
 .. warning::
 
    Don't forget to put a plan in place to back up your data. The details of that plan are outside the scope of this book, but you should always have your datbase backed up in a secure and robust way.
