@@ -21,3 +21,17 @@ Building
 Just ``cd`` into the repo and run ``sphinx-build -b html source/ build/`` to build
 the website. Feel free to try your hand at building other formats, but HTML is
 the only officially supported one right now.
+
+Building Prerequisites (Ubuntu)
+-------------------------------
+
+The documentation is formatted as reStructuredText. `Sphinx 
+<http://sphinx-doc.org/>`_ handles conversions to other formats, such as HTML,
+LaTeX, and ePub. Currently, the HTML appearance is based on the `Read the Docs 
+<http://www.readthedocs.org/>`_ `Sphinx theme. 
+<https://github.com/snide/sphinx_rtd_theme>`_ To install the required software
+and theme, run:
+
+``sudo apt-get install python-pip python-sphinx``
+
+``sudo pip install sphinx_rtd_theme``
