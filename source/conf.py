@@ -258,3 +258,6 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+epub_author = 'Robert Picard'
+epub_cover = ('_static/images/cover.png', 'cover.html')
