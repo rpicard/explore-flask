@@ -151,6 +151,10 @@ templates by components, while letting you share models, forms and other
 aspects of your application between these components. We'll talk about
 using Blueprints to organize your application soon.
 
+.. note::
+
+   Read more about structuring large Flask apps from `DigitalOcean <https://www.digitalocean.com/community/articles/how-to-structure-large-flask-applications>`_, the official `Flask Wiki <https://github.com/mitsuhiko/flask/wiki/Large-app-how-to>`_ and this excellent `blog post <http://mattupstate.com/python/2013/06/26/how-i-structure-my-flask-applications.html>`_.
+
 Summary
 -------
 
