@@ -231,6 +231,7 @@ rounds seemed to take the right amount of time, so I'll configure our
 example to use that.
 
 ::
+
    # config.py
 
    BCRYPT_LOG_ROUNDS = 12
