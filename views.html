@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Advanced patterns for views and routing &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Blueprints" href="blueprints.html"/>
+        <link rel="prev" title="Configuration" href="configuration.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Advanced patterns for views and routing</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/views.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="advanced-patterns-for-views-and-routing">
+<h1>Advanced patterns for views and routing<a class="headerlink" href="#advanced-patterns-for-views-and-routing" title="Permalink to this headline">¶</a></h1>
+<img alt="Advanced patterns for views and routing" src="_images/views.png" />
+<div class="section" id="view-decorators">
+<h2>View decorators<a class="headerlink" href="#view-decorators" title="Permalink to this headline">¶</a></h2>
+<p>Python decorators are functions that are used to transform other
+functions. When a decorated function is called, the decorator is called
+instead. The decorator can then take action, modify the arguments, halt
+execution or call the original function. We can use decorators to wrap
+views with code we&#8217;d like to run before they are executed.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@decorator_function</span>
+<span class="k">def</span> <span class="nf">decorated</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>If you&#8217;ve gone through the Flask tutorial, the syntax in this code block might
+look familiar to you. <tt class="docutils literal"><span class="pre">&#64;app.route</span></tt> is a decorator used to match URLs
+to view functions in Flask apps.</p>
+<p>Let&#8217;s take a look at some other decorators you can use in your Flask
+apps.</p>
+<div class="section" id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
+<p>The Flask-Login extension makes it easy to implement a login system. In
+addition to handling the details of user authentication, Flask-Login
+gives us a decorator to restrict certain views to authenticated users:
+<tt class="docutils literal"><span class="pre">&#64;login_required</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+
+<span class="kn">from</span> <span class="nn">Flask</span> <span class="kn">import</span> <span class="n">render_template</span>
+<span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">login_required</span><span class="p">,</span> <span class="n">current_user</span>
+
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&quot;index.html&quot;</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/dashboard&#39;</span><span class="p">)</span>
+<span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">account</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&quot;account.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><tt class="docutils literal"><span class="pre">&#64;app.route</span></tt> should always be the outermost view decorator.</p>
+</div>
+<p>Only an authenticated user will be able to access the <em>/dashboard</em>
+route. We can configure Flask-Login to redirect unauthenticated users to
+a login page, return an HTTP 401 status or anything else we&#8217;d like it to
+do with them.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Read more about using Flask-Login in <a class="reference external" href="http://flask-login.readthedocs.org/en/latest/">the official docs</a>.</p>
+</div>
+</div>
+<div class="section" id="caching">
+<h3>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h3>
+<p>Imagine that an article mentioning our application just appeared on CNN
+and some other news sites. We&#8217;re getting thousands of requests per
+second. Our homepage makes several trips to the database for each
+request, so all of this attention is slowing things down to a crawl. How
+can we speed things up quickly, so all of these visitors don&#8217;t miss out
+on our site?</p>
+<p>There are a lot of good answers, but this section is about caching, so
+we&#8217;ll talk about that. Specifically, we&#8217;re going to use the <a class="reference external" href="http://pythonhosted.org/Flask-Cache/">Flask-Cache</a>
+extension. This extension provides us with a decorator that we can use
+on our index view to cache the response for some period of time.</p>
+<p>Flask-Cache can be configured to work with a bunch of different caching
+backends. A popular choice is <a class="reference external" href="http://redis.io/">Redis</a>, which is easy to set-up and use.
+Assuming Flask-Cache is already configured, this code block shows what our
+decorated view would look like.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+
+<span class="kn">from</span> <span class="nn">flask.ext.cache</span> <span class="kn">import</span> <span class="n">Cache</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">()</span>
+
+<span class="c"># We&#39;d normally include configuration settings in this call</span>
+<span class="n">cache</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="nd">@cache.cached</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="c"># Make a few database calls to get the information we need</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
+        <span class="s">&#39;index.html&#39;</span><span class="p">,</span>
+        <span class="n">latest_posts</span><span class="o">=</span><span class="n">latest_posts</span><span class="p">,</span>
+        <span class="n">recent_users</span><span class="o">=</span><span class="n">recent_users</span><span class="p">,</span>
+        <span class="n">recent_photos</span><span class="o">=</span><span class="n">recent_photos</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the function will only be run once every 60 seconds, when the cache
+expires. The response will be saved in our cache and pulled from there
+for any intervening requests.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Flask-Cache also lets us <strong>memoize</strong> functions — or cache the result of a function being called with certain arguments. You can even cache computationally expensive Jinja2 template snippets.</p>
+</div>
+</div>
+<div class="section" id="custom-decorators">
+<h3>Custom decorators<a class="headerlink" href="#custom-decorators" title="Permalink to this headline">¶</a></h3>
+<p>For this section, let&#8217;s imagine we have an application that charges
+users each month. If a user&#8217;s account is expired, we&#8217;ll redirect them to
+the billing page and tell them to upgrade.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util.py</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">flash</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span>
+
+<span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">current_user</span>
+
+<span class="k">def</span> <span class="nf">check_expired</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">decorated_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">current_user</span><span class="o">.</span><span class="n">account_expires</span><span class="p">:</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s">&quot;Your account has expired. Update your billing info.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;account_billing&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">decorated_function</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>10</td>
+<td>When a function is decorated with <tt class="docutils literal"><span class="pre">&#64;check_expired</span></tt>, <tt class="docutils literal"><span class="pre">check_expired()</span></tt>
+is called and the decorated function is passed as a parameter.</td>
+</tr>
+<tr class="row-even"><td>11</td>
+<td><tt class="docutils literal"><span class="pre">&#64;wraps</span></tt> is a decorator that does some bookkeeping so that
+<tt class="docutils literal"><span class="pre">decorated_function()</span></tt> appears as <tt class="docutils literal"><span class="pre">func()</span></tt> for the purposes of
+documentation and debugging. This makes the behavior of the
+functions a little more natural.</td>
+</tr>
+<tr class="row-odd"><td>12</td>
+<td><tt class="docutils literal"><span class="pre">decorated_function</span></tt> will get all of the args and kwargs that were
+passed to the original view function <tt class="docutils literal"><span class="pre">func()</span></tt>. This is where we
+check if the user&#8217;s account is expired. If it is, we&#8217;ll flash a
+message and redirect them to the billing page.</td>
+</tr>
+<tr class="row-even"><td>16</td>
+<td>Now that we&#8217;ve done what we wanted to do, we run the decorated
+view function <tt class="docutils literal"><span class="pre">func()</span></tt> with its original arguments.</td>
+</tr>
+</tbody>
+</table>
+<p>When we stack decorators, the topmost decorator will run first, then
+call the next function in line: either the view function or the next
+decorator. The decorator syntax is just a little syntactic sugar.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This code:</span>
+<span class="nd">@foo</span>
+<span class="nd">@bar</span>
+<span class="k">def</span> <span class="nf">one</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="n">r1</span> <span class="o">=</span> <span class="n">one</span><span class="p">()</span>
+
+<span class="c"># is the same as this code:</span>
+<span class="k">def</span> <span class="nf">two</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="n">two</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">bar</span><span class="p">(</span><span class="n">two</span><span class="p">))</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">two</span><span class="p">()</span>
+
+<span class="n">r1</span> <span class="o">==</span> <span class="n">r2</span> <span class="c"># True</span>
+</pre></div>
+</div>
+<p>This code block shows an example using our custom decorator and the
+<tt class="docutils literal"><span class="pre">&#64;login_required</span></tt> decorator from the Flask-Login extension. We can
+use multiple decorators by stacking them.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/views.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
+
+<span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">login_required</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">check_expired</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/use_app&#39;</span><span class="p">)</span>
+<span class="nd">@login_required</span>
+<span class="nd">@check_expired</span>
+<span class="k">def</span> <span class="nf">use_app</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Use our amazing app.&quot;&quot;&quot;</span>
+    <span class="c"># [...]</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;use_app.html&#39;</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/account/billing&#39;</span><span class="p">)</span>
+<span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">account_billing</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Update your billing info.&quot;&quot;&quot;</span>
+    <span class="c"># [...]</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;account/billing.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now when a user tries to access <em>/use_app</em>, <tt class="docutils literal"><span class="pre">check_expired()</span></tt> will
+make sure that their account hasn&#8217;t expired before running the view
+function.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Read more about what the <tt class="docutils literal"><span class="pre">wraps()</span></tt> function does <a class="reference external" href="http://docs.python.org/2/library/functools.html#functools.wraps">in the Python docs</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="url-converters">
+<h2>URL Converters<a class="headerlink" href="#url-converters" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="built-in-converters">
+<h3>Built-in converters<a class="headerlink" href="#built-in-converters" title="Permalink to this headline">¶</a></h3>
+<p>When you define a route in Flask, you can specify parts of it that will
+be converted into Python variables and passed to the view function.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/user/&lt;username&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Whatever is in the part of the URL labeled <tt class="docutils literal"><span class="pre">&lt;username&gt;</span></tt> will get
+passed to the view as the username argument. You can also specify a
+converter to filter the variable before it&#8217;s passed to the view.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/user/id/&lt;int:user_id&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>In this code block, the URL <em>http://myapp.com/user/id/Q29kZUxlc3NvbiEh</em> will
+return a 404 status code &#8211; not found. This is because the part of the
+URL that is supposed to be an integer is actually a string.</p>
+<p>We could have a second view that looks for a string as well. That would
+be called for <em>/user/id/Q29kZUxlc3NvbiEh/</em> while the first would be
+called for <em>/user/id/124</em>.</p>
+<p>This table shows Flask&#8217;s built-in URL converters.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>string</td>
+<td>Accepts any text without a slash (the default).</td>
+</tr>
+<tr class="row-even"><td>int</td>
+<td>Accepts integers.</td>
+</tr>
+<tr class="row-odd"><td>float</td>
+<td>Like int but for floating point values.</td>
+</tr>
+<tr class="row-even"><td>path</td>
+<td>Like string but accepts slashes.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="custom-converters">
+<h3>Custom converters<a class="headerlink" href="#custom-converters" title="Permalink to this headline">¶</a></h3>
+<p>We can also make custom converters to suit our needs. On Reddit — a
+popular link sharing site — users create and moderate communities for
+theme-based discussion and link sharing. Some examples are /r/python and
+/r/flask, denoted by the path in the URL: <em>reddit.com/r/python</em> and
+<em>reddit.com/r/flask</em> respectively. An interesting feature of Reddit is
+that you can view the posts from multiple subreddits as one by
+seperating the names with a plus-sign in the URL, e.g.
+<em>reddit.com/r/python+flask</em>.</p>
+<p>We can use a custom converter to implement this feature in our own Flask
+apps. We&#8217;ll take an arbitrary number of elements separated by
+plus-signs, convert them to a list with a <tt class="docutils literal"><span class="pre">ListConverter</span></tt> class and
+pass the list of elements to the view function.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util.py</span>
+
+<span class="kn">from</span> <span class="nn">werkzeug.routing</span> <span class="kn">import</span> <span class="n">BaseConverter</span>
+
+<span class="k">class</span> <span class="nc">ListConverter</span><span class="p">(</span><span class="n">BaseConverter</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">to_python</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BaseConverter</span><span class="o">.</span><span class="n">to_url</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We need to define two methods: <tt class="docutils literal"><span class="pre">to_python()</span></tt> and <tt class="docutils literal"><span class="pre">to_url()</span></tt>. As the
+names suggest, <tt class="docutils literal"><span class="pre">to_python()</span></tt> is used to convert the path in the URL to
+a Python object that will be passed to the view and <tt class="docutils literal"><span class="pre">to_url()</span></tt> is used
+by <tt class="docutils literal"><span class="pre">url_for()</span></tt> to convert arguments to their appropriate forms in the
+URL.</p>
+<p>To use our <tt class="docutils literal"><span class="pre">ListConverter</span></tt>, we first have to tell Flask that it
+exists.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># /myapp/__init__.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">ListConverter</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">converters</span><span class="p">[</span><span class="s">&#39;list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ListConverter</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This is another chance to run into some circular import problems if your <tt class="docutils literal"><span class="pre">util</span></tt> module has a <tt class="docutils literal"><span class="pre">from</span> <span class="pre">.</span> <span class="pre">import</span> <span class="pre">app</span></tt> line. That&#8217;s why I waited until app had been initialized to import <tt class="docutils literal"><span class="pre">ListConverter</span></tt>.</p>
+<p class="last">Now we can use our converter just like one of the built-ins. We specified the key in the dictionary as &#8220;list&#8221; so that&#8217;s how we use it in <tt class="docutils literal"><span class="pre">&#64;app.route()</span></tt>.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/views.py</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/r/&lt;list:subreddits&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">subreddit_home</span><span class="p">(</span><span class="n">subreddits</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Show all of the posts for the given subreddits.&quot;&quot;&quot;</span>
+    <span class="n">posts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">subreddit</span> <span class="ow">in</span> <span class="n">subreddits</span><span class="p">:</span>
+        <span class="n">posts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">subreddit</span><span class="o">.</span><span class="n">posts</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;/r/index.html&#39;</span><span class="p">,</span> <span class="n">posts</span><span class="o">=</span><span class="n">posts</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This should work just like Reddit&#8217;s multi-reddit system. This same
+method can be used to make any URL converter we can dream of.</p>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The <tt class="docutils literal"><span class="pre">&#64;login_required</span></tt> decorator from Flask-Login helps you limit
+views to authenticated users.</li>
+<li>The Flask-Cache extension gives you a bunch of decorators to
+implement various methods of caching.</li>
+<li>We can develop custom view decorators to help us organize our code
+and stick to DRY (Don&#8217;t Repeat Yourself) coding principals.</li>
+<li>Custom URL converters can be a great way to implement creative
+features involving URL&#8217;s.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="blueprints.html" class="btn btn-neutral float-right" title="Blueprints"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configuration.html" class="btn btn-neutral" title="Configuration"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

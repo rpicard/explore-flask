@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Explore Flask &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="#"/>
+        <link rel="next" title="Preface" href="preface.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="#" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Explore Flask</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="explore-flask">
+<h1>Explore Flask<a class="headerlink" href="#explore-flask" title="Permalink to this headline">¶</a></h1>
+<p><em>Explore Flask</em> is a book about best practices and patterns for developing
+web applications with <a class="reference external" href="http://flask.pocoo.org/">Flask</a>. The book was funded
+by 426 backers <a class="reference external" href="https://www.kickstarter.com/projects/1223051718/practical-flask-book-project">on Kickstarter</a>
+in July 2013.</p>
+<p>I finally released the book, after spending almost a year working on it. Almost immediately
+I was tired of managing distribution and limiting the book&#8217;s audience by putting
+it behind a paywall. I didn&#8217;t write a book to run a business, I wrote it to
+put some helpful content out there and help grow the Flask community.</p>
+<p>In July of 2014, soon after finishing the book, I reformatted
+it for the web and released it here for free. No payment or donation or anything
+required. Just enjoy!</p>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="thank-you">
+<h2>Thank you<a class="headerlink" href="#thank-you" title="Permalink to this headline">¶</a></h2>
+<p>First of all, I&#8217;d like to say thank you to my volunteer editor, Will
+Kahn-Greene. He was great about going over my very rough drafts and
+helping me decide on the scope and direction of the content. I&#8217;m looking
+forward to working with him to manage the project into the future.</p>
+<p>Another big thanks to everyone who took the time to talk with me about
+how they are using Flask. This includes Armin Ronacher (Flask creator),
+Mark Harviston (Elsevier), Glenn Yonemitsu (Markup Hive), Andy Parsons
+(Happify), Oleg Lavrovsky (Apps with love), Joel Anderson (Cloudmancer)
+and Mahmoud Abdelkader (Balanced).</p>
+<p>The cover and all the illustrations in this book were done by <a class="reference external" href="http://www.dangerdom.com/">Dominic
+Flask</a>.</p>
+<p><em>Explore Flask</em> wouldn&#8217;t be happening if it weren&#8217;t for the hundreds of
+people who backed the project on Kickstarter. A big thanks to a particularly
+generous sponsor, <a class="reference external" href="https://balancedpayments.com">Balanced Payments</a>:</p>
+<img alt="Balanced Payments" src="_images/balanced-logo.png" />
+<p>As promised in the Kickstarter project, here are the names of all of the generous men and women who pledged $50 or more:</p>
+<p>CodeLesson, Sam Black, Michał Bartoszkiewicz, Chad Catlett, Jacob
+Kaplan-Moss, John Schrom, Zach White, Dorothy L. Erwin, Brandon Brown,
+Fredrik Larsson, Karsten Hoffrath (khoffrath), Jonathan Chen, Mitch
+Wainer, John Cleaver, Paul Baines, Brandon Bennett, Gaelan Adams, Nick
+Charlton, Dustin Chapman and Senko Rašić.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>In the spirit of open source software, I&#8217;m placing all of the content in this book in the public domain.</p>
+<p>Have fun with it.</p>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>The project is hosted <a class="reference external" href="https://github.com/rpicard/explore-flask">on GitHub</a> and pull requests are welcome!</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="preface.html" class="btn btn-neutral float-right" title="Preface"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

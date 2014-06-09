@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Handling forms &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Patterns for handling users" href="users.html"/>
+        <link rel="prev" title="Storing data" href="storing.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Handling forms</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/forms.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="handling-forms">
+<h1>Handling forms<a class="headerlink" href="#handling-forms" title="Permalink to this headline">¶</a></h1>
+<img alt="Handling forms" src="_images/forms.png" />
+<p>The form is the basic element that lets users interact with our web
+application. Flask alone doesn&#8217;t do anything to help us handle forms,
+but the Flask-WTF extension lets us use the popular WTForms package in
+our Flask applications. This package makes defining forms and handling
+submissions easy.</p>
+<div class="section" id="flask-wtf">
+<h2>Flask-WTF<a class="headerlink" href="#flask-wtf" title="Permalink to this headline">¶</a></h2>
+<p>The first thing we want to do with Flask-WTF (after installing it) is to
+define a form in a <tt class="docutils literal"><span class="pre">myapp.forms</span></tt> package.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
+
+<span class="kn">from</span> <span class="nn">flask.ext.wtforms</span> <span class="kn">import</span> <span class="n">Form</span>
+<span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span><span class="p">,</span> <span class="n">Required</span><span class="p">,</span> <span class="n">Email</span>
+
+<span class="k">class</span> <span class="nc">EmailPasswordForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Email&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">()])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Until version 0.9, Flask-WTF provided its own wrappers around the WTForms fields and validators. You may see a lot of code out in the wild that imports <tt class="docutils literal"><span class="pre">TextField</span></tt>, <tt class="docutils literal"><span class="pre">PasswordField</span></tt>, etc. from <tt class="docutils literal"><span class="pre">flask.ext.wtforms</span></tt> instead of <tt class="docutils literal"><span class="pre">wtforms</span></tt>.</p>
+<p class="last">As of 0.9, we should be importing that stuff straight from <tt class="docutils literal"><span class="pre">wtforms</span></tt>.</p>
+</div>
+<p>The form we defined is going to be a user sign-in form. We could have
+called it <tt class="docutils literal"><span class="pre">SignInForm()</span></tt>, but by keeping things a little more
+abstract, we can re-use this same form class for other things, like a
+sign-up form. If we were to define purpose-specific form classes we&#8217;d
+end up with a lot of identical forms for no good reason. It&#8217;s much
+cleaner to name forms based on the fields they contain, as that is what
+makes them unique. Of course, sometimes we&#8217;ll have long, one-off forms
+that we might want to give a more context-specific name.</p>
+<p>This sign-in form can do a few of things for us. It can secure our app
+against CSRF vulnerabilites, validate user input and render the
+appropriate markup for whatever fields we define for it.</p>
+<div class="section" id="csrf-protection-and-validation">
+<h3>CSRF Protection and validation<a class="headerlink" href="#csrf-protection-and-validation" title="Permalink to this headline">¶</a></h3>
+<p>CSRF stands for cross site request forgery. CSRF attacks involve a third
+party forging a request (like a form submission) to an app&#8217;s server. A
+vulnerable server assumes that the data is coming from a form on its own
+site and takes action accordingly.</p>
+<p>As an example, let&#8217;s say that an email provider lets you delete your
+account by submitting a form. The form sends a POST request to an
+<tt class="docutils literal"><span class="pre">account_delete</span></tt> endpoint on their server and deletes the account
+that was logged-in when the form was submitted. We can create a form on
+our own site that sends a POST request to the same <tt class="docutils literal"><span class="pre">account_delete</span></tt>
+endpoint. Now, if we can get someone to click &#8216;submit&#8217; on our form (or
+do it via JavaScript when they load the page) their logged-in account
+with the email provider will be deleted. Unless of course the email
+provider knows not to assume that form submissions are coming from their
+own forms.</p>
+<p>So how do we stop assuming that POST requests come from our own forms?
+WTForms makes it possible by generating a unique token when rendering
+each form. That token is meant to be passed back to the server, along
+with the form data in the POST request and must be validated before the
+form is accepted. The key is that the token is tied to a value stored in
+the user&#8217;s session (cookies) and expires after a certain amount of time
+(30 minutes by default). This way the only person who can submit a valid
+form is the person who loaded the page (or at least someone at the same
+computer), and they can only do it for 30 minutes after loading the
+page.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Read more on how WTForms generates these tokens <a class="reference external" href="http://wtforms.simplecodes.com/docs/1.0.1/ext.html#module-wtforms.ext.csrf.session">in the docs</a>.</li>
+<li>Learn about CSRF in the <a class="reference external" href="https://www.owasp.org/index.php/CSRF">OWASP wiki</a>.</li>
+</ul>
+</div>
+<p>To start using Flask-WTF for CSRF protection, we&#8217;ll need to define a
+view for our login page.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">EmailPasswordForm</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/login&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="s">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">EmailPasswordForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+
+        <span class="c"># Check the password and log the user in</span>
+        <span class="c"># [...]</span>
+
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;index&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;login.html&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We import our form from our <tt class="docutils literal"><span class="pre">forms</span></tt> package and instantiate it in the
+view. Then we run <tt class="docutils literal"><span class="pre">form.validate_on_submit()</span></tt>. This function returns
+<tt class="docutils literal"><span class="pre">True</span></tt> if the form has been both submitted (i.e. if the HTTP method is
+PUT or POST) and validated by the validators we defined in <em>forms.py</em>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><a class="reference external" href="http://pythonhosted.org/Flask-WTF/#flask.ext.wtf.Form.validate_on_submit">Documentation for Form.validate_on_submit</a></li>
+<li><a class="reference external" href="https://github.com/ajford/flask-wtf/blob/v0.8.4/flask_wtf/form.py#L120">Source for Form.validate_on_submit</a></li>
+</ul>
+</div>
+<p>If the form has been submitted and validated, we can continue with the
+login logic. If it hasn&#8217;t been submitted (i.e. it&#8217;s just a GET request),
+we want to pass the form object to our template so it can be rendered.
+Here&#8217;s what the template looks like when we&#8217;re using CSRF protection.</p>
+<div class="highlight-python"><div class="highlight"><pre>{# ourapp/templates/login.html #}
+
+{% extends &quot;layout.html&quot; %}
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Login Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form action=&quot;{{ url_for(&#39;login&#39;) }}&quot; method=&quot;POST&quot;&gt;
+            &lt;input type=&quot;text&quot; name=&quot;email&quot; /&gt;
+            &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
+            {{ form.csrf_token }}
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">{{</span> <span class="pre">form.csrf_token</span> <span class="pre">}}</span></tt> renders a hidden field containing one of those
+fancy CSRF tokens and WTForms looks for that field when it validates the
+form. We don&#8217;t have to worry about including any special &#8220;is the token
+valid&#8221; logic. Hooray!</p>
+<div class="section" id="protecting-ajax-calls-with-csrf-tokens">
+<h4>Protecting AJAX calls with CSRF tokens<a class="headerlink" href="#protecting-ajax-calls-with-csrf-tokens" title="Permalink to this headline">¶</a></h4>
+<p>Flask-WTF CSRF tokens aren&#8217;t limited to protecting form submissions. If
+your app makes other requests that might be forged (especially AJAX
+calls) you can add CSRF protection there too!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Flask-WTF documentation talks more about <a class="reference external" href="https://flask-wtf.readthedocs.org/en/latest/csrf.html#ajax">using these CSRF tokens in AJAX calls</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="custom-validators">
+<h3>Custom validators<a class="headerlink" href="#custom-validators" title="Permalink to this headline">¶</a></h3>
+<p>In addition to the built-in form validators provided by WTForms (e.g.
+<tt class="docutils literal"><span class="pre">Required()</span></tt>, <tt class="docutils literal"><span class="pre">Email()</span></tt>, etc.), we can create our own validators.
+We&#8217;ll demonstrate this by making a <tt class="docutils literal"><span class="pre">Unique()</span></tt> validator that will
+check a database and make sure that the value provided by the user
+doesn&#8217;t already exist. This could be used to make sure that a username
+or email address isn&#8217;t already in use. Without WTForms, we&#8217;d probably be
+doing these checks in the view, but now we can abstract that away to the
+form itself.</p>
+<p>We&#8217;ll start by defining a simple sign-up form.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
+<span class="kn">from</span> <span class="nn">flask.ext.wtforms</span> <span class="kn">import</span> <span class="n">Form</span>
+<span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span><span class="p">,</span> <span class="n">Required</span><span class="p">,</span> <span class="n">Email</span>
+
+<span class="k">class</span> <span class="nc">EmailPasswordForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Email&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">()])</span>
+</pre></div>
+</div>
+<p>Now we want to add our validator to make sure that the email they
+provide isn&#8217;t already in the database. We&#8217;ll put the validator in a new
+<tt class="docutils literal"><span class="pre">util</span></tt> module, <tt class="docutils literal"><span class="pre">util.validators</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/util/validators.py</span>
+<span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+
+<span class="k">class</span> <span class="nc">Unique</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s">u&#39;This element already exists.&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field</span> <span class="o">=</span> <span class="n">field</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
+        <span class="n">check</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field</span> <span class="o">==</span> <span class="n">field</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This validator assumes that we&#8217;re using SQLAlchemy to define our models.
+WTForms expects validators to return some sort of callable (e.g. a
+callable class).</p>
+<p>In <em>__init__.py</em> we can specify which arguments should be passed to
+the validator. In this case we want to pass the relevant model (e.g. the
+<tt class="docutils literal"><span class="pre">User</span></tt> model in our case) and the field to check. When the validator
+is called, it will raise a <tt class="docutils literal"><span class="pre">ValidationError</span></tt> if any instance of the
+defined model matches the value submitted in the form. We&#8217;ve also made
+it possible to add a message with a generic default that will be
+included in the <tt class="docutils literal"><span class="pre">ValidationError</span></tt>.</p>
+<p>Now we can modify <tt class="docutils literal"><span class="pre">EmailPasswordForm</span></tt> to use the <tt class="docutils literal"><span class="pre">Unique</span></tt> validator.</p>
+<div class="highlight-python"><div class="highlight"><pre># ourapp/forms.py
+
+from flask.ext.wtforms import Form
+from wtforms import TextField, PasswordField, Required, Email
+
+from .util.validators import Unique
+from .models import User
+
+class EmailPasswordForm(Form):
+    email = TextField(&#39;Email&#39;, validators=[Required(), Email(),
+        Unique(
+            User,
+            User.email,
+            message=&#39;There is already an account with that email.&#39;])
+    password = PasswordField(&#39;Password&#39;, validators=[Required()])
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Our validator doesn&#8217;t have to be a callable class. It could also be a factory that returns a callable or just a callable directly. The WTForms documentation has <a class="reference external" href="http://wtforms.simplecodes.com/docs/0.6.2/validators.html#custom-validators">some examples</a>.</p>
+</div>
+</div>
+<div class="section" id="rendering-forms">
+<h3>Rendering forms<a class="headerlink" href="#rendering-forms" title="Permalink to this headline">¶</a></h3>
+<p>WTForms can also help us render the HTML for the forms. The <tt class="docutils literal"><span class="pre">Field</span></tt>
+class implemented by WTForms renders an HTML representation of that
+field, so we just have to call the form fields to render them in our
+template. It&#8217;s just like rendering the <tt class="docutils literal"><span class="pre">csrf_token</span></tt> field. Listing~
+gives an example of a login template using WTForms to render our fields.</p>
+<div class="highlight-python"><div class="highlight"><pre>{# ourapp/templates/login.html #}
+
+{% extends &quot;layout.html&quot; %}
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Login Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+            {{ form.email }}
+            {{ form.password }}
+            {{ form.csrf_token }}
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>We can customize how the fields are rendered by passing field properties
+as arguments to the call.</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+    {{ form.email.label }}: {{ form.email(placeholder=&#39;yourname@email.com&#39;) }}
+    &lt;br&gt;
+    {{ form.password.label }}: {{ form.password }}
+    &lt;br&gt;
+    {{ form.csrf_token }}
+&lt;/form&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If we want to pass the &#8220;class&#8221; HTML attribute, we have to use <tt class="docutils literal"><span class="pre">class_=''</span></tt> since &#8220;class&#8221; is a reserved keyword in Python.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The WTForms documentation has a <a class="reference external" href="http://wtforms.simplecodes.com/docs/1.0.4/fields.html#wtforms.fields.Field.name">list of available field properties</a>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You may notice that we don&#8217;t need to use Jinja&#8217;s <tt class="docutils literal"><span class="pre">|safe</span></tt> filter. This is because WTForms renders HTML safe strings.</p>
+<p class="last">Read more <a class="reference external" href="http://pythonhosted.org/Flask-WTF/#using-the-safe-filter">in the documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Forms can be scary from a security perspective.</li>
+<li>WTForms (and Flask-WTF) make it easy to define, secure and render
+your forms.</li>
+<li>Use the CSRF protection provided by Flask-WTF to secure your forms.</li>
+<li>You can use sFlask-WTF to protect AJAX calls against CSRF attacks
+too.</li>
+<li>Define custom form validators to keep validation logic out of your
+views.</li>
+<li>Use the WTForms field rendering to render your form&#8217;s HTML so you
+don&#8217;t have to update it every time you make some changes to the form
+definition.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="users.html" class="btn btn-neutral float-right" title="Patterns for handling users"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="storing.html" class="btn btn-neutral" title="Storing data"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

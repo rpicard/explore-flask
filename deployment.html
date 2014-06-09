@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deployment &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Conclusion" href="conclusion.html"/>
+        <link rel="prev" title="Patterns for handling users" href="users.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Deployment</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/deployment.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="deployment">
+<h1>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h1>
+<img alt="Deployment" src="_images/deployment.png" />
+<p>We&#8217;re finally ready to show our app to the world. It&#8217;s time to deploy.
+This process can be a pain because there are so many moving parts. There
+are a lot of choices to make when it comes to our production stack as
+well. In this chapter, we&#8217;re going to talk about some of the important
+pieces and some of the options we have with each.</p>
+<div class="section" id="the-host">
+<h2>The Host<a class="headerlink" href="#the-host" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;re going to need a server somewhere. There are thousands of providers
+out there, but these are the three that I personally recommend. I&#8217;m not
+going to go over the details of how to get started with them, because
+that&#8217;s out of the scope of this book. Instead I&#8217;ll talk about their
+benefits with regards to hosting Flask applications.</p>
+<div class="section" id="amazon-web-services-ec2">
+<h3>Amazon Web Services EC2<a class="headerlink" href="#amazon-web-services-ec2" title="Permalink to this headline">¶</a></h3>
+<p>Amazon Web Services is a collection of services provided by ... Amazon!
+There&#8217;s a good chance that you&#8217;ve heard of them before as they&#8217;re
+probably the most popular choice for new startups these days. The AWS
+service that we&#8217;re most concerned with here is EC2, or Elastic Compute
+Cloud. The big selling point of EC2 is that we get virtual servers - or
+<strong>instances</strong> as they&#8217;re called in AWS parlance - that spin up in
+seconds. If we need to scale our app quickly it&#8217;s just a matter of
+spinning up a few more EC2 instances for our app and sticking them
+behind a load balancer (we can even use the AWS Elastic Load Balancer).</p>
+<p>With regards to Flask, AWS is just a regular old virtual server. We can
+spin it up with our favorite linux distro and install our Flask app and
+our server stack without much overhead. It means that we&#8217;re going to
+need a certain amount of systems administration knowledge though.</p>
+</div>
+<div class="section" id="heroku">
+<h3>Heroku<a class="headerlink" href="#heroku" title="Permalink to this headline">¶</a></h3>
+<p>Heroku is an application hosting service that is built on top of AWS
+services like EC2. They let us take advantage of the convenience of EC2
+without the requisite systems administration experience.</p>
+<p>With Heroku, we deploy our application with a <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> to their
+server. This is really convenient when we don&#8217;t want to spend our time
+SSHing into a server, installing and configuring software and coming up
+with a sane deployment procedure. This convenience comes at a price of
+course, though both AWS and Heroku offer a certain amount of free
+service.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Heroku has a <a class="reference external" href="https://devcenter.heroku.com/articles/getting-started-with-python">tutorial on deploying Flask</a> with their service.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Administrating your own databases can be time consuming and doing it well requires some experience. It&#8217;s great to learn about database administration by doing it yourself for your side projects, but sometimes you&#8217;d like to save time and effort by outsourcing that part to professionals.</p>
+<p>Both Heroku and AWS have database management offerings. I don&#8217;t have personal experience with either yet, but I&#8217;ve heard great things. It&#8217;s worth considering if you want to make sure your data is being secured and backed-up without having to do it yourself.</p>
+<ul class="last simple">
+<li><a class="reference external" href="https://www.heroku.com/postgres">Heroku Postgres</a></li>
+<li><a class="reference external" href="https://aws.amazon.com/rds/">Amazon RDS</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="digital-ocean">
+<h3>Digital Ocean<a class="headerlink" href="#digital-ocean" title="Permalink to this headline">¶</a></h3>
+<p>Digital Ocean is an EC2 competitor that has recently begun to take off.
+Like EC2, Digital Ocean lets us spin up virtual servers - now called
+<strong>droplets</strong> - quickly. All droplets run on SSDs, which isn&#8217;t something
+we get at the lower levels of EC2. The biggest selling point for me
+personally is an interface that is far simpler and easier to use than
+the AWS control panel. Digital Ocean is my preference for hosting and I
+recommend that you take a look at them.</p>
+<p>The Flask deployment experience on Digital Ocean is roughly the same as
+on EC2. We&#8217;re starting with a clean linux distribution and installing
+our server stack from there.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Digital Ocean was nice enough to make a contribution to the Kickstarter campaign for <em>Explore Flask</em>. With that said, I promise that my recommendation comes from my own experience as a user. If I didn&#8217;t like them, I wouldn&#8217;t have asked them to pledge in the first place.</p>
+</div>
+</div>
+</div>
+<div class="section" id="the-stack">
+<h2>The stack<a class="headerlink" href="#the-stack" title="Permalink to this headline">¶</a></h2>
+<p>This section will cover some of the software that we&#8217;ll need to install
+on our server to serve our Flask application to the world. The basic
+stack is a front server that reverse proxies requests to an application
+runner that is running our Flask app. We&#8217;ll usually have a database too,
+so we&#8217;ll talk a little about those options as well.</p>
+<div class="section" id="application-runner">
+<h3>Application runner<a class="headerlink" href="#application-runner" title="Permalink to this headline">¶</a></h3>
+<p>The server that we use to run Flask locally when we&#8217;re developing our
+application isn&#8217;t good at handling real requests. When we&#8217;re actually
+serving our application to the public, we want to run it with an
+application runner like Gunicorn. Gunicorn handles requests and takes
+care of complicated things like threading.</p>
+<p>To use Gunicorn, we install the <tt class="docutils literal"><span class="pre">gunicorn</span></tt> package in our virtual
+environment with Pip. Running our app is a simple command away.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span>
+</pre></div>
+</div>
+<p>A fine app indeed. Now, to serve it up with Gunicorn, we simply run the
+<tt class="docutils literal"><span class="pre">gunicorn</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app
+2014-03-19 16:28:54 [62924] [INFO] Starting gunicorn 18.0
+2014-03-19 16:28:54 [62924] [INFO] Listening at: http://127.0.0.1:8000 (62924)
+2014-03-19 16:28:54 [62924] [INFO] Using worker: sync
+2014-03-19 16:28:54 [62927] [INFO] Booting worker with pid: 62927
+</pre></div>
+</div>
+<p>At this point, we should see &#8220;Hello World!&#8221; when we navigate our browser to <em>http://127.0.0.1:8000</em>.</p>
+<p>To run this server in the background (i.e. daemonize it), we can pass the <tt class="docutils literal"><span class="pre">-D</span></tt> option to Gunicorn. That way it&#8217;ll run even after we close our current terminal session.</p>
+<p>If we daemonize Gunicorn, we might have a hard time finding the process to close later when we want to stop the server. We can tell Gunicorn to stick the process ID in a file so that we can stop or restart it later without searching through lists of running processess. We use the <tt class="docutils literal"><span class="pre">-p</span> <span class="pre">&lt;file&gt;</span></tt> option to do that.</p>
+<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -D
+(ourapp)$ cat rocket.pid
+63101
+</pre></div>
+</div>
+<p>To restart and kill the server, we can run <tt class="docutils literal"><span class="pre">kill</span> <span class="pre">-HUP</span></tt> and <tt class="docutils literal"><span class="pre">kill</span></tt> respectively.</p>
+<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ kill -HUP `cat rocket.pid`
+(ourapp)$ kill `cat rocket.pid`
+</pre></div>
+</div>
+<p>By default Gunicorn runs on port 8000. We can change the port by adding the <tt class="docutils literal"><span class="pre">-b</span></tt> bind option.</p>
+<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 127.0.0.1:7999 -D
+</pre></div>
+</div>
+<div class="section" id="making-gunicorn-public">
+<h4>Making Gunicorn public<a class="headerlink" href="#making-gunicorn-public" title="Permalink to this headline">¶</a></h4>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Gunicorn is meant to sit behind a reverse proxy. If you tell it to listen to requests coming in from the public, it makes an easy target for denial of service attacks. It&#8217;s just not meant to handle those kinds of requests. Only allow outside connections for debugging purposes and make sure to switch it back to only allowing internal connections when you&#8217;re done.</p>
+</div>
+<p>If we run Gunicorn like we have in the listings, we won&#8217;t be able to
+access it from our local system. That&#8217;s because Gunicorn binds to
+127.0.0.1 by default. This means that it will only listen to connections
+coming from the server itself. This is the behavior that we want when we
+have a reverse proxy server that is sitting between the public and our
+Gunicorn server. If, however, we need to make requests from outside of
+the server for debugging purposes, we can tell Gunicorn to bind to
+0.0.0.0. This tells it to listen for all requests.</p>
+<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 0.0.0.0:8000 -D
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Read more about running and deploying Gunicorn <a class="reference external" href="http://docs.gunicorn.org/en/latest/">in the documentation</a>.</li>
+<li><a class="reference external" href="http://docs.fabfile.org/en/latest">Fabric</a> is a tool that lets you run all of these deployment and management commands from the comfort of your local machine without SSHing into every server.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="nginx-reverse-proxy">
+<h3>Nginx Reverse Proxy<a class="headerlink" href="#nginx-reverse-proxy" title="Permalink to this headline">¶</a></h3>
+<p>A reverse proxy handles public HTTP requests, sends them back to
+Gunicorn and gives the response back to the requesting client. Nginx can
+be used very effectively as a reverse proxy and Gunicorn &#8220;strongly
+advises&#8221; that we use it.</p>
+<p>To configure Nginx as a reverse proxy to a Gunicorn server running on
+127.0.0.1:8000, we can create a file for our app:
+<em>/etc/nginx/sites-available/expl-oreflask.com</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre># /etc/nginx/sites-available/exploreflask.com
+
+# Redirect www.exploreflask.com to exploreflask.com
+server {
+        server_name www.exploreflask.com;
+        rewrite ^ http://exploreflask.com/ permanent;
+}
+
+# Handle requests to exploreflask.com on port 80
+server {
+        listen 80;
+        server_name exploreflask.com;
+
+                # Handle all locations
+        location / {
+                        # Pass the request to Gunicorn
+                proxy_pass http://127.0.0.1:8000;
+
+                # Set some HTTP headers so that our app knows where the
+                # request really came from
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+</pre></div>
+</div>
+<p>Now we&#8217;ll create a symlink to this file at <em>/etc/nginx/sites-enabled</em>
+and restart Nginx.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sudo ln -s \
+/etc/nginx/sites-available/exploreflask.com \
+/etc/nginx/sites-enabled/exploreflask.com
+</pre></div>
+</div>
+<p>We should now be able to make our requests to Nginx and receive the
+response from our app.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference external" href="http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration">Nginx configuration section</a> in the Gunicorn docs will give you more information about setting Nginx up for this purpose.</p>
+</div>
+<div class="section" id="proxyfix">
+<h4>ProxyFix<a class="headerlink" href="#proxyfix" title="Permalink to this headline">¶</a></h4>
+<p>We may run into some issues with Flask not properly handling the proxied
+requests. It has to do with those headers we set in the Nginx
+configuration. We can use the Werkzeug ProxyFix to ... fix the proxy.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="c"># Import the fixer</span>
+<span class="kn">from</span> <span class="nn">werkzeug.contrib.fixers</span> <span class="kn">import</span> <span class="n">ProxyFix</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="c"># Use the fixer</span>
+<span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span> <span class="o">=</span> <span class="n">ProxyFix</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Read more about ProxyFix in <a class="reference external" href="http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix">the Werkzeug docs</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Three good choices for hosting Flask apps are AWS EC2, Heroku and
+Digital Ocean.</li>
+<li>The basic deployment stack for a Flask application consists of the
+app, an application runner like Gunicorn and a reverse proxy like
+Nginx.</li>
+<li>Gunicorn should sit behind Nginx and listen on 127.0.0.1 (internal
+requests) not 0.0.0.0 (external requests).</li>
+<li>Use Werkzeug&#8217;s ProxyFix to handle the appropriate proxy headers in
+your Flask application.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conclusion.html" class="btn btn-neutral float-right" title="Conclusion"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="users.html" class="btn btn-neutral" title="Patterns for handling users"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

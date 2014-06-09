@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Environment &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Organizing your project" href="organizing.html"/>
+        <link rel="prev" title="Coding conventions" href="conventions.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Environment</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/environment.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="environment">
+<h1>Environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h1>
+<img alt="Environment" src="_images/environment.png" />
+<p>Your application is probably going to require a lot of software to
+function properly. If it doesn&#8217;t at least require the Flask package, you
+may be reading the wrong book. Your application&#8217;s <strong>environment</strong> is
+essentially all of the things that need to be around when it runs. Lucky
+for us, there are a number of things that we can do to make managing our
+environment much less complicated.</p>
+<div class="section" id="use-virtualenv-to-manage-your-environment">
+<h2>Use virtualenv to manage your environment<a class="headerlink" href="#use-virtualenv-to-manage-your-environment" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.virtualenv.org/en/latest/">virtualenv</a> is a tool for isolating your application in what is called a
+<strong>virtual environment</strong>. A virtual environment is a directory that
+contains the software on which your application depends. A virtual
+environment also changes your environment variables to keep your
+development environment contained. Instead of downloading packages, like
+Flask, to your system-wide — or user-wide — package directories, we can
+download them to an isolated directory used only for our current
+application. This makes it easy to specify which Python binary to use
+and which dependencies we want to have available on a per project basis.</p>
+<p>Virtualenv also lets you use different versions of the same package for
+different projects. This flexibility may be important if you&#8217;re working
+on an older system with several projects that have different version
+requirements.</p>
+<p>When using virtualenv, you&#8217;ll generally have only a few Python packages
+installed globally on your system. One of these will be virtualenv
+itself. You can install the <tt class="docutils literal"><span class="pre">virtualenv</span></tt> package with Pip.</p>
+<p>Once you have virtualenv on your system, you can start creating virtual
+environments. Navigate to your project directory and run the
+<tt class="docutils literal"><span class="pre">virtualenv</span></tt> command. It takes one argument, which is the deistination
+directory of the virtual environment. Listing~ shows what this looks
+like.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ virtualenv venv
+New python executable in venv/bin/python
+Installing Setuptools...........[...].....done.
+Installing Pip..................[...].....done.
+$
+</pre></div>
+</div>
+<p>virtualenv creates a new directory where the dependencies will be
+installed.</p>
+<p>Once the new virtual environment has been created, you must activate it
+by sourcing the <em>bin/activate</em> script that was created inside the
+virtual environment.</p>
+<div class="highlight-python"><div class="highlight"><pre>$ which python
+/usr/local/bin/python
+$ source venv/bin/activate
+(venv)$ which python
+/Users/robert/Code/myapp/venv/bin/python
+</pre></div>
+</div>
+<p>The <em>bin/activate</em> script makes some changes to your shell&#8217;s environment variables so that everything points to the new virtual environment instead of your global system. You can see the effect in code block above. After activation, the <tt class="docutils literal"><span class="pre">python</span></tt> command refers to the Python binary inside the virtual environment. When a virtual environment is active, dependencies installed with Pip will be downloaded to that virtual environment instead of the global system.</p>
+<p>You may notice that the shell prompt has been changed too. virtualenv prepends the name of the currently activated virtual environment, so you know that you&#8217;re not working on the global system.</p>
+<p>You can deactivate your virtual environment by running the <tt class="docutils literal"><span class="pre">deactivate</span></tt> command.</p>
+<div class="highlight-python"><div class="highlight"><pre>(venv)$ deactivate
+$
+</pre></div>
+</div>
+<div class="section" id="virtualenvwrapper">
+<h3>virtualenvwrapper<a class="headerlink" href="#virtualenvwrapper" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> is a package used to manage the virtual environments created by virtualenv. I didn&#8217;t want to mention this tool until you had seen the basics of virtualenv so that you understand what it&#8217;s improving upon and understand why you should use it.</p>
+<p>That virtual environment directory created in Listing~ref{code:venv_create} adds clutter to your project repository. You only interact with it directly when activating the virtual environment and it shouldn&#8217;t be in version control, so there&#8217;s no need to have it in there. The solution is to use virtualenvwrapper. This package keeps all of your virtual environments out of the way in a single directory, usually _~/.virtualenvs/_ by default.</p>
+<p>To install virtualenvwrapper, follow the instructions in the documentation. See Box~ref{aside:vwrap_docs} for that link.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure that you&#8217;ve deactivated all virtual environments before installing virtualenvwrapper. You want it installed globally, not in a pre-existing environment.</p>
+</div>
+<p>Now, instead of running <tt class="docutils literal"><span class="pre">virtualenv</span></tt> to create an environment, you&#8217;ll run <tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mkvirtualenv rocket
+New python executable in rocket/bin/python
+Installing setuptools...........[...].....done.
+Installing pip..................[...].....done.
+(rocket)$
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt> creates a directory in your virtual environments folder and activates it for you. Just like with plain old <tt class="docutils literal"><span class="pre">virtualenv</span></tt>, <tt class="docutils literal"><span class="pre">python</span></tt> and <tt class="docutils literal"><span class="pre">pip</span></tt> now point to that virtual environment instead of the system binaries. To activate a particular environment, use the command: <tt class="docutils literal"><span class="pre">workon</span> <span class="pre">[environment</span> <span class="pre">name]</span></tt>. <tt class="docutils literal"><span class="pre">deactivate</span></tt> still deactivates the environment.</p>
+</div>
+<div class="section" id="keeping-track-of-dependencies">
+<h3>Keeping track of dependencies<a class="headerlink" href="#keeping-track-of-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>As a project grows, you&#8217;ll find that the list of dependencies grows with it. It&#8217;s not uncommon to need dozens of Python packages installed to run a Flask application. The easiest way to manage these is with a simple text file. Pip can generate a text file listing all installed packages. It can also read in this list to install each of them on a new system, or in a freshly minted environment.</p>
+<div class="section" id="pip-freeze">
+<h4>pip freeze<a class="headerlink" href="#pip-freeze" title="Permalink to this headline">¶</a></h4>
+<p><em>requirements.txt</em> is a text file used by many Flask applications to list all of the packages needed to run an application. This code block shows how to create this file and the following one shows how to use that text file to install your dependencies in a new environment.</p>
+<div class="highlight-python"><div class="highlight"><pre>(rocket)$ pip freeze &gt; requirements.txt
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>$ workon fresh-env
+(fresh-env)$ pip install -r requirements.txt
+[...]
+Successfully installed flask Werkzeug Jinja2 itsdangerous markupsafe
+Cleaning up...
+(fresh-env)$
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="manually-tracking-dependencies">
+<h3>Manually tracking dependencies<a class="headerlink" href="#manually-tracking-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>As your project grows, you may find that certain packages listed by
+<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">freeze</span></tt> aren&#8217;t actually needed to run the application. You&#8217;ll
+have packages that are installed for development only. <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">freeze</span></tt>
+doesn&#8217;t discriminate between the two, it just lists the packages that
+are currently installed. As a result, you may want to manually track
+your depencies as you add them. You can separate those packages needed
+to run your application and those needed to develop your application
+into <em>require_run.txt</em> and <em>require_dev.txt</em> respectively.</p>
+</div>
+</div>
+<div class="section" id="version-control">
+<h2>Version control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h2>
+<p>Pick a version control system and use it. I recommend Git. From what
+I&#8217;ve seen, Git is the most popular choice for new projects these days.
+Being able to delete code without worrying about making an irreversible
+mistake is invaluable. You&#8217;ll be able to keep your project free of those
+massive blocks of commented out code, because you can delete it now and
+revert that change later should the need arise. Plus, you&#8217;ll have backup
+copies of your entire project on GitHub, Bitbucket or your own Gitolite
+server.</p>
+<div class="section" id="what-to-keep-out-of-version-control">
+<h3>What to keep out of version control<a class="headerlink" href="#what-to-keep-out-of-version-control" title="Permalink to this headline">¶</a></h3>
+<p>I usually keep a file out of version control for one of two reasons.
+Either it&#8217;s clutter, or it&#8217;s a secret. Compiled <em>.pyc</em> files and virtual
+environments &#8212; if you&#8217;re not using virtualenvwrapper for some reason
+&#8212; are examples of clutter. They don&#8217;t need to be in version control
+because they can be recreated from the <em>.py</em> files and your
+<em>requirements.txt</em> files respectively.</p>
+<p>API keys, application secret keys and database credentials are examples
+of secrets. They shouldn&#8217;t be in version control because their exposure
+would be a massive breach of security.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When making security related decisions, I always like to assume that my repository will become public at some point. This means keeping secrets out and never assuming that a security hole won&#8217;t be found because, &#8220;Who&#8217;s going to guess that they can do that?&#8221; This kind of assumption is known as security by obscurity and it&#8217;s a bad policy to rely on.</p>
+</div>
+<p>When using Git, you can create a special file called <em>.gitignore</em> in
+your repository. In it, list regular expression patterns to match
+against filenames. Any filename that matches one of the patterns will be
+ignored by Git. I recommend using the <em>.gitignore</em> shown in Listing~ to
+get you started.</p>
+<div class="highlight-python"><div class="highlight"><pre>*.pyc
+instance/
+</pre></div>
+</div>
+<p>Instance folders are used to make secret configuration variables
+available to your application in a more secure way. We&#8217;ll talk more
+about them later.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can read more about <em>.gitignore</em> here: <a class="reference external" href="http://git-scm.com/docs/gitignore">http://git-scm.com/docs/gitignore</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="debug-mode">
+<h3>Debug Mode<a class="headerlink" href="#debug-mode" title="Permalink to this headline">¶</a></h3>
+<p>Flask comes with a handy feature called debug mode. To turn it on, you
+just have to set <tt class="docutils literal"><span class="pre">debug</span> <span class="pre">=</span> <span class="pre">True</span></tt> in your development configuration.
+When it&#8217;s on, the server will reload on code changes and errors will
+come with a stack trace and an interactive console.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Take care not to enable debug mode in production. The interactive console enables arbitrary code execution and would be a massive security vulnerability if it was left on in the live site.</p>
+</div>
+</div>
+<div class="section" id="flask-debugtoolbar">
+<h3>Flask-DebugToolbar<a class="headerlink" href="#flask-debugtoolbar" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://flask-debugtoolbar.readthedocs.org/en/latest/">Flask-DebugToolbar</a> is another great tool for debugging problems with
+your application. In debug mode, it overlays a side-bar onto every page
+in your application. The side bar gives you information about SQL
+queries, logging, versions, templates, configuration and other fun stuff
+that makes it easier to track down problems.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Take a look at the quick start <a class="reference external" href="http://flask.pocoo.org/docs/quickstart/#debug-mode">section on debug mode</a>.</li>
+<li>There is some good information on handling errors, logging and working with other debuggers <a class="reference external" href="http://flask.pocoo.org/docs/errorhandling">in the flask docs</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Use virtualenv to keep your application&#8217;s dependencies together.</li>
+<li>Use virtualenvwrapper to keep your virtual environments together.</li>
+<li>Keep track of dependencies with one or more text files.</li>
+<li>Use a version control system. I recommend Git.</li>
+<li>Use .gitignore to keep clutter and secrets out of version control.</li>
+<li>Debug mode can give you information about problems in development.</li>
+<li>The Flask-DebugToolbar extension will give you even more of that
+information.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="organizing.html" class="btn btn-neutral float-right" title="Organizing your project"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="conventions.html" class="btn btn-neutral" title="Coding conventions"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

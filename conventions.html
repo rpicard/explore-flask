@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Coding conventions &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Environment" href="environment.html"/>
+        <link rel="prev" title="Preface" href="preface.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Coding conventions</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/conventions.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="coding-conventions">
+<h1>Coding conventions<a class="headerlink" href="#coding-conventions" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/conventions.png"><img alt="Coding conventions" src="_images/conventions.png" style="height: 100pt;" /></a>
+<p>There are a number of conventions in the Python community to guide the
+way you format your code. If you&#8217;ve been developing with Python for a
+while, then you might already be familiar with some of these
+conventions. I&#8217;ll keep things brief and leave a few URLs where you can
+find more information if you haven&#8217;t come across these topics before.</p>
+<div class="section" id="let-s-have-a-pep-rally">
+<h2>Let&#8217;s have a PEP rally!<a class="headerlink" href="#let-s-have-a-pep-rally" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>PEP</strong> is a &#8220;Python Enhancement Proposal.&#8221; These proposals are
+indexed and hosted at python.org. In the index, PEPs are grouped into a
+number of categories, including meta-PEPs, which are more informational
+than technical. The technical PEPs, on the other hand, often describe
+things like improvements to Python&#8217;s internals.</p>
+<p>There are a few PEPs, like PEP 8 and PEP 257 that are meant to guide the
+way we write our code. PEP 8 contains coding style guidelines. PEP 257
+contains guidelines for docstrings, the generally accepted method of
+documenting code.</p>
+<div class="section" id="pep-8-style-guide-for-python-code">
+<h3>PEP 8: Style Guide for Python Code<a class="headerlink" href="#pep-8-style-guide-for-python-code" title="Permalink to this headline">¶</a></h3>
+<p>PEP 8 is the official style guide for Python code. I recommend that you
+read it and apply its recommendations to your Flask projects (and all of
+your other Python code). Your code will be much more approachable when
+it starts growing to many files with hundreds, or thousands, of lines of
+code. The PEP 8 recommendations are all about having more readable code.
+Plus, if your project is going to be open source, potential contributors
+will likely expect and be comfortable working on code written with PEP 8
+in mind.</p>
+<p>One particularly important recommendation is to use 4 spaces per
+indentation level. No real tabs. If you break this convention, it&#8217;ll be
+a burden on you and other developers when switching between projects.
+That sort of inconsistency is a pain in any language, but white-space is
+especially important in Python, so switching between real tabs and
+spaces could result in any number of errors that are a hassle to debug.</p>
+</div>
+<div class="section" id="pep-257-docstring-conventions">
+<h3>PEP 257: Docstring Conventions<a class="headerlink" href="#pep-257-docstring-conventions" title="Permalink to this headline">¶</a></h3>
+<p>PEP 257 covers another Python standard: <strong>docstrings</strong>. You can read the
+definition and recommendations in the PEP itself, but here&#8217;s an example
+to give you an idea of what a docstring looks like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">launch_rocket</span><span class="p">():</span>
+   <span class="sd">&quot;&quot;&quot;Main launch sequence director.</span>
+
+<span class="sd">   Locks seatbelts, initiates radio and fires engines.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   <span class="c"># [...]</span>
+</pre></div>
+</div>
+<p>These kinds of docstrings can be used by software such as Sphinx to
+generate documentation files in HTML, PDF and other formats. They also
+make it easier to understand your code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><a class="reference external" href="http://legacy.python.org/dev/peps/pep-0008/">PEP 8</a></li>
+<li><a class="reference external" href="http://legacy.python.org/dev/peps/pep-0257/">PEP 257</a></li>
+<li><a class="reference external" href="http://sphinx-doc.org/">Sphinx</a>, the documentation generator created by the same folks who brought us Flask</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="relative-imports">
+<h2>Relative imports<a class="headerlink" href="#relative-imports" title="Permalink to this headline">¶</a></h2>
+<p>Relative imports make life a little easier when developing Flask apps.
+The premise is simple. Let&#8217;s say you want to import the <tt class="docutils literal"><span class="pre">User</span></tt> model
+from the module <em>myapp/models.py</em>. You might think to use the app&#8217;s
+package name, i.e. <tt class="docutils literal"><span class="pre">myapp.models</span></tt>. Using relative imports, you would
+indicate the location of the target module relative to the source. To do
+this we use a dot notation where the first dot indicates the current
+directory and each subsequent dot represents the next parent directory.
+Listing~ illustrates the diffence in syntax.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/views.py</span>
+
+<span class="c"># An absolute import gives us the User model</span>
+<span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">User</span>
+
+<span class="c"># A relative import does the same thing</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">User</span>
+</pre></div>
+</div>
+<p>The advantage of this method is that the package becomes a heck of a lot
+more modular. Now you can rename your package and re-use modules from
+other projects without the need to update the hard-coded import
+statements.</p>
+<p>In my research I came across a Tweet that illustrates the benefit of
+relative imports.</p>
+<blockquote>
+<div><p>Just had to rename our whole package. Took 1 second. Package relative imports FTW!</p>
+<p class="attribution">&mdash;<a class="reference external" href="https://twitter.com/dabeaz/status/372059407711887360">David Beazley, &#64;dabeaz</a></p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can read a little more about the syntax for relative imports from this section in <a class="reference external" href="http://www.python.org/dev/peps/pep-0328/#guido-s-decision">PEP 328</a>.</p>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Try to follow the coding style conventions laid out in PEP 8.</li>
+<li>Try to document your app with docstrings as defined in PEP 257.</li>
+<li>Use relative imports to import your apps internal modules.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="environment.html" class="btn btn-neutral float-right" title="Environment"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="preface.html" class="btn btn-neutral" title="Preface"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

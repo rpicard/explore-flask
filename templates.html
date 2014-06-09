@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Templates &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Static files" href="static.html"/>
+        <link rel="prev" title="Blueprints" href="blueprints.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Templates</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/templates.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="templates">
+<h1>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h1>
+<img alt="Templates" src="_images/templates.png" />
+<p>While Flask doesn&#8217;t force us to use any particular templating language,
+it assumes that we&#8217;re going to use Jinja. Most of the developers in the
+Flask community use Jinja, and I recommend that you do the same. There
+are a few extensions that have been written to let us use other
+templating languages, like <a class="reference external" href="http://pythonhosted.org/Flask-Genshi/">Flask-Genshi</a> and <a class="reference external" href="http://pythonhosted.org/Flask-Mako/">Flask-Mako</a>.
+Stick with the default unless you have a good reason to use something else. Not knowing the
+Jinja syntax yet is not a good reason! You&#8217;ll save yourself a lot of time and headache.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Almost all resources imply Jinja2 when they refer to &#8220;Jinja.&#8221; There was a Jinja1, but we won&#8217;t be dealing with it here. When you see Jinja, we&#8217;re talking about this: <a class="reference external" href="http://jinja.pocoo.org/">http://jinja.pocoo.org/</a></p>
+</div>
+<div class="section" id="a-quick-primer-on-jinja">
+<h2>A quick primer on Jinja<a class="headerlink" href="#a-quick-primer-on-jinja" title="Permalink to this headline">¶</a></h2>
+<p>The Jinja documentation does a great job of explaining the syntax and
+features of the language. I won&#8217;t reiterate it all here, but I do want
+to make sure that you see this important note:</p>
+<blockquote>
+<div><p>There are two kinds of delimiters. <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></tt> and
+<tt class="docutils literal"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></tt>. The first one is used to execute statements such as
+for-loops or assign values, the latter prints the result of the
+expression to the template.</p>
+<p class="attribution">&mdash;<a class="reference external" href="http://jinja.pocoo.org/docs/templates/#synopsis">Jinja Template Designer Documentation</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="how-to-organize-templates">
+<h2>How to organize templates<a class="headerlink" href="#how-to-organize-templates" title="Permalink to this headline">¶</a></h2>
+<p>So where do templates fit into our app? If you&#8217;ve been following along
+at home, you may have noticed that Flask is really flexible about where
+we put things. Templates are no exception. You may also notice that
+there&#8217;s usually a recommended place to put things. Two points for you.
+For templates, that place is in the package directory.</p>
+<div class="highlight-python"><div class="highlight"><pre>myapp/
+    __init__.py
+    models.py
+    views/
+    templates/
+    static/
+run.py
+requirements.txt
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>templates/
+    layout.html
+    index.html
+    about.html
+    profile/
+        layout.html
+        index.html
+    photos.html
+    admin/
+        layout.html
+        index.html
+        analytics.html
+</pre></div>
+</div>
+<p>The structure of the <em>templates</em> directory parallels the structure of
+our routes. The template for the route <em>myapp.com/admin/analytics</em> is
+<em>templates/admin/an-alytics.html</em>. There are also some extra templates
+in there that won&#8217;t be rendered directly. The <em>layout.html</em> files are
+meant to be inherited by the other templates.</p>
+</div>
+<div class="section" id="inheritance">
+<h2>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h2>
+<p>Much like Batman&#8217;s backstory, a well organized templates directory
+relies heavily on inheritance. The <strong>parent template</strong> usually defines a
+generalized structure that all of the <strong>child templates</strong> will work
+within. In our example, <em>layout.html</em> is a parent template and the other
+<em>.html</em> files are child templates.</p>
+<p>You&#8217;ll generally have one top-level <em>layout.html</em> that defines the
+general layout for your application and one for each section of your
+site. If you take a look at the directory above, you&#8217;ll see that there
+is a top-level <em>myapp/templates/lay-out.html</em> as well as
+<em>myapp/templates/profile/layout.html</em> and
+<em>myapp/templat-es/admin/layout.html</em>. The last two files inherit and
+modify the first.</p>
+<p>Inheritance is implemented with the <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">%}</span></tt> and
+<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">%}</span></tt> tags. In the parent template, we can define blocks which
+will be populated by child templates.</p>
+<div class="highlight-python"><div class="highlight"><pre>{# _myapp/templates/layout.html_ #}
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;title&gt;{% block title %}{% endblock %}&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    {% block body %}
+        &lt;h1&gt;This heading is defined in the parent.&lt;/h1&gt;
+    {% endblock %}
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>In the child template, we can extend the parent template and define the
+contents of those blocks.</p>
+<div class="highlight-python"><div class="highlight"><pre>{# _myapp/templates/index.html_ #}
+
+{% extends &quot;layout.html&quot; %}
+{% block title %}Hello world!{% endblock %}
+{% block body %}
+    {{ super() }}
+    &lt;h2&gt;This heading is defined in the child.&lt;/h2&gt;
+{% endblock %}
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">super()</span></tt> function lets us include whatever was inside the block
+in the parent template.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For more information on inheritance, refer to the <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#template-inheritance">Jinja Template Inheritence documentation</a>.</p>
+</div>
+</div>
+<div class="section" id="creating-macros">
+<h2>Creating macros<a class="headerlink" href="#creating-macros" title="Permalink to this headline">¶</a></h2>
+<p>We can implement DRY (Don&#8217;t Repeat Yourself) principles in our templates
+by abstracting snippets of code that appear over and over into
+<strong>macros</strong>. If we&#8217;re working on some HTML for our app&#8217;s navigation, we
+might want to give a different class to the &#8220;active&#8221; link (i.e. the link
+to the current page). Without macros we&#8217;d end up with a block of
+<tt class="docutils literal"><span class="pre">if</span> <span class="pre">...</span> <span class="pre">else</span></tt> statements that check each link to find the active one.</p>
+<p>Macros provide a way to modularize that code; they work like functions.
+Let&#8217;s look at how we&#8217;d mark the active link using a macro.</p>
+<div class="highlight-python"><div class="highlight"><pre>{# myapp/templates/layout.html #}
+
+{% from &quot;macros.html&quot; import nav_link with context %}
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+    {% block head %}
+        &lt;title&gt;My application&lt;/title&gt;
+    {% endblock %}
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;ul class=&quot;nav-list&quot;&gt;
+            {{ nav_link(&#39;home&#39;, &#39;Home&#39;) }}
+            {{ nav_link(&#39;about&#39;, &#39;About&#39;) }}
+            {{ nav_link(&#39;contact&#39;, &#39;Get in touch&#39;) }}
+        &lt;/ul&gt;
+    {% block body %}
+    {% endblock %}
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>What we are doing in this template is calling an undefined macro —
+<tt class="docutils literal"><span class="pre">nav_link</span></tt> — and passing it two parameters: the target endpoint
+(i.e. the function name for the target view) and the text we want to
+show.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You may notice that we specified <tt class="docutils literal"><span class="pre">with</span> <span class="pre">context</span></tt> in the import
+statement. The Jinja <strong>context</strong> consists of the arguments passed to the
+<tt class="docutils literal"><span class="pre">render_template()</span></tt> function as well as the Jinja environment context
+from our Python code. These variables are made available in the template
+that is being rendered.</p>
+<p class="last">Some variables are explicitly passed by us, e.g.
+<tt class="docutils literal"><span class="pre">render_template(&quot;index.html&quot;,</span> <span class="pre">color=&quot;red&quot;)</span></tt>, but there are several
+variables and functions that Flask automatically includes in the
+context, e.g. <tt class="docutils literal"><span class="pre">request</span></tt>, <tt class="docutils literal"><span class="pre">g</span></tt> and <tt class="docutils literal"><span class="pre">session</span></tt>. When we say
+<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">from</span> <span class="pre">...</span> <span class="pre">import</span> <span class="pre">...</span> <span class="pre">with</span> <span class="pre">context</span> <span class="pre">%}</span></tt> we are telling Jinja to make
+all of these variables available to the macro as well.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>All of the global variables that are passed to the Jinja context by
+Flask: <a class="reference external" href="http://flask.pocoo.org/docs/templating/#standard-context">http://flask.pocoo.org/docs/templating/#standard-context</a>}</li>
+<li>We can define variables and functions that we want to be merged into
+the Jinja context with context processors:
+<a class="reference external" href="http://flask.pocoo.org/docs/templating/#context-processors">http://flask.pocoo.org/docs/templating/#context-processors</a></li>
+</ul>
+</div>
+<p>Now it&#8217;s time to define the <tt class="docutils literal"><span class="pre">nav_link</span></tt> macro that we used in our template.</p>
+<div class="highlight-python"><div class="highlight"><pre>{# myapp/templates/macros.html #}
+
+{% macro nav_link(endpoint, text) %}
+{% if request.endpoint.endswith(endpoint) %}
+    &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;{{ url_for(endpoint) }}&quot;&gt;{{text}}&lt;/a&gt;&lt;/li&gt;
+{% else %}
+    &lt;li&gt;&lt;a href=&quot;{{ url_for(endpoint) }}&quot;&gt;{{text}}&lt;/a&gt;&lt;/li&gt;
+{% endif %}
+{% endmacro %}
+</pre></div>
+</div>
+<p>Now we&#8217;ve defined the macro in <em>myapp/templates/macros.html</em>. In this macro
+we&#8217;re using Flask&#8217;s <tt class="docutils literal"><span class="pre">request</span></tt> object — which is available in
+the Jinja context by default — to check whether or not the current
+request was routed to the endpoint passed to <tt class="docutils literal"><span class="pre">nav_link</span></tt>. If it was,
+than we&#8217;re currently on that page, and we can mark it as active.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The from x import y statement takes a relative path for x. If our
+template was in <em>myapp/templates/user/blog.html</em> we would use
+<tt class="docutils literal"><span class="pre">from</span> <span class="pre">&quot;../macros.html&quot;</span> <span class="pre">import</span> <span class="pre">nav_link</span> <span class="pre">with</span> <span class="pre">context</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="custom-filters">
+<h2>Custom filters<a class="headerlink" href="#custom-filters" title="Permalink to this headline">¶</a></h2>
+<p>Jinja filters are functions that can be applied to the result of an
+expression in the <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></tt> delimeters. It is applied before that
+result is printed to the template.</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;h2&gt;{{ article.title|title }}&lt;/h2&gt;
+</pre></div>
+</div>
+<p>In this code, the <tt class="docutils literal"><span class="pre">title</span></tt> filter will take <tt class="docutils literal"><span class="pre">article.title</span></tt> and return
+a title-cased version, which will then be printed to the template. This
+looks and works a lot like the UNIX practice of &#8220;piping&#8221; the output of
+one program to another.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are loads of built-in filters like <tt class="docutils literal"><span class="pre">title</span></tt>. See <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#builtin-filters">the full list</a> in the Jinja docs.</p>
+</div>
+<p>We can define our own filters for use in our Jinja templates. As an
+example, we&#8217;ll implement a simple <tt class="docutils literal"><span class="pre">caps</span></tt> filter to capitalize all of
+the letters in a string.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Jinja already has an <tt class="docutils literal"><span class="pre">upper</span></tt> filter that does this, and a <tt class="docutils literal"><span class="pre">capitalize</span></tt> filter that capitalizes the first character and lowercases the rest. These also handle unicode conversion, but we&#8217;ll keep our example simple to focus on the concept at hand.</p>
+</div>
+<p>We&#8217;re going to define our filter in a module located at
+<em>myapp/util/filters.py</em>. This gives us a <tt class="docutils literal"><span class="pre">util</span></tt> package in which to
+put other miscellaneous modules.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util/filters.py</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="nd">@app.template_filter</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">caps</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to all caps.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">uppercase</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this code we are registering our function as a Jinja filter by using
+the <tt class="docutils literal"><span class="pre">&#64;app.template_filter()</span></tt> decorator. The default filter name is
+just the name of the function, but you can pass an argument to the
+decorator to change that.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@app.template_filter</span><span class="p">(</span><span class="s">&#39;make_caps&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">caps</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to all caps.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">uppercase</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now we can call <tt class="docutils literal"><span class="pre">make_caps</span></tt> in the template rather than <tt class="docutils literal"><span class="pre">caps</span></tt>:
+<tt class="docutils literal"><span class="pre">{{</span> <span class="pre">&quot;hello</span> <span class="pre">world!&quot;|make_caps</span> <span class="pre">}}</span></tt>.</p>
+<p>To make our filter available in the templates, we just need to import it
+in our top-level <em>__init.py__</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/__init__.py</span>
+
+<span class="c"># Make sure app has been initialized first to prevent circular imports.</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">filters</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Use Jinja for templating.</li>
+<li>Jinja has two kinds of delimeters: <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></tt> and <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></tt>.
+The first one is used to execute statements such as for-loops or
+assign values, the latter prints the result of the contained
+expression to the template.</li>
+<li>Templates should go in <em>myapp/templates/</em> — i.e. a directory inside
+of the application package.</li>
+<li>I recommend that the structure of the <em>templates/</em> directory mirror
+the URL structure of the app.</li>
+<li>You should have a top-level <em>layout.html</em> in <em>myapp/templates</em> as
+well as one for each section of the site. The former extend the
+latter.</li>
+<li>Macros are like functions made-up of template code.</li>
+<li>Filters are functions made-up of Python code and used in templates.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="static.html" class="btn btn-neutral float-right" title="Static files"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="blueprints.html" class="btn btn-neutral" title="Blueprints"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

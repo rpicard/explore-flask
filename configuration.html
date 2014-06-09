@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Advanced patterns for views and routing" href="views.html"/>
+        <link rel="prev" title="Organizing your project" href="organizing.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="static.html">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="static.html#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/configuration.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<img alt="Configuration" src="_images/configuration.png" />
+<p>When you&#8217;re learning Flask, configuration seems simple. You just define
+some variables in <em>config.py</em> and everything works. That simplicity
+starts to fade away when you have to manage configuration for a
+production application. You may need to protect secret API keys or use
+different configurations for different environments (e.g. development
+and production environments). In this chapter we&#8217;ll go over some
+advanced Flask features that makes this managing configuration easier.</p>
+<div class="section" id="the-simple-case">
+<h2>The simple case<a class="headerlink" href="#the-simple-case" title="Permalink to this headline">¶</a></h2>
+<p>A simple application may not need any of these complicated features. You
+may just need to put <em>config.py</em> in the root of your repository and load
+it in <em>app.py</em> or <em>yourapp/__init__.py</em></p>
+<p>The <em>config.py</em> file should contain one variable assignment per line.
+When your app is initialized, the variables in <em>config.py</em> are configure
+Flask and it&#8217;s extensions are accessible via the <tt class="docutils literal"><span class="pre">app.config</span></tt>
+dictionary &#8211; e.g. <tt class="docutils literal"><span class="pre">app.config[&quot;DEBUG&quot;]</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># Turns on debugging features in Flask</span>
+<span class="n">BCRYPT_LEVEL</span> <span class="o">=</span> <span class="mi">12</span> <span class="c"># Configuration for the Flask-Bcrypt extension</span>
+<span class="n">MAIL_FROM_EMAIL</span> <span class="o">=</span> <span class="s">&quot;robert@example.com&quot;</span> <span class="c"># For use in application emails</span>
+</pre></div>
+</div>
+<p>Configuration variables can be used by Flask, extensions or you. In this
+example, we could use <tt class="docutils literal"><span class="pre">app.config[&quot;MAIL_FROM_EMAIL&quot;]</span></tt> whenever we
+needed the default &#8220;from&#8221; address for a transactional email &#8211; e.g.
+password resets. Putting that information in a configuration variable
+makes it easy to change it in the future.</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="c"># app.py or app/__init__.py</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="s">&#39;config&#39;</span><span class="p">)</span>
+
+<span class="c"># Now we can access the configuration variables via app.config[&quot;VAR_NAME&quot;].</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="46%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Decription</th>
+<th class="head">Recommendation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DEBUG</td>
+<td>Gives you some handy tools for debugging errors.
+This includes a web-based stack trace and
+interactive Python console for errors.</td>
+<td>Should be set to <tt class="docutils literal"><span class="pre">True</span></tt> in development and
+<tt class="docutils literal"><span class="pre">False</span></tt> in production.</td>
+</tr>
+<tr class="row-odd"><td>SECRET_KEY</td>
+<td>This is a secret key that is used by Flask to
+sign cookies. It&#8217;s also used by extensions like
+Flask-Bcrypt. You should define this in your
+instance folder to keep it out of version
+control. You can read more about instance folders
+in the next section.</td>
+<td>This should be a complex random value.</td>
+</tr>
+<tr class="row-even"><td>BCRYPT_LEVEL</td>
+<td>If you&#8217;re using Flask-Bcrypt to hash user
+passwords, you&#8217;ll need to specify the number of
+&#8220;rounds&#8221; that the algorithm executes in hashing a
+password. If you aren&#8217;t using Flask-Bcrypt, you
+should probably start. The more rounds used to
+hash a password, the longer it&#8217;ll take for an
+attacker to guess a password given the hash. The
+number of rounds should increase over time as
+computing power increases.</td>
+<td>Later in this book we&#8217;ll cover some of the
+best practices for using Bcrypt in your
+Flask application.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure <tt class="docutils literal"><span class="pre">DEBUG</span></tt> is set to <tt class="docutils literal"><span class="pre">False</span></tt> in production. Leaving it on will allow users to run arbitrary Python code on your server.</p>
+</div>
+</div>
+<div class="section" id="instance-folder">
+<h2>Instance folder<a class="headerlink" href="#instance-folder" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes you&#8217;ll need to define configuration variables that contain
+sensitive information. We&#8217;ll want to separate these variables from those
+in <em>config.py</em> and keep them out of the repository. You may be hiding
+secrets like database passwords and API keys, or defining variables
+specific to a given machine. To make this easy, Flask gives us a feature
+called <strong>instance folders</strong>. The instance folder is a sub-directory of
+the repository root and contains a configuration file specifically for
+this instance of the application. We don&#8217;t want to commit it into
+version control.</p>
+<div class="highlight-python"><div class="highlight"><pre>config.py
+requirements.txt
+run.py
+instance/
+  config.py
+yourapp/
+  __init__.py
+  models.py
+  views.py
+  templates/
+  static/
+</pre></div>
+</div>
+<div class="section" id="using-instance-folders">
+<h3>Using instance folders<a class="headerlink" href="#using-instance-folders" title="Permalink to this headline">¶</a></h3>
+<p>To load configuration variables from an instance folder, we use
+<tt class="docutils literal"><span class="pre">app.config.from_pyfile()</span></tt>. If we set
+<tt class="docutils literal"><span class="pre">instance_relative_config=True</span></tt> when we create our app with the
+<tt class="docutils literal"><span class="pre">Flask()</span></tt> call, <tt class="docutils literal"><span class="pre">app.config.from_pyfile()</span></tt> will load the
+specified file from the <em>instance/</em> directory.</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="c"># app.py or app/__init__.py</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">,</span> <span class="n">instance_relative_config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="s">&#39;config&#39;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_pyfile</span><span class="p">(</span><span class="s">&#39;config.py&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can define variables in <em>instance/config.py</em> just like you did
+in <em>config.py</em>. You should also add the instance folder to your version
+control system&#8217;s ignore list. To do this with Git, you would add
+<tt class="docutils literal"><span class="pre">instance/</span></tt> on a new line in <em>.gitignore</em>.</p>
+</div>
+<div class="section" id="secret-keys">
+<h3>Secret keys<a class="headerlink" href="#secret-keys" title="Permalink to this headline">¶</a></h3>
+<p>The private nature of the instance folder makes it a great candidate for
+defining keys that you don&#8217;t want exposed in version control. These may
+include your app&#8217;s secret key or third-party API keys. This is
+especially important if your application is open source, or might be at
+some point in the future. We usually want other users and contributors
+to use their own keys.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># instance/config.py</span>
+
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s">&#39;Sm9obiBTY2hyb20ga2lja3MgYXNz&#39;</span>
+<span class="n">STRIPE_API_KEY</span> <span class="o">=</span> <span class="s">&#39;SmFjb2IgS2FwbGFuLU1vc3MgaXMgYSBoZXJv&#39;</span>
+<span class="n">SQLALCHEMY_DATABASE_URI</span><span class="o">=</span> \
+<span class="s">&quot;postgresql://user:TWljaGHFgiBCYXJ0b3N6a2lld2ljeiEh@localhost/databasename&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="minor-environment-based-configuration">
+<h3>Minor environment-based configuration<a class="headerlink" href="#minor-environment-based-configuration" title="Permalink to this headline">¶</a></h3>
+<p>If the difference between your production and development environments
+are pretty minor, you may want to use your instance folder to handle the
+configuration changes. Variables defined in the <em>instance/config.py</em>
+file can override the value in <em>config.py</em>. You just need to make the
+call to <tt class="docutils literal"><span class="pre">app.config.from_pyfile()</span></tt> after
+<tt class="docutils literal"><span class="pre">app.config.from_object()</span></tt>. One way to take advantage of this is to
+change the way your app is configured on different machines.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># config.py</span>
+
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">SQLALCHEMY_ECHO</span> <span class="o">=</span> <span class="bp">False</span>
+
+
+<span class="c"># instance/config.py</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">SQLALCHEMY_ECHO</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>In production, we would leave the variables in Listing~ out of
+<em>instance/-config.py</em> and it would fall back to the values defined in
+<em>config.py</em>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Read more about Flask-SQLAlchemy&#8217;s <a class="reference external" href="http://pythonhosted.org/Flask-SQLAlchemy/config.html#configuration-keys">configuration keys</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="configuring-based-on-environment-variables">
+<h2>Configuring based on environment variables<a class="headerlink" href="#configuring-based-on-environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>The instance folder shouldn&#8217;t be in version control. This means that you
+won&#8217;t be able to track changes to your instance configurations. That
+might not be a problem with one or two variables, but if you have finely
+tuned configurations for various environments (production, staging,
+development, etc.) you don&#8217;t want to risk losing that.</p>
+<p>Flask gives us the ability to choose a configuration file on load based
+on the value of an environment variable. This means that we can have
+several configuration files in our repository and always load the right
+one. Once we have several configuration files, we can move them to their
+own <tt class="docutils literal"><span class="pre">config</span></tt> directory.</p>
+<div class="highlight-python"><div class="highlight"><pre>requirements.txt
+run.py
+config/
+  __init__.py # Empty, just here to tell Python that it&#39;s a package.
+  default.py
+  production.py
+  development.py
+  staging.py
+instance/
+  config.py
+yourapp/
+  __init__.py
+  models.py
+  views.py
+  static/
+  templates/
+</pre></div>
+</div>
+<p>In this listing we have a few different configuration files.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>config/default.py</td>
+<td>Default values, to be used for all environments or overridden by individual
+environments. An example might be setting DEBUG = False in config/default.py
+and DEBUG = True in config/development.py.</td>
+</tr>
+<tr class="row-even"><td>config/development.py</td>
+<td>Values to be used during development. Here you might specify the URI of a
+database sitting on localhost.</td>
+</tr>
+<tr class="row-odd"><td>config/production.py</td>
+<td>Values to be used in production. Here you might specify the URI for your
+database server, as opposed to the localhost database URI used for
+development.</td>
+</tr>
+<tr class="row-even"><td>config/staging.py</td>
+<td>Depending on your deployment process, you may have a staging step where you
+test changes to your application on a server that simulates a production
+environment. You&#8217;ll probably use a different database, and you may want to
+alter other configuration values for staging applications.</td>
+</tr>
+</tbody>
+</table>
+<p>To decide which configuration file to load, we&#8217;ll call
+<tt class="docutils literal"><span class="pre">app.config.from_envvar()</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># yourapp/__init__.py</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">,</span> <span class="n">instance_relative_config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># Load the default configuration</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="s">&#39;config.default&#39;</span><span class="p">)</span>
+
+<span class="c"># Load the configuration from the instance folder</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_pyfile</span><span class="p">(</span><span class="s">&#39;config.py&#39;</span><span class="p">)</span>
+
+<span class="c"># Load the file specified by the APP_CONFIG_FILE environment variable</span>
+<span class="c"># Variables defined here will override those in the default configuration</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_envvar</span><span class="p">(</span><span class="s">&#39;APP_CONFIG_FILE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The value of the environment variable should be the absolute path to a
+configuration file.</p>
+<p>How we set this environment variable depends on the platform in which
+we&#8217;re running the app. If we&#8217;re running on a regular Linux server, we
+can set up a shell script that sets our environment variables and runs
+<em>run.py</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre># start.sh
+
+APP_CONFIG_FILE=/var/www/yourapp/config/production.py
+python run.py
+</pre></div>
+</div>
+<p><em>start.sh</em> is unique to each environment, so it should be left out of
+version control. On Heroku, we&#8217;ll want to set the environment variables
+with the Heroku tools. The same idea applies to other PaaS platforms.</p>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A simple app may only need one configuration file: <em>config.py</em>.</li>
+<li>Instance folders can help us hide secret configuration values.</li>
+<li>Instance folders can be used to alter an application&#8217;s configuration
+for a specific environment.</li>
+<li>We should use environment variables and
+<tt class="docutils literal"><span class="pre">app.config.from_envvar()</span></tt> for more complicated environment-based
+configurations.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="views.html" class="btn btn-neutral float-right" title="Advanced patterns for views and routing"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="organizing.html" class="btn btn-neutral" title="Organizing your project"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

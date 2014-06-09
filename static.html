@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Static files &mdash; Explore Flask 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Explore Flask 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Storing data" href="storing.html"/>
+        <link rel="prev" title="Templates" href="templates.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Explore Flask</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#living-document">Living document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#conventions-used-in-this-book">Conventions used in this book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#easter-eggs">Easter eggs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Coding conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#let-s-have-a-pep-rally">Let&#8217;s have a PEP rally!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#relative-imports">Relative imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conventions.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="environment.html">Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#use-virtualenv-to-manage-your-environment">Use virtualenv to manage your environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#version-control">Version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#debugging">Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="organizing.html">Organizing your project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#organization-patterns">Organization patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="organizing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#the-simple-case">The simple case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#instance-folder">Instance folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#configuring-based-on-environment-variables">Configuring based on environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Advanced patterns for views and routing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#view-decorators">View decorators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#url-converters">URL Converters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="views.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blueprints.html">Blueprints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#what-is-a-blueprint">What is a blueprint?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#why-would-you-use-blueprints">Why would you use blueprints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#where-do-you-put-them">Where do you put them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#how-do-you-use-them">How do you use them?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#refactoring-small-apps-to-use-blueprints">Refactoring small apps to use blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blueprints.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#a-quick-primer-on-jinja">A quick primer on Jinja</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#how-to-organize-templates">How to organize templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#inheritance">Inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#creating-macros">Creating macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#custom-filters">Custom filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templates.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Static files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#organizing-your-static-files">Organizing your static files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manage-static-assets-with-flask-assets">Manage static assets with Flask-Assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storing.html">Storing data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#sqlalchemy">SQLAlchemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storing.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Handling forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#flask-wtf">Flask-WTF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Patterns for handling users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="users.html#email-confirmation">Email confirmation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#storing-passwords">Storing passwords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#forgot-your-password">Forgot your password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-host">The Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#the-stack">The stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Explore Flask</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Static files</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/static.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="static-files">
+<h1>Static files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h1>
+<img alt="Static files" src="_images/static.png" />
+<p>As their name suggests, static files are the files that don&#8217;t change. In
+your average app, this includes CSS files, JavaScript files and images.
+They can also include audio files and other things of that nature.</p>
+<div class="section" id="organizing-your-static-files">
+<h2>Organizing your static files<a class="headerlink" href="#organizing-your-static-files" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll create a directory for our static files called <em>static</em> inside our
+application package.</p>
+<div class="highlight-python"><div class="highlight"><pre>myapp/
+    __init__.py
+    static/
+    templates/
+    views/
+    models.py
+run.py
+</pre></div>
+</div>
+<p>How you organize the files in <em>static/</em> is a matter of personal
+preference. Personally, I get a little irked by having third-party
+libraries (e.g. jQuery, Bootstrap, etc.) mixed in with my own JavaScript
+and CSS files. To avoid this, I recommend separating third-party
+libraries out into a <em>lib/</em> folder within the appropriate directory.
+Some projects use <em>vendor/</em> instead of <em>lib/</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre>static/
+    css/
+        lib/
+            bootstrap.css
+        style.css
+        home.css
+        admin.css
+    js/
+        lib/
+            jquery.js
+        home.js
+        admin.js
+    img/
+        logo.svg
+        favicon.ico
+</pre></div>
+</div>
+<div class="section" id="serving-a-favicon">
+<h3>Serving a favicon<a class="headerlink" href="#serving-a-favicon" title="Permalink to this headline">¶</a></h3>
+<p>The files in our static directory will be served from
+<em>example.com/static/</em>. By default, web browsers and other software
+expects our favicon to be at <em>example.com/favicon.ico</em>. To fix this
+discrepency, we can add the following in the <tt class="docutils literal"><span class="pre">&lt;head&gt;</span></tt> section of our
+site template.</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;link rel=&quot;shortcut icon&quot;
+    href=&quot;{{ url_for(&#39;static&#39;, filename=&#39;img/favicon.ico&#39;) }}&quot;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="manage-static-assets-with-flask-assets">
+<h2>Manage static assets with Flask-Assets<a class="headerlink" href="#manage-static-assets-with-flask-assets" title="Permalink to this headline">¶</a></h2>
+<p>Flask-Assets is an extension for managing your static files. There are
+two really useful tools that Flask-Assets provides. First, it lets you
+define <strong>bundles</strong> of assets in your Python code that can be inserted
+together in your template. Second, it lets you <strong>pre-process</strong> those
+files. This means that you can combine and minify your CSS and
+JavaScript files so that the user only has to load two minified files
+(CSS and JavaScript) without forcing you to develop a complex asset
+pipeline. You can even compile your files from Sass, LESS, CoffeeScript
+and a bunch of other sources.</p>
+<div class="highlight-python"><div class="highlight"><pre>static/
+    css/
+        lib/
+            reset.css
+        common.css
+        home.css
+        admin.css
+    js/
+        lib/
+            jquery-1.10.2.js
+            Chart.js
+        home.js
+        admin.js
+    img/
+        logo.svg
+        favicon.ico
+</pre></div>
+</div>
+<div class="section" id="defining-bundles">
+<h3>Defining bundles<a class="headerlink" href="#defining-bundles" title="Permalink to this headline">¶</a></h3>
+<p>Our app has two sections: the public site and the admin panel, referred
+to as &#8220;home&#8221; and &#8220;admin&#8221; respectively in our app. We&#8217;ll define four
+bundles to cover this: a JavaScript and CSS bundle for each section.
+We&#8217;ll put these in an assets module inside our <tt class="docutils literal"><span class="pre">util</span></tt> package.</p>
+<div class="highlight-python"><div class="highlight"><pre># myapp/util/assets.py
+
+from flask.ext.assets import Bundle, Environment
+from .. import app
+
+bundles = {
+
+    &#39;home_js&#39;: Bundle(
+        &#39;js/lib/jquery-1.10.2.js&#39;,
+        &#39;js/home.js&#39;,
+        output=&#39;gen/home.js),
+
+    &#39;home_css&#39;: Bundle(
+        &#39;css/lib/reset.css&#39;,
+        &#39;css/common.css&#39;,
+        &#39;css/home.css&#39;,
+        output=&#39;gen/home.css),
+
+    &#39;admin_js&#39;: Bundle(
+        &#39;js/lib/jquery-1.10.2.js&#39;,
+        &#39;js/lib/Chart.js&#39;,
+        &#39;js/admin.js&#39;,
+        output=&#39;gen/admin.js),
+
+    &#39;admin_css&#39;: Bundle(
+        &#39;css/lib/reset.css&#39;,
+        &#39;css/common.css&#39;,
+        &#39;css/admin.css&#39;,
+        output=&#39;gen/admin.css)
+}
+
+assets = Environment(app)
+
+assets.register(bundles)
+</pre></div>
+</div>
+<p>Flask-Assets combines your files in the order in which they are listed
+here. If <em>admin.js</em> requires <em>jquery-1.10.2.js</em>, make sure jquery is
+listed first.</p>
+<p>We&#8217;re defining the bundles in a dictionary to make it easy to register
+them. webassets, the package behind Flask-Assets lets us register
+bundles in a number of ways, including passing a dictionary like the one
+we made in this snippet. <a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
+<p>Since we&#8217;re registering our bundles in <tt class="docutils literal"><span class="pre">util.assets</span></tt>, all we have to
+do is import that module in <em>__init__.py</em> after our app has been
+initialized.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/__init__.py</span>
+
+<span class="c"># [...] Initialize the app</span>
+
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">assets</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-our-bundles">
+<h3>Using our bundles<a class="headerlink" href="#using-our-bundles" title="Permalink to this headline">¶</a></h3>
+<p>To use our admin bundles, we&#8217;ll insert them into the parent template for
+the admin section: <em>admin/layout.html</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre>templates/
+    home/
+        layout.html
+        index.html
+        about.html
+    admin/
+        layout.html
+        dash.html
+        stats.html
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>{# myapp/templates/admin/layout.html #}
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        {% assets &quot;admin_js&quot; %}
+            &lt;script type=&quot;text/javascript&quot; src=&quot;{{ ASSET_URL }}&quot;&gt;&lt;/script&gt;
+        {% endassets %}
+        {% assets &quot;admin_css&quot; %}
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ ASSET_URL }}&quot; /&gt;
+        {% endassets %}
+    &lt;/head&gt;
+    &lt;body&gt;
+    {% block body %}
+    {% endblock %}
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>We can do the same thing for the home bundles in
+<em>templates/home/layout-.html</em>.</p>
+</div>
+<div class="section" id="using-filters">
+<h3>Using filters<a class="headerlink" href="#using-filters" title="Permalink to this headline">¶</a></h3>
+<p>We can use filters to pre-process our static files. This is especially
+handy for minifying our JavaScript and CSS bundles.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util/assets.py</span>
+
+<span class="c"># [...]</span>
+
+<span class="n">bundles</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="s">&#39;home_js&#39;</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">(</span>
+        <span class="s">&#39;lib/jquery-1.10.2.js&#39;</span><span class="p">,</span>
+        <span class="s">&#39;js/home.js&#39;</span><span class="p">,</span>
+        <span class="n">output</span><span class="o">=</span><span class="s">&#39;gen/home.js&#39;</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="s">&#39;jsmin&#39;</span><span class="p">),</span>
+
+    <span class="s">&#39;home_css&#39;</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">(</span>
+        <span class="s">&#39;lib/reset.css&#39;</span><span class="p">,</span>
+        <span class="s">&#39;css/common.css&#39;</span><span class="p">,</span>
+        <span class="s">&#39;css/home.css&#39;</span><span class="p">,</span>
+        <span class="n">output</span><span class="o">=</span><span class="s">&#39;gen/home.css&#39;</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="s">&#39;cssmin&#39;</span><span class="p">),</span>
+
+    <span class="s">&#39;admin_js&#39;</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">(</span>
+        <span class="s">&#39;lib/jquery-1.10.2.js&#39;</span><span class="p">,</span>
+        <span class="s">&#39;lib/Chart.js&#39;</span><span class="p">,</span>
+        <span class="s">&#39;js/admin.js&#39;</span><span class="p">,</span>
+        <span class="n">output</span><span class="o">=</span><span class="s">&#39;gen/admin.js&#39;</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="s">&#39;jsmin&#39;</span><span class="p">),</span>
+
+    <span class="s">&#39;admin_css&#39;</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">(</span>
+        <span class="s">&#39;lib/reset.css&#39;</span><span class="p">,</span>
+        <span class="s">&#39;css/common.css&#39;</span><span class="p">,</span>
+        <span class="s">&#39;css/admin.css&#39;</span><span class="p">,</span>
+        <span class="n">output</span><span class="o">=</span><span class="s">&#39;gen/admin.css&#39;</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="s">&#39;cssmin&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c"># [...]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To use the <tt class="docutils literal"><span class="pre">jsmin</span></tt> and <tt class="docutils literal"><span class="pre">cssmin</span></tt> filters, you&#8217;ll need to install the
+<tt class="docutils literal"><span class="pre">jsmin</span></tt> and <tt class="docutils literal"><span class="pre">cssmin</span></tt> packages (e.g. with
+<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">jsmin</span> <span class="pre">cssmin</span></tt>). Make sure to add them to
+<em>requirements.txt</em> too.</p>
+</div>
+<p>Flask-Assets will merge and compress our files the first time the
+template is rendered, and it&#8217;ll automatically update the compressed file
+when one of the source files changes.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you set <cite>ASSETS_DEBUG = True</cite> in your config, Flask-Assets will output each source file individually instead of merging them.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Take a look at some of <a class="reference external" href="http://elsdoerfer.name/docs/webassets/builtin_filters.html#js-css-compilers">the other filters</a> that we can use with Flask-Assets.</p>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Static files go in the <em>static/</em> directory.</li>
+<li>Separate third-party libraries from your own static files.</li>
+<li>Specify the location of your favicon in your templates.</li>
+<li>Use Flask-Assets to insert static files in your templates.</li>
+<li>Flask-Assets can compile, combine and compress your static files.</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>We can see how bundle registration works <a class="reference external" href="https://github.com/miracle2k/webassets/blob/0.8/src/webassets/env.py#L380">in the source</a>.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="storing.html" class="btn btn-neutral float-right" title="Storing data"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="templates.html" class="btn btn-neutral" title="Templates"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Robert Picard.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
