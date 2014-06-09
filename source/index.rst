@@ -11,7 +11,7 @@ I was tired of managing distribution and limiting the book's audience by putting
 it behind a paywall. I didn't write a book to run a business, I wrote it to
 put some helpful content out there and help grow the Flask community.
 
-In July of 2014, soon after finishing the book, I reformatted
+In June of 2014, soon after finishing the book, I reformatted
 it for the web and released it here for free. No payment or donation or anything
 required. Just enjoy!
 
