@@ -18,12 +18,12 @@ Contributions are all placed in the public domain like the rest of the text.
 Building
 --------
 
-Create Sphinx Docs
+**Create Sphinx Docs**
 
 Just ``cd`` into the repo and run ``sphinx-build -b html source/ build/`` to build
 the website. 
 
-Create EPUB and HTML
+**Create EPUB and HTML**
 
 1. Install `Pandoc <http://johnmacfarlane.net/pandoc/>`_.
 2. cd ``source``
