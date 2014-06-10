@@ -28,7 +28,7 @@ the website.
 1. Install `Pandoc <http://johnmacfarlane.net/pandoc/>`_.
 2. cd ``source``
 3. Delete current build folder (if necessary) - ``make clean``
-4. Generate EPUP and HTML - ``make``
+4. Generate EPUB and HTML - ``make``
 
 **Todo**: Add instructions for PDF and MOBI
 
