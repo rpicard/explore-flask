@@ -20,7 +20,7 @@ may just need to put *config.py* in the root of your repository and load
 it in *app.py* or *yourapp/\_\_init\_\_.py*
 
 The *config.py* file should contain one variable assignment per line.
-When your app is initialized, the variables in *config.py* are configure
+When your app is initialized, the variables in *config.py* will configure
 Flask and it's extensions are accessible via the ``app.config``
 dictionary -- e.g. ``app.config["DEBUG"]``.
 
