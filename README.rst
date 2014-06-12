@@ -18,6 +18,6 @@ Contributions are all placed in the public domain like the rest of the text.
 Building
 --------
 
-Just ``cd`` into the repo and run ``sphinx-build -b html source/ build/`` to build
+Just ``cd`` into the repo and run ``sphinx-build -b html source/ build/`` (make sure sphinx, sphinx_rtd_theme is installed) to build
 the website. Feel free to try your hand at building other formats, but HTML is
 the only officially supported one right now.
