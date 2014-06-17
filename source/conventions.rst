@@ -112,5 +112,5 @@ Summary
 
 -  Try to follow the coding style conventions laid out in PEP 8.
 -  Try to document your app with docstrings as defined in PEP 257.
--  Use relative imports to import your apps internal modules.
+-  Use relative imports to import your app's internal modules.
 
