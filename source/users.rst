@@ -331,10 +331,7 @@ the hashed password stored for that user.
        # [...] columns and properties
 
        def is_correct_password(self, plaintext)
-           if bcrypt.check_password_hash(self._password, plaintext):
-               return True
-
-           return False
+           return bcrypt.check_password_hash(self._password, plaintext):
 
 Flask-Login
 ~~~~~~~~~~~
