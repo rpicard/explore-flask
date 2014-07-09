@@ -38,7 +38,7 @@ gives us a decorator to restrict certain views to authenticated users:
 
    # app.py
 
-   from Flask import render_template
+   from flask import render_template
    from flask.ext.login import login_required, current_user
 
 

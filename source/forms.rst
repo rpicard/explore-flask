@@ -130,7 +130,7 @@ Here's what the template looks like when we're using CSRF protection.
             <title>Login Page</title>
         </head>
         <body>
-            <form action="{{ url_for('login') }}" method="POST">
+            <form action="{{ url_for('login') }}" method="post">
                 <input type="text" name="email" />
                 <input type="password" name="password" />
                 {{ form.csrf_token }}
@@ -252,7 +252,7 @@ gives an example of a login template using WTForms to render our fields.
             <title>Login Page</title>
         </head>
         <body>
-            <form action="" method="POST">
+            <form action="" method="post">
                 {{ form.email }}
                 {{ form.password }}
                 {{ form.csrf_token }}
@@ -265,7 +265,7 @@ as arguments to the call.
 
 ::
 
-   <form action="" method="POST">
+   <form action="" method="post">
        {{ form.email.label }}: {{ form.email(placeholder='yourname@email.com') }}
        <br>
        {{ form.password.label }}: {{ form.password }}
