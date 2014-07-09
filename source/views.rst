@@ -353,7 +353,7 @@ Summary
 -  The Flask-Cache extension gives you a bunch of decorators to
    implement various methods of caching.
 -  We can develop custom view decorators to help us organize our code
-   and stick to DRY (Don't Repeat Yourself) coding principals.
+   and stick to DRY (Don't Repeat Yourself) coding principles.
 -  Custom URL converters can be a great way to implement creative
    features involving URL's.
 
