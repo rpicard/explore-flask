@@ -36,7 +36,7 @@ itself. You can install the ``virtualenv`` package with Pip.
 
 Once you have virtualenv on your system, you can start creating virtual
 environments. Navigate to your project directory and run the
-``virtualenv`` command. It takes one argument, which is the deistination
+``virtualenv`` command. It takes one argument, which is the destination
 directory of the virtual environment. Listing~ shows what this looks
 like.
 
@@ -130,7 +130,7 @@ As your project grows, you may find that certain packages listed by
 have packages that are installed for development only. ``pip freeze``
 doesn't discriminate between the two, it just lists the packages that
 are currently installed. As a result, you may want to manually track
-your depencies as you add them. You can separate those packages needed
+your dependencies as you add them. You can separate those packages needed
 to run your application and those needed to develop your application
 into *require_run.txt* and *require_dev.txt* respectively.
 

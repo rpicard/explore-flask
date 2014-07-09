@@ -195,8 +195,9 @@ submissions easy.</p>
 define a form in a <tt class="docutils literal"><span class="pre">myapp.forms</span></tt> package.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
 
-<span class="kn">from</span> <span class="nn">flask.ext.wtforms</span> <span class="kn">import</span> <span class="n">Form</span>
-<span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span><span class="p">,</span> <span class="n">Required</span><span class="p">,</span> <span class="n">Email</span>
+<span class="kn">from</span> <span class="nn">flask.ext.wtf</span> <span class="kn">import</span> <span class="n">Form</span>
+<span class="kn">from</span> <span class="nn">wtforms.fields</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span>
+<span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">Required</span><span class="p">,</span> <span class="n">Email</span>
 
 <span class="k">class</span> <span class="nc">EmailPasswordForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
     <span class="n">email</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Email&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
@@ -296,7 +297,7 @@ Here&#8217;s what the template looks like when we&#8217;re using CSRF protection
         &lt;title&gt;Login Page&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;form action=&quot;{{ url_for(&#39;login&#39;) }}&quot; method=&quot;POST&quot;&gt;
+        &lt;form action=&quot;{{ url_for(&#39;login&#39;) }}&quot; method=&quot;post&quot;&gt;
             &lt;input type=&quot;text&quot; name=&quot;email&quot; /&gt;
             &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
             {{ form.csrf_token }}
@@ -405,7 +406,7 @@ gives an example of a login template using WTForms to render our fields.</p>
         &lt;title&gt;Login Page&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+        &lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
             {{ form.email }}
             {{ form.password }}
             {{ form.csrf_token }}
@@ -416,7 +417,7 @@ gives an example of a login template using WTForms to render our fields.</p>
 </div>
 <p>We can customize how the fields are rendered by passing field properties
 as arguments to the call.</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+<div class="highlight-python"><div class="highlight"><pre>&lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
     {{ form.email.label }}: {{ form.email(placeholder=&#39;yourname@email.com&#39;) }}
     &lt;br&gt;
     {{ form.password.label }}: {{ form.password }}

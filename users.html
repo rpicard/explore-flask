@@ -369,7 +369,7 @@ script that, well, hashes a password.</p>
 
 <span class="kn">from</span> <span class="nn">flask.ext.bcrypt</span> <span class="kn">import</span> <span class="n">generate_password_hash</span>
 
-<span class="c"># Chance the number of rounds (second argument) until it takes between</span>
+<span class="c"># Change the number of rounds (second argument) until it takes between</span>
 <span class="c"># 0.25 and 0.5 seconds to run.</span>
 <span class="n">generate_password_hash</span><span class="p">(</span><span class="s">&#39;password1&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 </pre></div>
@@ -386,12 +386,11 @@ sys     0m0.024s
 <p>I did a quick benchmark on a small server that I have handy and 12
 rounds seemed to take the right amount of time, so I&#8217;ll configure our
 example to use that.</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd><p class="first"># config.py</p>
-<p class="last">BCRYPT_LOG_ROUNDS = 12</p>
-</dd>
-</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># config.py</span>
+
+<span class="n">BCRYPT_LOG_ROUNDS</span> <span class="o">=</span> <span class="mi">12</span>
+</pre></div>
+</div>
 <p>Now that Flask-Bcrypt is configured, it&#8217;s time to start hashing
 passwords. We could do this manually in the view that receives the
 request from the sign-up form, but we&#8217;d have to do it again in the
@@ -477,10 +476,7 @@ class User(db.Model):
     # [...] columns and properties
 
     def is_correct_password(self, plaintext)
-        if bcrypt.check_password_hash(self._password, plaintext):
-            return True
-
-        return False
+        return bcrypt.check_password_hash(self._password, plaintext)
 </pre></div>
 </div>
 <div class="section" id="flask-login">

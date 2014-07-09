@@ -211,7 +211,7 @@ script that, well, hashes a password.
 
    from flask.ext.bcrypt import generate_password_hash
 
-   # Chance the number of rounds (second argument) until it takes between
+   # Change the number of rounds (second argument) until it takes between
    # 0.25 and 0.5 seconds to run.
    generate_password_hash('password1', 12) 
 
@@ -231,6 +231,7 @@ rounds seemed to take the right amount of time, so I'll configure our
 example to use that.
 
 ::
+
    # config.py
 
    BCRYPT_LOG_ROUNDS = 12
@@ -331,10 +332,8 @@ the hashed password stored for that user.
        # [...] columns and properties
 
        def is_correct_password(self, plaintext)
-           if bcrypt.check_password_hash(self._password, plaintext):
-               return True
+           return bcrypt.check_password_hash(self._password, plaintext)
 
-           return False
 
 Flask-Login
 ~~~~~~~~~~~

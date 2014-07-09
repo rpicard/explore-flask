@@ -209,7 +209,7 @@ gives us a decorator to restrict certain views to authenticated users:
 <tt class="docutils literal"><span class="pre">&#64;login_required</span></tt>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
 
-<span class="kn">from</span> <span class="nn">Flask</span> <span class="kn">import</span> <span class="n">render_template</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
 <span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">login_required</span><span class="p">,</span> <span class="n">current_user</span>
 
 
@@ -517,7 +517,7 @@ views to authenticated users.</li>
 <li>The Flask-Cache extension gives you a bunch of decorators to
 implement various methods of caching.</li>
 <li>We can develop custom view decorators to help us organize our code
-and stick to DRY (Don&#8217;t Repeat Yourself) coding principals.</li>
+and stick to DRY (Don&#8217;t Repeat Yourself) coding principles.</li>
 <li>Custom URL converters can be a great way to implement creative
 features involving URL&#8217;s.</li>
 </ul>
