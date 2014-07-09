@@ -20,8 +20,9 @@ define a form in a ``myapp.forms`` package.
 
    # ourapp/forms.py
 
-   from flask.ext.wtforms import Form
-   from wtforms import TextField, PasswordField, Required, Email
+   from flask.ext.wtf import Form
+   from wtforms.fields import TextField, PasswordField
+   from wtforms.validators import Required, Email
 
    class EmailPasswordForm(Form):
        email = TextField('Email', validators=[Required(), Email()])
