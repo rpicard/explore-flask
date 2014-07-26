@@ -206,7 +206,7 @@ Once we have our migration script ready, we can run
 
 .. warning::
 
-   Don't forget to put a plan in place to back up your data. The details of that plan are outside the scope of this book, but you should always have your datbase backed up in a secure and robust way.
+   Don't forget to put a plan in place to back up your data. The details of that plan are outside the scope of this book, but you should always have your database backed up in a secure and robust way.
 
 .. note::
 
