@@ -113,8 +113,8 @@ PUT or POST) and validated by the validators we defined in *forms.py*.
 
 .. note::
 
-   - `Documentation for Form.validate_on_submit <http://pythonhosted.org/Flask-WTF/#flask.ext.wtf.Form.validate_on_submit>`_
-   - `Source for Form.validate_on_submit <https://github.com/ajford/flask-wtf/blob/v0.8.4/flask_wtf/form.py#L120>`_
+   - `Documentation for Form.validate_on_submit <https://flask-wtf.readthedocs.org/en/latest/api.html#flask_wtf.Form.validate_on_submit>`_
+   - `Source for Form.validate_on_submit <https://github.com/lepture/flask-wtf/blob/v0.9.5/flask_wtf/form.py#L151>`_
 
 If the form has been submitted and validated, we can continue with the
 login logic. If it hasn't been submitted (i.e. it's just a GET request),
@@ -286,7 +286,7 @@ as arguments to the call.
 
    You may notice that we don't need to use Jinja's ``|safe`` filter. This is because WTForms renders HTML safe strings.
 
-   Read more `in the documentation <http://pythonhosted.org/Flask-WTF/#using-the-safe-filter>`_.
+   Read more `in the documentation <https://flask-wtf.readthedocs.org/en/v0.8.4/#using-the-safe-filter>`_.
 
 Summary
 -------
