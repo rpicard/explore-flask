@@ -71,7 +71,7 @@ how this is implemented later in this chapter.
 
 .. note::
 
-    At the time of writing this, the Flask website at `http://flask.pocoo.org <http://flask.pocoo.org>`_ uses this structure. Take a look for yourself `on GitHub <https://github.com/mitsuhiko/flask/tree/website/flask_website>`_.
+    At the time of writing this, the Flask website at `http://flask.pocoo.org <http://flask.pocoo.org>`_ uses this structure. Take a look for yourself `on GitHub <https://github.com/mitsuhiko/flask-website/tree/website/flask_website>`_.
 
 Divisional
 ~~~~~~~~~~
