@@ -65,7 +65,7 @@ in another and views in a third.
 
 With the exception of *yourapp/views/\_\_init\_\_.py*, each of the *.py*
 files in the *yourapp/views/* directory from this listing is a blueprint. In
-*yourapp/\_\_init\_\_-.py* we would import those blueprints and
+*yourapp/\_\_init\_\_.py* we would import those blueprints and
 **register** them on our ``Flask()`` object. We'll look a little more at
 how this is implemented later in this chapter.
 
