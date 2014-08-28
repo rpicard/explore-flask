@@ -165,7 +165,7 @@ would be a massive breach of security.
    When making security related decisions, I always like to assume that my repository will become public at some point. This means keeping secrets out and never assuming that a security hole won't be found because, "Who's going to guess that they can do that?" This kind of assumption is known as security by obscurity and it's a bad policy to rely on.
 
 When using Git, you can create a special file called *.gitignore* in
-your repository. In it, list regular expression patterns to match
+your repository. In it, list wildcard patterns to match
 against filenames. Any filename that matches one of the patterns will be
 ignored by Git. I recommend using the *.gitignore* shown in Listing~ to
 get you started.
