@@ -113,7 +113,7 @@ your repository, but these are common to most Flask applications.
 |                         | in config.py, but set ``DEBUG = True`` in instance/config.py on |
 |                         | your local machine for development. Since this file will be     |
 |                         | read in after config.py, it will override it and set            |
-|                         | ``DEBUG = False``.                                              |
+|                         | ``DEBUG = True``.                                               |
 +-------------------------+-----------------------------------------------------------------+
 | /yourapp/               | This is the package that contains your application.             |
 +-------------------------+-----------------------------------------------------------------+
