@@ -503,7 +503,7 @@ roll.</p>
 
 <span class="nd">@login_manager.user_loader</span>
 <span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">userid</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">userid</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="o">==</span><span class="n">userid</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Here we created an instance of the <tt class="docutils literal"><span class="pre">LoginManager</span></tt>, initialized

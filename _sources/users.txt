@@ -365,7 +365,7 @@ In *\_\_init\_\_.py* we'll define the Flask-Login ``login_manager``.
 
     @login_manager.user_loader
     def load_user(userid):
-        return User.query.filter(User.id == userid).first()
+        return User.query.filter(User.id==userid).first()
 
 Here we created an instance of the ``LoginManager``, initialized
 it with our ``app`` object, defined the login view and told it how to
