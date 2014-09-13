@@ -1,3 +1,7 @@
+
+.. highlight:: python
+    :linenothreshold: 0
+
 Configuration
 =============
 
@@ -36,7 +40,7 @@ needed the default "from" address for a transactional email -- e.g.
 password resets. Putting that information in a configuration variable
 makes it easy to change it in the future.
 
-.. code::
+::
 
     # app.py or app/__init__.py
     from flask import Flask
@@ -111,7 +115,7 @@ To load configuration variables from an instance folder, we use
 ``Flask()`` call, ``app.config.from_pyfile()`` will load the
 specified file from the *instance/* directory.
 
-.. code::
+::
 
     # app.py or app/__init__.py
 
