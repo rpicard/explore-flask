@@ -271,7 +271,15 @@ application runner like Gunicorn. Gunicorn handles requests and takes
 care of complicated things like threading.</p>
 <p>To use Gunicorn, we install the <tt class="docutils literal"><span class="pre">gunicorn</span></tt> package in our virtual
 environment with Pip. Running our app is a simple command away.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># app.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 
@@ -281,33 +289,40 @@ environment with Pip. Running our app is a simple command away.</p>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
         <span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>A fine app indeed. Now, to serve it up with Gunicorn, we simply run the
 <tt class="docutils literal"><span class="pre">gunicorn</span></tt> command.</p>
-<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app
 2014-03-19 16:28:54 [62924] [INFO] Starting gunicorn 18.0
 2014-03-19 16:28:54 [62924] [INFO] Listening at: http://127.0.0.1:8000 (62924)
 2014-03-19 16:28:54 [62924] [INFO] Using worker: sync
 2014-03-19 16:28:54 [62927] [INFO] Booting worker with pid: 62927
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>At this point, we should see &#8220;Hello World!&#8221; when we navigate our browser to <em>http://127.0.0.1:8000</em>.</p>
 <p>To run this server in the background (i.e. daemonize it), we can pass the <tt class="docutils literal"><span class="pre">-D</span></tt> option to Gunicorn. That way it&#8217;ll run even after we close our current terminal session.</p>
 <p>If we daemonize Gunicorn, we might have a hard time finding the process to close later when we want to stop the server. We can tell Gunicorn to stick the process ID in a file so that we can stop or restart it later without searching through lists of running processess. We use the <tt class="docutils literal"><span class="pre">-p</span> <span class="pre">&lt;file&gt;</span></tt> option to do that.</p>
-<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -D
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -D
 (ourapp)$ cat rocket.pid
 63101
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>To restart and kill the server, we can run <tt class="docutils literal"><span class="pre">kill</span> <span class="pre">-HUP</span></tt> and <tt class="docutils literal"><span class="pre">kill</span></tt> respectively.</p>
-<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ kill -HUP `cat rocket.pid`
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>(ourapp)$ kill -HUP `cat rocket.pid`
 (ourapp)$ kill `cat rocket.pid`
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>By default Gunicorn runs on port 8000. We can change the port by adding the <tt class="docutils literal"><span class="pre">-b</span></tt> bind option.</p>
-<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 127.0.0.1:7999 -D
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 127.0.0.1:7999 -D
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="section" id="making-gunicorn-public">
 <h4>Making Gunicorn public<a class="headerlink" href="#making-gunicorn-public" title="Permalink to this headline">¶</a></h4>
 <div class="admonition warning">
@@ -322,9 +337,9 @@ have a reverse proxy server that is sitting between the public and our
 Gunicorn server. If, however, we need to make requests from outside of
 the server for debugging purposes, we can tell Gunicorn to bind to
 0.0.0.0. This tells it to listen for all requests.</p>
-<div class="highlight-python"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 0.0.0.0:8000 -D
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 0.0.0.0:8000 -D
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
@@ -343,7 +358,31 @@ advises&#8221; that we use it.</p>
 <p>To configure Nginx as a reverse proxy to a Gunicorn server running on
 127.0.0.1:8000, we can create a file for our app:
 <em>/etc/nginx/sites-available/expl-oreflask.com</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre># /etc/nginx/sites-available/exploreflask.com
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre># /etc/nginx/sites-available/exploreflask.com
 
 # Redirect www.exploreflask.com to exploreflask.com
 server {
@@ -369,14 +408,16 @@ server {
         }
 }
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now we&#8217;ll create a symlink to this file at <em>/etc/nginx/sites-enabled</em>
 and restart Nginx.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo ln -s \
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre>$ sudo ln -s \
 /etc/nginx/sites-available/exploreflask.com \
 /etc/nginx/sites-enabled/exploreflask.com
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We should now be able to make our requests to Nginx and receive the
 response from our app.</p>
 <div class="admonition note">
@@ -388,7 +429,21 @@ response from our app.</p>
 <p>We may run into some issues with Flask not properly handling the proxied
 requests. It has to do with those headers we set in the Nginx
 configuration. We can use the Werkzeug ProxyFix to ... fix the proxy.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># app.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 
@@ -404,7 +459,7 @@ configuration. We can use the Werkzeug ProxyFix to ... fix the proxy.</p>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
         <span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">

@@ -193,7 +193,15 @@ submissions easy.</p>
 <h2>Flask-WTF<a class="headerlink" href="#flask-wtf" title="Permalink to this headline">¶</a></h2>
 <p>The first thing we want to do with Flask-WTF (after installing it) is to
 define a form in a <tt class="docutils literal"><span class="pre">myapp.forms</span></tt> package.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
 
 <span class="kn">from</span> <span class="nn">flask.ext.wtf</span> <span class="kn">import</span> <span class="n">Form</span>
 <span class="kn">from</span> <span class="nn">wtforms.fields</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span>
@@ -203,7 +211,7 @@ define a form in a <tt class="docutils literal"><span class="pre">myapp.forms</s
     <span class="n">email</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Email&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">()])</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Until version 0.9, Flask-WTF provided its own wrappers around the WTForms fields and validators. You may see a lot of code out in the wild that imports <tt class="docutils literal"><span class="pre">TextField</span></tt>, <tt class="docutils literal"><span class="pre">PasswordField</span></tt>, etc. from <tt class="docutils literal"><span class="pre">flask.ext.wtforms</span></tt> instead of <tt class="docutils literal"><span class="pre">wtforms</span></tt>.</p>
@@ -255,7 +263,23 @@ page.</p>
 </div>
 <p>To start using Flask-WTF for CSRF protection, we&#8217;ll need to define a
 view for our login page.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span>
 
@@ -273,7 +297,7 @@ view for our login page.</p>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;index&#39;</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;login.html&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We import our form from our <tt class="docutils literal"><span class="pre">forms</span></tt> package and instantiate it in the
 view. Then we run <tt class="docutils literal"><span class="pre">form.validate_on_submit()</span></tt>. This function returns
 <tt class="docutils literal"><span class="pre">True</span></tt> if the form has been both submitted (i.e. if the HTTP method is
@@ -289,7 +313,21 @@ PUT or POST) and validated by the validators we defined in <em>forms.py</em>.</p
 login logic. If it hasn&#8217;t been submitted (i.e. it&#8217;s just a GET request),
 we want to pass the form object to our template so it can be rendered.
 Here&#8217;s what the template looks like when we&#8217;re using CSRF protection.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# ourapp/templates/login.html #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre>{# ourapp/templates/login.html #}
 
 {% extends &quot;layout.html&quot; %}
 &lt;html&gt;
@@ -305,7 +343,7 @@ Here&#8217;s what the template looks like when we&#8217;re using CSRF protection
     &lt;/body&gt;
 &lt;/html&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><tt class="docutils literal"><span class="pre">{{</span> <span class="pre">form.csrf_token</span> <span class="pre">}}</span></tt> renders a hidden field containing one of those
 fancy CSRF tokens and WTForms looks for that field when it validates the
 form. We don&#8217;t have to worry about including any special &#8220;is the token
@@ -332,7 +370,13 @@ or email address isn&#8217;t already in use. Without WTForms, we&#8217;d probabl
 doing these checks in the view, but now we can abstract that away to the
 form itself.</p>
 <p>We&#8217;ll start by defining a simple sign-up form.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
 <span class="kn">from</span> <span class="nn">flask.ext.wtforms</span> <span class="kn">import</span> <span class="n">Form</span>
 <span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span><span class="p">,</span> <span class="n">Required</span><span class="p">,</span> <span class="n">Email</span>
 
@@ -340,11 +384,22 @@ form itself.</p>
     <span class="n">email</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Email&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">()])</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now we want to add our validator to make sure that the email they
 provide isn&#8217;t already in the database. We&#8217;ll put the validator in a new
 <tt class="docutils literal"><span class="pre">util</span></tt> module, <tt class="docutils literal"><span class="pre">util.validators</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/util/validators.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/util/validators.py</span>
 <span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">ValidationError</span>
 
 <span class="k">class</span> <span class="nc">Unique</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -357,7 +412,7 @@ provide isn&#8217;t already in the database. We&#8217;ll put the validator in a 
         <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>This validator assumes that we&#8217;re using SQLAlchemy to define our models.
 WTForms expects validators to return some sort of callable (e.g. a
 callable class).</p>
@@ -369,7 +424,21 @@ defined model matches the value submitted in the form. We&#8217;ve also made
 it possible to add a message with a generic default that will be
 included in the <tt class="docutils literal"><span class="pre">ValidationError</span></tt>.</p>
 <p>Now we can modify <tt class="docutils literal"><span class="pre">EmailPasswordForm</span></tt> to use the <tt class="docutils literal"><span class="pre">Unique</span></tt> validator.</p>
-<div class="highlight-python"><div class="highlight"><pre># ourapp/forms.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre># ourapp/forms.py
 
 from flask.ext.wtforms import Form
 from wtforms import TextField, PasswordField, Required, Email
@@ -385,7 +454,7 @@ class EmailPasswordForm(Form):
             message=&#39;There is already an account with that email.&#39;])
     password = PasswordField(&#39;Password&#39;, validators=[Required()])
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Our validator doesn&#8217;t have to be a callable class. It could also be a factory that returns a callable or just a callable directly. The WTForms documentation has <a class="reference external" href="http://wtforms.simplecodes.com/docs/0.6.2/validators.html#custom-validators">some examples</a>.</p>
@@ -398,7 +467,21 @@ class implemented by WTForms renders an HTML representation of that
 field, so we just have to call the form fields to render them in our
 template. It&#8217;s just like rendering the <tt class="docutils literal"><span class="pre">csrf_token</span></tt> field. Listing~
 gives an example of a login template using WTForms to render our fields.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# ourapp/templates/login.html #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre>{# ourapp/templates/login.html #}
 
 {% extends &quot;layout.html&quot; %}
 &lt;html&gt;
@@ -414,10 +497,16 @@ gives an example of a login template using WTForms to render our fields.</p>
     &lt;/body&gt;
 &lt;/html&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We can customize how the fields are rendered by passing field properties
 as arguments to the call.</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre>&lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
     {{ form.email.label }}: {{ form.email(placeholder=&#39;yourname@email.com&#39;) }}
     &lt;br&gt;
     {{ form.password.label }}: {{ form.password }}
@@ -425,7 +514,7 @@ as arguments to the call.</p>
     {{ form.csrf_token }}
 &lt;/form&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If we want to pass the &#8220;class&#8221; HTML attribute, we have to use <tt class="docutils literal"><span class="pre">class_=''</span></tt> since &#8220;class&#8221; is a reserved keyword in Python.</p>

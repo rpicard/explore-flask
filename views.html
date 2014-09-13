@@ -191,11 +191,13 @@ functions. When a decorated function is called, the decorator is called
 instead. The decorator can then take action, modify the arguments, halt
 execution or call the original function. We can use decorators to wrap
 views with code we&#8217;d like to run before they are executed.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nd">@decorator_function</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="nd">@decorator_function</span>
 <span class="k">def</span> <span class="nf">decorated</span><span class="p">():</span>
     <span class="k">pass</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>If you&#8217;ve gone through the Flask tutorial, the syntax in this code block might
 look familiar to you. <tt class="docutils literal"><span class="pre">&#64;app.route</span></tt> is a decorator used to match URLs
 to view functions in Flask apps.</p>
@@ -207,7 +209,20 @@ apps.</p>
 addition to handling the details of user authentication, Flask-Login
 gives us a decorator to restrict certain views to authenticated users:
 <tt class="docutils literal"><span class="pre">&#64;login_required</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># app.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
 <span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">login_required</span><span class="p">,</span> <span class="n">current_user</span>
@@ -222,7 +237,7 @@ gives us a decorator to restrict certain views to authenticated users:
 <span class="k">def</span> <span class="nf">account</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&quot;account.html&quot;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last"><tt class="docutils literal"><span class="pre">&#64;app.route</span></tt> should always be the outermost view decorator.</p>
@@ -252,7 +267,26 @@ on our index view to cache the response for some period of time.</p>
 backends. A popular choice is <a class="reference external" href="http://redis.io/">Redis</a>, which is easy to set-up and use.
 Assuming Flask-Cache is already configured, this code block shows what our
 decorated view would look like.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># app.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># app.py</span>
 
 <span class="kn">from</span> <span class="nn">flask.ext.cache</span> <span class="kn">import</span> <span class="n">Cache</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
@@ -273,7 +307,7 @@ decorated view would look like.</p>
         <span class="n">recent_photos</span><span class="o">=</span><span class="n">recent_photos</span>
     <span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now the function will only be run once every 60 seconds, when the cache
 expires. The response will be saved in our cache and pulled from there
 for any intervening requests.</p>
@@ -287,7 +321,24 @@ for any intervening requests.</p>
 <p>For this section, let&#8217;s imagine we have an application that charges
 users each month. If a user&#8217;s account is expired, we&#8217;ll redirect them to
 the billing page and tell them to upgrade.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/util.py</span>
 
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -306,7 +357,7 @@ the billing page and tell them to upgrade.</p>
 
     <span class="k">return</span> <span class="n">decorated_function</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <table border="1" class="docutils">
 <colgroup>
 <col width="5%" />
@@ -338,7 +389,22 @@ view function <tt class="docutils literal"><span class="pre">func()</span></tt> 
 <p>When we stack decorators, the topmost decorator will run first, then
 call the next function in line: either the view function or the next
 decorator. The decorator syntax is just a little syntactic sugar.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># This code:</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># This code:</span>
 <span class="nd">@foo</span>
 <span class="nd">@bar</span>
 <span class="k">def</span> <span class="nf">one</span><span class="p">():</span>
@@ -355,11 +421,33 @@ decorator. The decorator syntax is just a little syntactic sugar.</p>
 
 <span class="n">r1</span> <span class="o">==</span> <span class="n">r2</span> <span class="c"># True</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>This code block shows an example using our custom decorator and the
 <tt class="docutils literal"><span class="pre">&#64;login_required</span></tt> decorator from the Flask-Login extension. We can
 use multiple decorators by stacking them.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/views.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
 
@@ -383,7 +471,7 @@ use multiple decorators by stacking them.</p>
     <span class="c"># [...]</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;account/billing.html&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now when a user tries to access <em>/use_app</em>, <tt class="docutils literal"><span class="pre">check_expired()</span></tt> will
 make sure that their account hasn&#8217;t expired before running the view
 function.</p>
@@ -399,19 +487,23 @@ function.</p>
 <h3>Built-in converters<a class="headerlink" href="#built-in-converters" title="Permalink to this headline">¶</a></h3>
 <p>When you define a route in Flask, you can specify parts of it that will
 be converted into Python variables and passed to the view function.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/user/&lt;username&gt;&#39;</span><span class="p">)</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/user/&lt;username&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Whatever is in the part of the URL labeled <tt class="docutils literal"><span class="pre">&lt;username&gt;</span></tt> will get
 passed to the view as the username argument. You can also specify a
 converter to filter the variable before it&#8217;s passed to the view.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/user/id/&lt;int:user_id&gt;&#39;</span><span class="p">)</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/user/id/&lt;int:user_id&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>In this code block, the URL <em>http://myapp.com/user/id/Q29kZUxlc3NvbiEh</em> will
 return a 404 status code &#8211; not found. This is because the part of the
 URL that is supposed to be an integer is actually a string.</p>
@@ -454,7 +546,18 @@ seperating the names with a plus-sign in the URL, e.g.
 apps. We&#8217;ll take an arbitrary number of elements separated by
 plus-signs, convert them to a list with a <tt class="docutils literal"><span class="pre">ListConverter</span></tt> class and
 pass the list of elements to the view function.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/util.py</span>
 
 <span class="kn">from</span> <span class="nn">werkzeug.routing</span> <span class="kn">import</span> <span class="n">BaseConverter</span>
 
@@ -467,7 +570,7 @@ pass the list of elements to the view function.</p>
         <span class="k">return</span> <span class="s">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BaseConverter</span><span class="o">.</span><span class="n">to_url</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We need to define two methods: <tt class="docutils literal"><span class="pre">to_python()</span></tt> and <tt class="docutils literal"><span class="pre">to_url()</span></tt>. As the
 names suggest, <tt class="docutils literal"><span class="pre">to_python()</span></tt> is used to convert the path in the URL to
 a Python object that will be passed to the view and <tt class="docutils literal"><span class="pre">to_url()</span></tt> is used
@@ -475,7 +578,15 @@ by <tt class="docutils literal"><span class="pre">url_for()</span></tt> to conve
 URL.</p>
 <p>To use our <tt class="docutils literal"><span class="pre">ListConverter</span></tt>, we first have to tell Flask that it
 exists.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># /myapp/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># /myapp/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 
@@ -485,13 +596,24 @@ exists.</p>
 
 <span class="n">app</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">converters</span><span class="p">[</span><span class="s">&#39;list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ListConverter</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>This is another chance to run into some circular import problems if your <tt class="docutils literal"><span class="pre">util</span></tt> module has a <tt class="docutils literal"><span class="pre">from</span> <span class="pre">.</span> <span class="pre">import</span> <span class="pre">app</span></tt> line. That&#8217;s why I waited until app had been initialized to import <tt class="docutils literal"><span class="pre">ListConverter</span></tt>.</p>
 <p class="last">Now we can use our converter just like one of the built-ins. We specified the key in the dictionary as &#8220;list&#8221; so that&#8217;s how we use it in <tt class="docutils literal"><span class="pre">&#64;app.route()</span></tt>.</p>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/views.py</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">app</span>
 
@@ -504,7 +626,7 @@ exists.</p>
 
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;/r/index.html&#39;</span><span class="p">,</span> <span class="n">posts</span><span class="o">=</span><span class="n">posts</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>This should work just like Reddit&#8217;s multi-reddit system. This same
 method can be used to make any URL converter we can dream of.</p>
 </div>

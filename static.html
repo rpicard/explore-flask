@@ -191,7 +191,13 @@ They can also include audio files and other things of that nature.</p>
 <h2>Organizing your static files<a class="headerlink" href="#organizing-your-static-files" title="Permalink to this headline">¶</a></h2>
 <p>We&#8217;ll create a directory for our static files called <em>static</em> inside our
 application package.</p>
-<div class="highlight-python"><div class="highlight"><pre>myapp/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre>myapp/
     __init__.py
     static/
     templates/
@@ -199,14 +205,28 @@ application package.</p>
     models.py
 run.py
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>How you organize the files in <em>static/</em> is a matter of personal
 preference. Personally, I get a little irked by having third-party
 libraries (e.g. jQuery, Bootstrap, etc.) mixed in with my own JavaScript
 and CSS files. To avoid this, I recommend separating third-party
 libraries out into a <em>lib/</em> folder within the appropriate directory.
 Some projects use <em>vendor/</em> instead of <em>lib/</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre>static/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre>static/
     css/
         lib/
             bootstrap.css
@@ -222,7 +242,7 @@ Some projects use <em>vendor/</em> instead of <em>lib/</em>.</p>
         logo.svg
         favicon.ico
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="section" id="serving-a-favicon">
 <h3>Serving a favicon<a class="headerlink" href="#serving-a-favicon" title="Permalink to this headline">¶</a></h3>
 <p>The files in our static directory will be served from
@@ -230,10 +250,11 @@ Some projects use <em>vendor/</em> instead of <em>lib/</em>.</p>
 expects our favicon to be at <em>example.com/favicon.ico</em>. To fix this
 discrepency, we can add the following in the <tt class="docutils literal"><span class="pre">&lt;head&gt;</span></tt> section of our
 site template.</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;link rel=&quot;shortcut icon&quot;
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>&lt;link rel=&quot;shortcut icon&quot;
     href=&quot;{{ url_for(&#39;static&#39;, filename=&#39;img/favicon.ico&#39;) }}&quot;&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 </div>
 <div class="section" id="manage-static-assets-with-flask-assets">
@@ -247,7 +268,22 @@ JavaScript files so that the user only has to load two minified files
 (CSS and JavaScript) without forcing you to develop a complex asset
 pipeline. You can even compile your files from Sass, LESS, CoffeeScript
 and a bunch of other sources.</p>
-<div class="highlight-python"><div class="highlight"><pre>static/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre>static/
     css/
         lib/
             reset.css
@@ -264,14 +300,47 @@ and a bunch of other sources.</p>
         logo.svg
         favicon.ico
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="section" id="defining-bundles">
 <h3>Defining bundles<a class="headerlink" href="#defining-bundles" title="Permalink to this headline">¶</a></h3>
 <p>Our app has two sections: the public site and the admin panel, referred
 to as &#8220;home&#8221; and &#8220;admin&#8221; respectively in our app. We&#8217;ll define four
 bundles to cover this: a JavaScript and CSS bundle for each section.
 We&#8217;ll put these in an assets module inside our <tt class="docutils literal"><span class="pre">util</span></tt> package.</p>
-<div class="highlight-python"><div class="highlight"><pre># myapp/util/assets.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre># myapp/util/assets.py
 
 from flask.ext.assets import Bundle, Environment
 from .. import app
@@ -306,7 +375,7 @@ assets = Environment(app)
 
 assets.register(bundles)
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Flask-Assets combines your files in the order in which they are listed
 here. If <em>admin.js</em> requires <em>jquery-1.10.2.js</em>, make sure jquery is
 listed first.</p>
@@ -317,19 +386,31 @@ we made in this snippet. <a class="footnote-reference" href="#id2" id="id1">[1]<
 <p>Since we&#8217;re registering our bundles in <tt class="docutils literal"><span class="pre">util.assets</span></tt>, all we have to
 do is import that module in <em>__init__.py</em> after our app has been
 initialized.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/__init__.py</span>
 
 <span class="c"># [...] Initialize the app</span>
 
 <span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">assets</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="using-our-bundles">
 <h3>Using our bundles<a class="headerlink" href="#using-our-bundles" title="Permalink to this headline">¶</a></h3>
 <p>To use our admin bundles, we&#8217;ll insert them into the parent template for
 the admin section: <em>admin/layout.html</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre>templates/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre>templates/
     home/
         layout.html
         index.html
@@ -339,8 +420,24 @@ the admin section: <em>admin/layout.html</em>.</p>
         dash.html
         stats.html
 </pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>{# myapp/templates/admin/layout.html #}
+</td></tr></table></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre>{# myapp/templates/admin/layout.html #}
 
 &lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -358,7 +455,7 @@ the admin section: <em>admin/layout.html</em>.</p>
     &lt;/body&gt;
 &lt;/html&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We can do the same thing for the home bundles in
 <em>templates/home/layout-.html</em>.</p>
 </div>
@@ -366,7 +463,41 @@ the admin section: <em>admin/layout.html</em>.</p>
 <h3>Using filters<a class="headerlink" href="#using-filters" title="Permalink to this headline">¶</a></h3>
 <p>We can use filters to pre-process our static files. This is especially
 handy for minifying our JavaScript and CSS bundles.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util/assets.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/util/assets.py</span>
 
 <span class="c"># [...]</span>
 
@@ -402,7 +533,7 @@ handy for minifying our JavaScript and CSS bundles.</p>
 
 <span class="c"># [...]</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">To use the <tt class="docutils literal"><span class="pre">jsmin</span></tt> and <tt class="docutils literal"><span class="pre">cssmin</span></tt> filters, you&#8217;ll need to install the

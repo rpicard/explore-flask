@@ -217,7 +217,17 @@ application code.</p>
 configure some SQLAlchemy. The models are going to go in
 <em>myapp/models.py</em>, but first we are going to define our database in
 <em>myapp/**init*</em>.py*</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 <span class="kn">from</span> <span class="nn">flask.ext.sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
@@ -229,14 +239,26 @@ configure some SQLAlchemy. The models are going to go in
 
 <span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>First we initialize and configure our Flask app and then we use it to
 initialize our SQLAlchemy database handler. We&#8217;re going to use an
 instance folder for our database configuration so we should use the
 <tt class="docutils literal"><span class="pre">instance_relative_config</span></tt> option when initializing the app and then
 call <tt class="docutils literal"><span class="pre">app.config.from_pyfile</span></tt> to load it. Then we can define our
 models.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/models.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/models.py</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">db</span>
 
@@ -250,7 +272,7 @@ models.</p>
 
     <span class="n">thrust</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><tt class="docutils literal"><span class="pre">Column</span></tt>, <tt class="docutils literal"><span class="pre">Integer</span></tt>, <tt class="docutils literal"><span class="pre">String</span></tt>, <tt class="docutils literal"><span class="pre">Model</span></tt> and other SQLAlchemy
 classes are all available via the <tt class="docutils literal"><span class="pre">db</span></tt> object constructed from
 Flask-SQLAlchemy. We have defined a model to store the
@@ -260,11 +282,13 @@ title and a thrust level.</p>
 We&#8217;re using an instance folder to keep confidential configuration
 variables out of version control, so we are going to put it in
 <em>instance/config.py</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># instance/config.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># instance/config.py</span>
 
 <span class="n">SQLALCHEMY_DATABASE_URI</span> <span class="o">=</span> <span class="s">&quot;postgresql://user:password@localhost/spaceshipDB&quot;</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Your database URI will be different depending on the engine you use and where it&#8217;s hosted. See the <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=database#database-urls">SQLAlchemy documentation for this syntax</a>.</p>
@@ -277,7 +301,16 @@ database schema from the model definitions.</p>
 <p>Normally that process might be a pain in the ... neck. Lucky for us,
 SQLAlchemy has a really cool command that will do all of this for us.</p>
 <p>Let&#8217;s open up a Python terminal in our repository root.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ pwd
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre>$ pwd
 /Users/me/Code/myapp
 $ workon myapp
 (myapp)$ python
@@ -288,7 +321,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 &gt;&gt;&gt; db.create_all()
 &gt;&gt;&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now, thanks to SQLAlchemy, our tables have been created in the database
 specified in our configuration.</p>
 </div>
@@ -311,7 +344,24 @@ you a quick overview and point out a couple of things to watch out for.</p>
 we&#8217;ll have a new directory with the very creative name <em>alembic</em>. Our
 repository will end up looking something like the example in this listing,
 adapted from the Alembic tutorial.</p>
-<div class="highlight-python"><div class="highlight"><pre>ourapp/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre>ourapp/
     alembic.ini
     alembic/
         env.py
@@ -330,7 +380,7 @@ adapted from the Alembic tutorial.</p>
     config.py
     requirements.txt
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The <em>alembic/</em> directory has the scripts that migrate our data between
 versions. There is also an <em>alembic.ini</em> file that contains
 configuration information.</p>

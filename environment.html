@@ -213,32 +213,41 @@ environments. Navigate to your project directory and run the
 <tt class="docutils literal"><span class="pre">virtualenv</span></tt> command. It takes one argument, which is the destination
 directory of the virtual environment. Listing~ shows what this looks
 like.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ virtualenv venv
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>$ virtualenv venv
 New python executable in venv/bin/python
 Installing Setuptools...........[...].....done.
 Installing Pip..................[...].....done.
 $
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>virtualenv creates a new directory where the dependencies will be
 installed.</p>
 <p>Once the new virtual environment has been created, you must activate it
 by sourcing the <em>bin/activate</em> script that was created inside the
 virtual environment.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ which python
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>$ which python
 /usr/local/bin/python
 $ source venv/bin/activate
 (venv)$ which python
 /Users/robert/Code/myapp/venv/bin/python
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The <em>bin/activate</em> script makes some changes to your shell&#8217;s environment variables so that everything points to the new virtual environment instead of your global system. You can see the effect in code block above. After activation, the <tt class="docutils literal"><span class="pre">python</span></tt> command refers to the Python binary inside the virtual environment. When a virtual environment is active, dependencies installed with Pip will be downloaded to that virtual environment instead of the global system.</p>
 <p>You may notice that the shell prompt has been changed too. virtualenv prepends the name of the currently activated virtual environment, so you know that you&#8217;re not working on the global system.</p>
 <p>You can deactivate your virtual environment by running the <tt class="docutils literal"><span class="pre">deactivate</span></tt> command.</p>
-<div class="highlight-python"><div class="highlight"><pre>(venv)$ deactivate
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>(venv)$ deactivate
 $
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="section" id="virtualenvwrapper">
 <h3>virtualenvwrapper<a class="headerlink" href="#virtualenvwrapper" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> is a package used to manage the virtual environments created by virtualenv. I didn&#8217;t want to mention this tool until you had seen the basics of virtualenv so that you understand what it&#8217;s improving upon and understand why you should use it.</p>
@@ -249,13 +258,17 @@ $
 <p class="last">Make sure that you&#8217;ve deactivated all virtual environments before installing virtualenvwrapper. You want it installed globally, not in a pre-existing environment.</p>
 </div>
 <p>Now, instead of running <tt class="docutils literal"><span class="pre">virtualenv</span></tt> to create an environment, you&#8217;ll run <tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mkvirtualenv rocket
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>$ mkvirtualenv rocket
 New python executable in rocket/bin/python
 Installing setuptools...........[...].....done.
 Installing pip..................[...].....done.
 (rocket)$
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt> creates a directory in your virtual environments folder and activates it for you. Just like with plain old <tt class="docutils literal"><span class="pre">virtualenv</span></tt>, <tt class="docutils literal"><span class="pre">python</span></tt> and <tt class="docutils literal"><span class="pre">pip</span></tt> now point to that virtual environment instead of the system binaries. To activate a particular environment, use the command: <tt class="docutils literal"><span class="pre">workon</span> <span class="pre">[environment</span> <span class="pre">name]</span></tt>. <tt class="docutils literal"><span class="pre">deactivate</span></tt> still deactivates the environment.</p>
 </div>
 <div class="section" id="keeping-track-of-dependencies">
@@ -264,17 +277,22 @@ Installing pip..................[...].....done.
 <div class="section" id="pip-freeze">
 <h4>pip freeze<a class="headerlink" href="#pip-freeze" title="Permalink to this headline">¶</a></h4>
 <p><em>requirements.txt</em> is a text file used by many Flask applications to list all of the packages needed to run an application. This code block shows how to create this file and the following one shows how to use that text file to install your dependencies in a new environment.</p>
-<div class="highlight-python"><div class="highlight"><pre>(rocket)$ pip freeze &gt; requirements.txt
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(rocket)$ pip freeze &gt; requirements.txt
 </pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>$ workon fresh-env
+</td></tr></table></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre>$ workon fresh-env
 (fresh-env)$ pip install -r requirements.txt
 [...]
 Successfully installed flask Werkzeug Jinja2 itsdangerous markupsafe
 Cleaning up...
 (fresh-env)$
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 </div>
 <div class="section" id="manually-tracking-dependencies">
@@ -319,10 +337,11 @@ your repository. In it, list wildcard patterns to match
 against filenames. Any filename that matches one of the patterns will be
 ignored by Git. I recommend using the <em>.gitignore</em> shown in Listing~ to
 get you started.</p>
-<div class="highlight-python"><div class="highlight"><pre>*.pyc
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>*.pyc
 instance/
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Instance folders are used to make secret configuration variables
 available to your application in a more secure way. We&#8217;ll talk more
 about them later.</p>

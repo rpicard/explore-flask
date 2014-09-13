@@ -221,7 +221,13 @@ gives us tools to send sensitive data into untrusted environments (like
 sending an email confirmation token to an unconfirmed email). In this
 case, we&#8217;re going to use an instance of the <tt class="docutils literal"><span class="pre">URLSafeTimedSerializer</span></tt>
 class.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/util/security.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/util/security.py</span>
 
 <span class="kn">from</span> <span class="nn">itsdangerous</span> <span class="kn">import</span> <span class="n">URLSafeTimedSerializer</span>
 
@@ -229,11 +235,49 @@ class.</p>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="n">URLSafeTimedSerializer</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&quot;SECRET_KEY&quot;</span><span class="p">])</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We can use that serializer to generate a confirmation token when a user
 gives us their email address. We&#8217;ll implement a simple account creation
 process using this method.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">url_for</span>
 
@@ -273,11 +317,23 @@ process using this method.</p>
 
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&quot;accounts/create.html&quot;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The view that we&#8217;ve defined handles the creation of the user and sends off an
 email to the given email address. You may notice that we&#8217;re using a
 template to generate the HTML for the email.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# ourapp/templates/email/activate.html #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre>{# ourapp/templates/email/activate.html #}
 
 Your account was successfully created. Please click the link below&lt;br&gt;
 to confirm your email address and activate your account:
@@ -291,10 +347,26 @@ to confirm your email address and activate your account:
 Questions? Comments? Email hello@myapp.com.
 &lt;/p&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Okay, so now we just need to implement a view that handles the
 confirmation link in that email.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
 
 <span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/confirm/&lt;token&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">confirm_email</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
@@ -312,7 +384,7 @@ confirmation link in that email.</p>
 
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;signin&#39;</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>This view is a simple form view. We just add the <tt class="docutils literal"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">except</span></tt> bit
 at the beginning to check that the token is valid. The token contains a
 timestamp, so we can tell <tt class="docutils literal"><span class="pre">ts.loads()</span></tt> to raise an exception if it is
@@ -340,13 +412,17 @@ bcrypt package in our application. This extension is basically just a
 wrapper around the <tt class="docutils literal"><span class="pre">py-bcrypt</span></tt> package, but it does handle a few
 things that would be annoying to do ourselves (like checking string
 encodings before comparing hashes).</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask.ext.bcrypt</span> <span class="kn">import</span> <span class="n">Bcrypt</span>
 
 <span class="n">bcrypt</span> <span class="o">=</span> <span class="n">Bcrypt</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>One of the reasons that the Bcrypt algorithm is so highly recommended is
 that it is &#8220;future adaptable.&#8221; This means that over time, as computing
 power becomes cheaper, we can make it more and more difficult to brute
@@ -365,7 +441,13 @@ idea to test out some different numbers and shoot for between 0.25 and
 though.</p>
 <p>To test the time it takes to hash a password, we can time a quick Python
 script that, well, hashes a password.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># benchmark.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># benchmark.py</span>
 
 <span class="kn">from</span> <span class="nn">flask.ext.bcrypt</span> <span class="kn">import</span> <span class="n">generate_password_hash</span>
 
@@ -373,24 +455,30 @@ script that, well, hashes a password.</p>
 <span class="c"># 0.25 and 0.5 seconds to run.</span>
 <span class="n">generate_password_hash</span><span class="p">(</span><span class="s">&#39;password1&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now we can keep timing our changes to the number of rounds with the UNIX
 <tt class="docutils literal"><span class="pre">time</span></tt> utility.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ time python test.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>$ time python test.py
 
 real    0m0.496s
 user    0m0.464s
 sys     0m0.024s
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>I did a quick benchmark on a small server that I have handy and 12
 rounds seemed to take the right amount of time, so I&#8217;ll configure our
 example to use that.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># config.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># config.py</span>
 
 <span class="n">BCRYPT_LOG_ROUNDS</span> <span class="o">=</span> <span class="mi">12</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now that Flask-Bcrypt is configured, it&#8217;s time to start hashing
 passwords. We could do this manually in the view that receives the
 request from the sign-up form, but we&#8217;d have to do it again in the
@@ -399,7 +487,24 @@ abstract away the hashing so that our app does it without us even
 thinking about it. We&#8217;ll use a <strong>setter</strong> so that when we set
 <tt class="docutils literal"><span class="pre">user.password</span> <span class="pre">=</span> <span class="pre">'password1'</span></tt>, it&#8217;s automatically hashed with Bcrypt
 before being stored.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/models.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/models.py</span>
 
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.hybrid</span> <span class="kn">import</span> <span class="n">hybrid_property</span>
 
@@ -418,7 +523,7 @@ before being stored.</p>
     <span class="k">def</span> <span class="nf">_set_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plaintext</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_password</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">generate_password_hash</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We&#8217;re using SQLAlchemy&#8217;s hybrid extension to define a property with
 several different functions called from the same interface. Our setter
 is called when we assign a value to the <tt class="docutils literal"><span class="pre">user.password</span></tt> property. In
@@ -426,7 +531,22 @@ it, we hash the plaintext password and store it in the <tt class="docutils liter
 column of the user table. Since we&#8217;re using a hybrid property we can
 then access the hashed password via the same <tt class="docutils literal"><span class="pre">user.password</span></tt> property.</p>
 <p>Now we can implement a sign-up view for an app using this model.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">db</span>
 <span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">EmailPasswordForm</span>
@@ -443,7 +563,7 @@ then access the hashed password via the same <tt class="docutils literal"><span 
 
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;signup.html&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="authentication">
 <h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
@@ -455,7 +575,14 @@ checks out, we&#8217;ll mark them as authenticated by setting a cookie in
 their browser. The next time they make a request we&#8217;ll know that they
 have already logged in by looking for that cookie.</p>
 <p>Let&#8217;s start by defining a <tt class="docutils literal"><span class="pre">UsernamePassword</span></tt> form with WTForms.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
 
 <span class="kn">from</span> <span class="nn">flask.ext.wtforms</span> <span class="kn">import</span> <span class="n">Form</span>
 <span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span><span class="p">,</span> <span class="n">Required</span>
@@ -464,10 +591,19 @@ have already logged in by looking for that cookie.</p>
     <span class="n">username</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s">&#39;Username&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">()])</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">()])</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Next we&#8217;ll add a method to our user model that compares a string with
 the hashed password stored for that user.</p>
-<div class="highlight-python"><div class="highlight"><pre># ourapp/models.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre># ourapp/models.py
 
 from . import db
 
@@ -478,7 +614,7 @@ class User(db.Model):
     def is_correct_password(self, plaintext)
         return bcrypt.check_password_hash(self._password, plaintext)
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="section" id="flask-login">
 <h3>Flask-Login<a class="headerlink" href="#flask-login" title="Permalink to this headline">¶</a></h3>
 <p>Our next goal is to define a sign-in view that serves and accepts our
@@ -488,7 +624,22 @@ process of handling user sessions and authentication.</p>
 <p>We need to do a little bit of configuration to get Flask-Login ready to
 roll.</p>
 <p>In <em>__init__.py</em> we&#8217;ll define the Flask-Login <tt class="docutils literal"><span class="pre">login_manager</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">LoginManager</span>
 
@@ -505,7 +656,7 @@ roll.</p>
 <span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">userid</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="o">==</span><span class="n">userid</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Here we created an instance of the <tt class="docutils literal"><span class="pre">LoginManager</span></tt>, initialized
 it with our <tt class="docutils literal"><span class="pre">app</span></tt> object, defined the login view and told it how to
 get a user object with a user&#8217;s <tt class="docutils literal"><span class="pre">id</span></tt>. This is the baseline
@@ -515,7 +666,28 @@ configuration we should have for Flask-Login.</p>
 <p class="last">See more <a class="reference external" href="https://flask-login.readthedocs.org/en/latest/#customizing-the-login-process">ways to customize Flask-Login</a>.</p>
 </div>
 <p>Now we can define the <tt class="docutils literal"><span class="pre">signin</span></tt> view that will handle authentication.</p>
-<div class="highlight-python"><div class="highlight"><pre># ourapp/views.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre># ourapp/views.py
 
 from flask import redirect, url_for
 
@@ -538,11 +710,22 @@ def signin():
             return redirect(url_for(&#39;signin&#39;))
     return render_template(&#39;signin.html&#39;, form=form)
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We simply import the <tt class="docutils literal"><span class="pre">login_user</span></tt> function from Flask-Login, check a
 user&#8217;s login credentials and call <tt class="docutils literal"><span class="pre">login_user(user)</span></tt>. You can log the
 current user out with <tt class="docutils literal"><span class="pre">logout_user()</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span>
 <span class="kn">from</span> <span class="nn">flask.ext.login</span> <span class="kn">import</span> <span class="n">logout_user</span>
@@ -555,7 +738,7 @@ current user out with <tt class="docutils literal"><span class="pre">logout_user
 
     <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">&#39;index&#39;</span><span class="p">))</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 </div>
 <div class="section" id="forgot-your-password">
@@ -577,7 +760,17 @@ the password is a hybrid property as we previously created.</p>
 <p>We&#8217;re going to need two forms. One is to request that a reset link be
 sent to a certain email and the other is to change the password once the
 email has been verified.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/forms.py</span>
 
 <span class="kn">from</span> <span class="nn">flask.ext.wtforms</span> <span class="kn">import</span> <span class="n">Form</span>
 
@@ -589,7 +782,7 @@ email has been verified.</p>
 <span class="k">class</span> <span class="nc">PasswordForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s">&#39;Email&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Required</span><span class="p">()])</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>This code assumes that our password reset form just needs one field for
 the password. Many apps require the user to enter their new password
 twice to confirm that they haven&#8217;t made a typo. To do this, we&#8217;d simply
@@ -606,7 +799,41 @@ to the main password field.</p>
 </div>
 <p>Now we&#8217;ll implement the first view of our process, where a user can
 request that a password reset link be sent for a given email address.</p>
-<div class="highlight-python"><div class="highlight"><pre># ourapp/views.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre># ourapp/views.py
 
 from flask import redirect, url_for, render_template
 
@@ -642,12 +869,40 @@ def reset():
         return redirect(url_for(&#39;index&#39;))
     return render_template(&#39;reset.html&#39;, form=form)
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>When the form receives an email address, we grab the user with that
 email address, generate a reset token and send them a password reset
 URL. That URL routes them to a view that will validate the token and let
 them reset the password.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># ourapp/views.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">render_template</span>
 
@@ -677,12 +932,22 @@ them reset the password.</p>
 
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;reset_with_token.html&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We&#8217;re using the same token validation method as we did to confirm the
 user&#8217;s email address. The view passes the token from the URL back into
 the template. Then the template uses the token to submit the form to the
 right URL. Let&#8217;s have a look at what that template might look like.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# ourapp/templates/reset_with_token.html #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre>{# ourapp/templates/reset_with_token.html #}
 
 {% extends &quot;layout.html&quot; %}
 
@@ -694,7 +959,7 @@ right URL. Let&#8217;s have a look at what that template might look like.</p>
 &lt;/form&gt;
 {% endblock %}
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>

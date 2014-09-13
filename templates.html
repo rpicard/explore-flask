@@ -215,7 +215,14 @@ at home, you may have noticed that Flask is really flexible about where
 we put things. Templates are no exception. You may also notice that
 there&#8217;s usually a recommended place to put things. Two points for you.
 For templates, that place is in the package directory.</p>
-<div class="highlight-python"><div class="highlight"><pre>myapp/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>myapp/
     __init__.py
     models.py
     views/
@@ -224,8 +231,19 @@ For templates, that place is in the package directory.</p>
 run.py
 requirements.txt
 </pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>templates/
+</td></tr></table></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre>templates/
     layout.html
     index.html
     about.html
@@ -238,7 +256,7 @@ requirements.txt
         index.html
         analytics.html
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The structure of the <em>templates</em> directory parallels the structure of
 our routes. The template for the route <em>myapp.com/admin/analytics</em> is
 <em>templates/admin/an-alytics.html</em>. There are also some extra templates
@@ -262,7 +280,19 @@ modify the first.</p>
 <p>Inheritance is implemented with the <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">%}</span></tt> and
 <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">%}</span></tt> tags. In the parent template, we can define blocks which
 will be populated by child templates.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# _myapp/templates/layout.html_ #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre>{# _myapp/templates/layout.html_ #}
 
 &lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -276,10 +306,17 @@ will be populated by child templates.</p>
     &lt;/body&gt;
 &lt;/html&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>In the child template, we can extend the parent template and define the
 contents of those blocks.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# _myapp/templates/index.html_ #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>{# _myapp/templates/index.html_ #}
 
 {% extends &quot;layout.html&quot; %}
 {% block title %}Hello world!{% endblock %}
@@ -288,7 +325,7 @@ contents of those blocks.</p>
     &lt;h2&gt;This heading is defined in the child.&lt;/h2&gt;
 {% endblock %}
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The <tt class="docutils literal"><span class="pre">super()</span></tt> function lets us include whatever was inside the block
 in the parent template.</p>
 <div class="admonition note">
@@ -306,7 +343,26 @@ to the current page). Without macros we&#8217;d end up with a block of
 <tt class="docutils literal"><span class="pre">if</span> <span class="pre">...</span> <span class="pre">else</span></tt> statements that check each link to find the active one.</p>
 <p>Macros provide a way to modularize that code; they work like functions.
 Let&#8217;s look at how we&#8217;d mark the active link using a macro.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# myapp/templates/layout.html #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre>{# myapp/templates/layout.html #}
 
 {% from &quot;macros.html&quot; import nav_link with context %}
 &lt;!DOCTYPE html&gt;
@@ -327,7 +383,7 @@ Let&#8217;s look at how we&#8217;d mark the active link using a macro.</p>
     &lt;/body&gt;
 &lt;/html&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>What we are doing in this template is calling an undefined macro —
 <tt class="docutils literal"><span class="pre">nav_link</span></tt> — and passing it two parameters: the target endpoint
 (i.e. the function name for the target view) and the text we want to
@@ -357,7 +413,15 @@ the Jinja context with context processors:
 </ul>
 </div>
 <p>Now it&#8217;s time to define the <tt class="docutils literal"><span class="pre">nav_link</span></tt> macro that we used in our template.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# myapp/templates/macros.html #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre>{# myapp/templates/macros.html #}
 
 {% macro nav_link(endpoint, text) %}
 {% if request.endpoint.endswith(endpoint) %}
@@ -367,7 +431,7 @@ the Jinja context with context processors:
 {% endif %}
 {% endmacro %}
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now we&#8217;ve defined the macro in <em>myapp/templates/macros.html</em>. In this macro
 we&#8217;re using Flask&#8217;s <tt class="docutils literal"><span class="pre">request</span></tt> object — which is available in
 the Jinja context by default — to check whether or not the current
@@ -385,9 +449,9 @@ template was in <em>myapp/templates/user/blog.html</em> we would use
 <p>Jinja filters are functions that can be applied to the result of an
 expression in the <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></tt> delimeters. It is applied before that
 result is printed to the template.</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;h2&gt;{{ article.title|title }}&lt;/h2&gt;
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>&lt;h2&gt;{{ article.title|title }}&lt;/h2&gt;
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>In this code, the <tt class="docutils literal"><span class="pre">title</span></tt> filter will take <tt class="docutils literal"><span class="pre">article.title</span></tt> and return
 a title-cased version, which will then be printed to the template. This
 looks and works a lot like the UNIX practice of &#8220;piping&#8221; the output of
@@ -406,7 +470,14 @@ the letters in a string.</p>
 <p>We&#8217;re going to define our filter in a module located at
 <em>myapp/util/filters.py</em>. This gives us a <tt class="docutils literal"><span class="pre">util</span></tt> package in which to
 put other miscellaneous modules.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/util/filters.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/util/filters.py</span>
 
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">app</span>
 
@@ -415,27 +486,33 @@ put other miscellaneous modules.</p>
     <span class="sd">&quot;&quot;&quot;Convert a string to all caps.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">uppercase</span><span class="p">()</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>In this code we are registering our function as a Jinja filter by using
 the <tt class="docutils literal"><span class="pre">&#64;app.template_filter()</span></tt> decorator. The default filter name is
 just the name of the function, but you can pass an argument to the
 decorator to change that.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nd">@app.template_filter</span><span class="p">(</span><span class="s">&#39;make_caps&#39;</span><span class="p">)</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="nd">@app.template_filter</span><span class="p">(</span><span class="s">&#39;make_caps&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">caps</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a string to all caps.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">uppercase</span><span class="p">()</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now we can call <tt class="docutils literal"><span class="pre">make_caps</span></tt> in the template rather than <tt class="docutils literal"><span class="pre">caps</span></tt>:
 <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">&quot;hello</span> <span class="pre">world!&quot;|make_caps</span> <span class="pre">}}</span></tt>.</p>
 <p>To make our filter available in the templates, we just need to import it
 in our top-level <em>__init.py__</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># myapp/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># myapp/__init__.py</span>
 
 <span class="c"># Make sure app has been initialized first to prevent circular imports.</span>
 <span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">filters</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>

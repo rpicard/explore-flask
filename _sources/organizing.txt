@@ -1,3 +1,7 @@
+
+.. highlight:: python
+    :linenothreshold: 0
+
 Organizing your project
 =======================
 

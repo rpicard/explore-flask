@@ -200,17 +200,25 @@ it in <em>app.py</em> or <em>yourapp/__init__.py</em></p>
 When your app is initialized, the variables in <em>config.py</em> are used to
 configure Flask and its extensions are accessible via the <tt class="docutils literal"><span class="pre">app.config</span></tt>
 dictionary &#8211; e.g. <tt class="docutils literal"><span class="pre">app.config[&quot;DEBUG&quot;]</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># Turns on debugging features in Flask</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span> <span class="c"># Turns on debugging features in Flask</span>
 <span class="n">BCRYPT_LEVEL</span> <span class="o">=</span> <span class="mi">12</span> <span class="c"># Configuration for the Flask-Bcrypt extension</span>
 <span class="n">MAIL_FROM_EMAIL</span> <span class="o">=</span> <span class="s">&quot;robert@example.com&quot;</span> <span class="c"># For use in application emails</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Configuration variables can be used by Flask, extensions or you. In this
 example, we could use <tt class="docutils literal"><span class="pre">app.config[&quot;MAIL_FROM_EMAIL&quot;]</span></tt> whenever we
 needed the default &#8220;from&#8221; address for a transactional email &#8211; e.g.
 password resets. Putting that information in a configuration variable
 makes it easy to change it in the future.</p>
-<div class="code highlight-python"><div class="highlight"><pre><span class="c"># app.py or app/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># app.py or app/__init__.py</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
@@ -218,7 +226,7 @@ makes it easy to change it in the future.</p>
 
 <span class="c"># Now we can access the configuration variables via app.config[&quot;VAR_NAME&quot;].</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <table border="1" class="docutils">
 <colgroup>
 <col width="13%" />
@@ -280,7 +288,17 @@ called <strong>instance folders</strong>. The instance folder is a sub-directory
 the repository root and contains a configuration file specifically for
 this instance of the application. We don&#8217;t want to commit it into
 version control.</p>
-<div class="highlight-python"><div class="highlight"><pre>config.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre>config.py
 requirements.txt
 run.py
 instance/
@@ -292,7 +310,7 @@ yourapp/
   templates/
   static/
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="section" id="using-instance-folders">
 <h3>Using instance folders<a class="headerlink" href="#using-instance-folders" title="Permalink to this headline">¶</a></h3>
 <p>To load configuration variables from an instance folder, we use
@@ -300,13 +318,17 @@ yourapp/
 <tt class="docutils literal"><span class="pre">instance_relative_config=True</span></tt> when we create our app with the
 <tt class="docutils literal"><span class="pre">Flask()</span></tt> call, <tt class="docutils literal"><span class="pre">app.config.from_pyfile()</span></tt> will load the
 specified file from the <em>instance/</em> directory.</p>
-<div class="code highlight-python"><div class="highlight"><pre><span class="c"># app.py or app/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># app.py or app/__init__.py</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">,</span> <span class="n">instance_relative_config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="s">&#39;config&#39;</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_pyfile</span><span class="p">(</span><span class="s">&#39;config.py&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now, we can define variables in <em>instance/config.py</em> just like you did
 in <em>config.py</em>. You should also add the instance folder to your version
 control system&#8217;s ignore list. To do this with Git, you would add
@@ -320,14 +342,19 @@ include your app&#8217;s secret key or third-party API keys. This is
 especially important if your application is open source, or might be at
 some point in the future. We usually want other users and contributors
 to use their own keys.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># instance/config.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># instance/config.py</span>
 
 <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s">&#39;Sm9obiBTY2hyb20ga2lja3MgYXNz&#39;</span>
 <span class="n">STRIPE_API_KEY</span> <span class="o">=</span> <span class="s">&#39;SmFjb2IgS2FwbGFuLU1vc3MgaXMgYSBoZXJv&#39;</span>
 <span class="n">SQLALCHEMY_DATABASE_URI</span><span class="o">=</span> \
 <span class="s">&quot;postgresql://user:TWljaGHFgiBCYXJ0b3N6a2lld2ljeiEh@localhost/databasename&quot;</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="minor-environment-based-configuration">
 <h3>Minor environment-based configuration<a class="headerlink" href="#minor-environment-based-configuration" title="Permalink to this headline">¶</a></h3>
@@ -338,7 +365,15 @@ file can override the value in <em>config.py</em>. You just need to make the
 call to <tt class="docutils literal"><span class="pre">app.config.from_pyfile()</span></tt> after
 <tt class="docutils literal"><span class="pre">app.config.from_object()</span></tt>. One way to take advantage of this is to
 change the way your app is configured on different machines.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># config.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># config.py</span>
 
 <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
 <span class="n">SQLALCHEMY_ECHO</span> <span class="o">=</span> <span class="bp">False</span>
@@ -348,7 +383,7 @@ change the way your app is configured on different machines.</p>
 <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="n">SQLALCHEMY_ECHO</span> <span class="o">=</span> <span class="bp">True</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>In production, we would leave the variables in Listing~ out of
 <em>instance/-config.py</em> and it would fall back to the values defined in
 <em>config.py</em>.</p>
@@ -372,7 +407,22 @@ on the value of an environment variable. This means that we can have
 several configuration files in our repository and always load the right
 one. Once we have several configuration files, we can move them to their
 own <tt class="docutils literal"><span class="pre">config</span></tt> directory.</p>
-<div class="highlight-python"><div class="highlight"><pre>requirements.txt
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre>requirements.txt
 run.py
 config/
   __init__.py # Empty, just here to tell Python that it&#39;s a package.
@@ -389,7 +439,7 @@ yourapp/
   static/
   templates/
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>In this listing we have a few different configuration files.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -421,7 +471,19 @@ alter other configuration values for staging applications.</td>
 </table>
 <p>To decide which configuration file to load, we&#8217;ll call
 <tt class="docutils literal"><span class="pre">app.config.from_envvar()</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># yourapp/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># yourapp/__init__.py</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">,</span> <span class="n">instance_relative_config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
@@ -435,19 +497,22 @@ alter other configuration values for staging applications.</td>
 <span class="c"># Variables defined here will override those in the default configuration</span>
 <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_envvar</span><span class="p">(</span><span class="s">&#39;APP_CONFIG_FILE&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The value of the environment variable should be the absolute path to a
 configuration file.</p>
 <p>How we set this environment variable depends on the platform in which
 we&#8217;re running the app. If we&#8217;re running on a regular Linux server, we
 can set up a shell script that sets our environment variables and runs
 <em>run.py</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre># start.sh
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre># start.sh
 
 APP_CONFIG_FILE=/var/www/yourapp/config/production.py
 python run.py
 </pre></div>
-</div>
+</td></tr></table></div>
 <p><em>start.sh</em> is unique to each environment, so it should be left out of
 version control. On Heroku, we&#8217;ll want to set the environment variables
 with the Heroku tools. The same idea applies to other PaaS platforms.</p>

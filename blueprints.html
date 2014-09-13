@@ -221,7 +221,19 @@ world).</p>
 <p>With a functional structure, you organize the pieces of your app by what
 they do. Templates are grouped together in one directory, static files
 in another and views in a third.</p>
-<div class="highlight-python"><div class="highlight"><pre>yourapp/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre>yourapp/
     __init__.py
     static/
     templates/
@@ -235,7 +247,7 @@ in another and views in a third.</p>
         admin.py
     models.py
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>With the exception of <em>yourapp/views/__init__.py</em>, each of the <em>.py</em>
 files in the <em>yourapp/views/</em> directory from this listing is a blueprint. In
 <em>yourapp/__init__.py</em> we would import those blueprints and
@@ -252,7 +264,24 @@ how this is implemented later in this chapter.</p>
 application based on which part of the app they contribute to. All of
 the templates, views and static files for the admin panel go in one
 directory, and those for the user control panel go in another.</p>
-<div class="highlight-python"><div class="highlight"><pre>yourapp/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre>yourapp/
     __init__.py
     admin/
         __init__.py
@@ -271,7 +300,7 @@ directory, and those for the user control panel go in another.</p>
         templates/
     models.py
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>With a divisional structure like the app in this listing, each directory
 under <em>yourapp/</em> is a separate blueprint. All of the blueprints are
 applied to the <tt class="docutils literal"><span class="pre">Flask()</span></tt> app in the top-level <em>__init__.py</em></p>
@@ -300,7 +329,43 @@ etc.), the dashboard (i.e. the news feed), profiles (<em>/robert/about</em> and
 layout and styles, but each has its own layout as well. The following listing shows a
 heavily abridged version of what Facebook might look like it if were
 built with Flask.</p>
-<div class="highlight-python"><div class="highlight"><pre>facebook/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37</pre></div></td><td class="code"><div class="highlight"><pre>facebook/
     __init__.py
     templates/
         layout.html
@@ -338,7 +403,7 @@ built with Flask.</p>
         logo.png
     models.py
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The blueprints in <em>facebook/views/</em> are little more than collections of
 views rather than wholly independent components. The same static files
 will be used for the views in most of the blueprints. Most of the
@@ -352,7 +417,26 @@ good way to organize this project.</p>
 <h3>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
 <p>Let&#8217;s take a look at the code for one of the blueprints from that
 Facebook example.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># facebook/views/profile.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># facebook/views/profile.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">render_template</span>
 
@@ -373,7 +457,7 @@ Facebook example.</p>
     <span class="c"># Do some stuff</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;profile/about.html&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>To create a blueprint object, we import the <tt class="docutils literal"><span class="pre">Blueprint()</span></tt> class and
 initialize it with the arguments <tt class="docutils literal"><span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">import_name</span></tt>. Usually
 <tt class="docutils literal"><span class="pre">import_name</span></tt> will just be <tt class="docutils literal"><span class="pre">__name__</span></tt>, which is a special Python
@@ -382,14 +466,22 @@ variable containing the name of the current module.</p>
 using a divisional structure, we&#8217;d want to tell Flask that the blueprint
 has its own template and static directories. This code block shows what that
 would look like.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">profile</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s">&#39;profile&#39;</span><span class="p">,</span> <span class="n">__name__</span><span class="p">,</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">profile</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s">&#39;profile&#39;</span><span class="p">,</span> <span class="n">__name__</span><span class="p">,</span>
                     <span class="n">template_folder</span><span class="o">=</span><span class="s">&#39;templates&#39;</span><span class="p">,</span>
                     <span class="n">static_folder</span><span class="o">=</span><span class="s">&#39;static&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We have now defined our blueprint. It&#8217;s time to register it on our Flask
 app.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># facebook/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># facebook/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 <span class="kn">from</span> <span class="nn">.views.profile</span> <span class="kn">import</span> <span class="n">profile</span>
@@ -397,7 +489,7 @@ app.</p>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now the routes defined in <em>facebook/views/profile.py</em> (e.g.
 <tt class="docutils literal"><span class="pre">/&lt;user_url_slug&gt;</span></tt>) are registered on the application and act just
 as if you&#8217;d defined them with <tt class="docutils literal"><span class="pre">&#64;app.route()</span></tt>.</p>
@@ -418,7 +510,13 @@ of the profile which we should display; this is a dynamic prefix.</p>
 <p>We have a choice to make when defining our prefix. We can define the
 prefix in one of two places: when we instantiate the <tt class="docutils literal"><span class="pre">Blueprint()</span></tt>
 class or when we register it with <tt class="docutils literal"><span class="pre">app.register_blueprint()</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># facebook/views/profile.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># facebook/views/profile.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">render_template</span>
 
@@ -426,8 +524,14 @@ class or when we register it with <tt class="docutils literal"><span class="pre"
 
 <span class="c"># [...]</span>
 </pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># facebook/__init__.py</span>
+</td></tr></table></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># facebook/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 <span class="kn">from</span> <span class="nn">.views.profile</span> <span class="kn">import</span> <span class="n">profile</span>
@@ -435,7 +539,7 @@ class or when we register it with <tt class="docutils literal"><span class="pre"
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">url_prefix</span><span class="o">=</span><span class="s">&#39;/&lt;user_url_slug&gt;&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>While there aren&#8217;t any technical limitations to either method, it&#8217;s nice
 to have the prefixes available in the same file as the registrations.
 This makes it easier to move things around from the top-level. For this
@@ -447,7 +551,31 @@ before handing it off to the view. In this case we&#8217;ll want to grab the
 user object based on the URL slug passed into our profile blueprint.
 We&#8217;ll do that by decorating a function with
 <tt class="docutils literal"><span class="pre">url_value_preprocessor()</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># facebook/views/profile.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># facebook/views/profile.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">g</span>
 
@@ -473,12 +601,18 @@ We&#8217;ll do that by decorating a function with
 <span class="k">def</span> <span class="nf">about</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;profile/about.html&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>We&#8217;re using the <tt class="docutils literal"><span class="pre">g</span></tt> object to store the profile owner and <tt class="docutils literal"><span class="pre">g</span></tt> is
 available in the Jinja2 template context. This means that for a
 barebones case all we have to do in the view is render the template. The
 information we need will be available in the template.</p>
-<div class="highlight-python"><div class="highlight"><pre>{# facebook/templates/profile/photos.html #}
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre>{# facebook/templates/profile/photos.html #}
 
 {% extends &quot;profile/layout.html&quot; %}
 
@@ -486,7 +620,7 @@ information we need will be available in the template.</p>
     &lt;img src=&quot;{{ photo.source_url }}&quot; alt=&quot;{{ photo.alt_text }}&quot; /&gt;
 {% endfor %}
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
@@ -508,7 +642,30 @@ blueprints for distinct sections: the home page where users sign-up, the
 user administration panel where the user builds their website and the
 user&#8217;s website. Since these three parts are relatively unconnected,
 we&#8217;ll organize them in a divisional structure.</p>
-<div class="highlight-python"><div class="highlight"><pre>sitemaker/
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre>sitemaker/
     __init__.py
     home/
         __init__.py
@@ -533,7 +690,7 @@ we&#8217;ll organize them in a divisional structure.</p>
             site/
     models.py
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>This table explains the different blueprints in this app.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -571,7 +728,13 @@ with those from the previous section.</td>
 prefix. Both options (in the blueprint directory or in the top-level
 <em>__init__.py</em>) are available, but once again we&#8217;ll keep the
 definitions in <em>sitemaker/__init.py__</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># sitemaker/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># sitemaker/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 <span class="kn">from</span> <span class="nn">.site</span> <span class="kn">import</span> <span class="n">site</span>
@@ -579,10 +742,30 @@ definitions in <em>sitemaker/__init.py__</em>.</p>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">subdomain</span><span class="o">=</span><span class="s">&#39;&lt;site_subdomain&gt;&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Since we&#8217;re using a divisional structure, we&#8217;ll define the blueprint in
 <em>sitema-ker/site/__init__.py</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre># sitemaker/site/__init__py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre># sitemaker/site/__init__py
 
 from flask import Blueprint
 
@@ -604,16 +787,18 @@ def get_site(endpoint, values):
 # sure that we import views after site has been defined.
 import .views
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Now we have the site information from the database that we&#8217;ll use to
 display the user&#8217;s site to the visitor who requests their subdomain.</p>
 <p>To get Flask to work with subdomains, we&#8217;ll need to specify the
 <tt class="docutils literal"><span class="pre">SERVER_NAME</span></tt> configuration variable.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># config.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># config.py</span>
 
 <span class="n">SERVER_NAME</span> <span class="o">=</span> <span class="s">&#39;sitemaker.com&#39;</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>A few minutes ago, as I was drafting this section, somebody in IRC said that their subdomains were working fine in development, but not in production. I asked if they had the <tt class="docutils literal"><span class="pre">SERVER_NAME</span></tt> configured, and it turned out that they had it in development but not production. Setting it in production solved their problem.</p>
@@ -633,7 +818,16 @@ the table above.</p>
 <p>I&#8217;d like to go over a brief example of the steps we can take to convert
 an app to use blueprints. We&#8217;ll start off with a typical Flask app and
 restructure it.</p>
-<div class="highlight-python"><div class="highlight"><pre>config.txt
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre>config.txt
 requirements.txt
 run.py
 U2FtIEJsYWNr/
@@ -644,7 +838,7 @@ U2FtIEJsYWNr/
   static/
 tests/
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The <em>views.py</em> file has grown to 10,000 lines of code! We&#8217;ve been
 putting off refactoring it, but it&#8217;s finally time. The file contains the
 views for every section of our site. The sections are the home page, the
@@ -667,7 +861,33 @@ can start by creating a folder for each blueprint within the package
 directory. Then we&#8217;ll copy <em>views.py</em>, <em>static/</em> and <em>templates/</em> in
 their entirety to each blueprint directory. We can then remove them from
 the top-level package directory.</p>
-<div class="highlight-python"><div class="highlight"><pre>config.txt
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="highlight"><pre>config.txt
 requirements.txt
 run.py
 U2FtIEJsYWNr/
@@ -695,7 +915,7 @@ U2FtIEJsYWNr/
   models.py
 tests/
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="step-3-cut-the-crap">
 <h3>Step 3: Cut the crap<a class="headerlink" href="#step-3-cut-the-crap" title="Permalink to this headline">¶</a></h3>
@@ -718,7 +938,18 @@ blueprint.</p>
 <p>This is the part where we turn our directories into blueprints. The key
 is in the <em>__init__.py</em> files. For starters, let&#8217;s take a look at
 the definition of the API blueprint.</p>
-<div class="highlight-python"><div class="highlight"><pre># U2FtIEJsYWNr/api/__init__.py
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre># U2FtIEJsYWNr/api/__init__.py
 
 from flask import Blueprint
 
@@ -731,10 +962,18 @@ api = Blueprint(
 
 import .views
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Next we can register this blueprint in the U2FtIEJsYWNr package&#8217;s
 top-level <em>__init__.py</em> file.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># U2FtIEJsYWNr/__init__.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># U2FtIEJsYWNr/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 <span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">api</span>
@@ -744,10 +983,16 @@ top-level <em>__init__.py</em> file.</p>
 <span class="c"># Puts the API blueprint on api.U2FtIEJsYWNr.com.</span>
 <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">api</span><span class="p">,</span> <span class="n">subdomain</span><span class="o">=</span><span class="s">&#39;api&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>Make sure that the routes are registered on the blueprint now rather
 than the app object.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># U2FtIEJsYWNr/views.py</span>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># U2FtIEJsYWNr/views.py</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">app</span>
 
@@ -755,8 +1000,14 @@ than the app object.</p>
 <span class="k">def</span> <span class="nf">api_search</span><span class="p">():</span>
     <span class="k">pass</span>
 </pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># U2FtIEJsYWNr/api/views.py</span>
+</td></tr></table></div>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># U2FtIEJsYWNr/api/views.py</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">api</span>
 
@@ -764,7 +1015,7 @@ than the app object.</p>
 <span class="k">def</span> <span class="nf">search</span><span class="p">():</span>
     <span class="k">pass</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="step-5-enjoy">
 <h3>Step 5: Enjoy<a class="headerlink" href="#step-5-enjoy" title="Permalink to this headline">¶</a></h3>
