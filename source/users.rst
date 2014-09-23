@@ -320,7 +320,7 @@ Let's start by defining a ``UsernamePassword`` form with WTForms.
    from wtforms.validators import DataRequired
 
 
-   class LoginForm(Form):
+   class UsernamePasswordForm(Form):
        username = TextField('Username', validators=[DataRequired()])
        password = PasswordField('Password', validators=[DataRequired()])
 
