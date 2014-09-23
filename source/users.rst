@@ -315,12 +315,14 @@ Let's start by defining a ``UsernamePassword`` form with WTForms.
 
    # ourapp/forms.py
 
-   from flask.ext.wtforms import Form
-   from wtforms import TextField, PasswordField, Required
+   from flask_wtf import Form
+   from wtforms import TextField, PasswordField
+   from wtforms.validators import DataRequired
+
 
    class UsernamePasswordForm(Form):
-       username = TextField('Username', validators=[Required()])
-       password = PasswordField('Password', validators=[Required()])
+       username = TextField('Username', validators=[DataRequired()])
+       password = PasswordField('Password', validators=[DataRequired()])
 
 Next we'll add a method to our user model that compares a string with
 the hashed password stored for that user.
