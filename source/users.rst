@@ -217,14 +217,14 @@ script that, well, hashes a password.
 
    # Change the number of rounds (second argument) until it takes between
    # 0.25 and 0.5 seconds to run.
-   generate_password_hash('password1', 12) 
+   generate_password_hash('password1', 12)
 
 Now we can keep timing our changes to the number of rounds with the UNIX
 ``time`` utility.
 
 ::
 
-    $ time python test.py 
+    $ time python test.py
 
     real    0m0.496s
     user    0m0.464s
@@ -315,12 +315,14 @@ Let's start by defining a ``UsernamePassword`` form with WTForms.
 
    # ourapp/forms.py
 
-   from flask.ext.wtforms import Form
-   from wtforms import TextField, PasswordField, Required
+   from flask_wtf import Form
+   from wtforms import StringField, PasswordField
+   from wtforms.validators import DataRequired
+
 
    class UsernamePasswordForm(Form):
-       username = TextField('Username', validators=[Required()])
-       password = PasswordField('Password', validators=[Required()])
+       username = StringField('Username', validators=[DataRequired()])
+       password = PasswordField('Password', validators=[DataRequired()])
 
 Next we'll add a method to our user model that compares a string with
 the hashed password stored for that user.
@@ -453,15 +455,15 @@ email has been verified.
 
    # ourapp/forms.py
 
-   from flask.ext.wtforms import Form
-
-   from wtforms import TextField, PasswordField, Required, Email
+   from flask_wtf import Form
+   from wtforms import StringField, PasswordField
+   from wtforms.validators import DataRequired, Email
 
    class EmailForm(Form):
-       email = TextField('Email', validators=[Required(), Email()])
+       email = TextField('Email', validators=[DataRequired(), Email()])
 
    class PasswordForm(Form):
-       password = PasswordField('Email', validators=[Required()])
+       password = PasswordField('Email', validators=[DataRequired()])
 
 This code assumes that our password reset form just needs one field for
 the password. Many apps require the user to enter their new password
@@ -501,7 +503,7 @@ request that a password reset link be sent for a given email address.
 
            subject = "Password reset requested"
 
-           # Here we use the URLSafeTimedSerializer we created in `util` at the 
+           # Here we use the URLSafeTimedSerializer we created in `util` at the
            # beginning of the chapter
            token = ts.dumps(self.email, salt='recover-key')
 
@@ -513,7 +515,7 @@ request that a password reset link be sent for a given email address.
            html = render_template(
                'email/recover.html',
                recover_url=recover_url)
-               
+
            # Let's assume that send_email was defined in myapp/util.py
            send_email(user.email, subject, html)
 

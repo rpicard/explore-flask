@@ -24,13 +24,13 @@ define a form in a ``myapp.forms`` package.
 
    # ourapp/forms.py
 
-   from flask.ext.wtf import Form
-   from wtforms.fields import TextField, PasswordField
-   from wtforms.validators import Required, Email
+   from flask_wtf import Form
+   from wtforms import StringField, PasswordField
+   from wtforms.validators import DataRequired, Email
 
    class EmailPasswordForm(Form):
-       email = TextField('Email', validators=[Required(), Email()])
-       password = PasswordField('Password', validators=[Required()])
+       email = StringField('Email', validators=[DataRequired(), Email()])
+       password = PasswordField('Password', validators=[DataRequired()])
 
 .. note::
 
@@ -103,10 +103,10 @@ view for our login page.
    def login():
        form = EmailPasswordForm()
        if form.validate_on_submit():
-       
+
            # Check the password and log the user in
            # [...]
-           
+
            return redirect(url_for('index'))
        return render_template('login.html', form=form)
 
@@ -176,12 +176,14 @@ We'll start by defining a simple sign-up form.
 ::
 
    # ourapp/forms.py
-   from flask.ext.wtforms import Form
-   from wtforms import TextField, PasswordField, Required, Email
+
+   from flask_wtf import Form
+   from wtforms import StringField, PasswordField
+   from wtforms.validators import DataRequired, Email
 
    class EmailPasswordForm(Form):
-       email = TextField('Email', validators=[Required(), Email()])
-       password = PasswordField('Password', validators=[Required()])
+       email = StringField('Email', validators=[DataRequired(), Email()])
+       password = PasswordField('Password', validators=[DataRequired()])
 
 Now we want to add our validator to make sure that the email they
 provide isn't already in the database. We'll put the validator in a new
@@ -220,19 +222,20 @@ Now we can modify ``EmailPasswordForm`` to use the ``Unique`` validator.
 
    # ourapp/forms.py
 
-   from flask.ext.wtforms import Form
-   from wtforms import TextField, PasswordField, Required, Email
+   from flask_wtf import Form
+   from wtforms import StringField, PasswordField
+   from wtforms.validators import DataRequired
 
    from .util.validators import Unique
    from .models import User
 
    class EmailPasswordForm(Form):
-       email = TextField('Email', validators=[Required(), Email(),
+       email = StringField('Email', validators=[DataRequired(), Email(),
            Unique(
                User,
                User.email,
                message='There is already an account with that email.'])
-       password = PasswordField('Password', validators=[Required()])
+       password = PasswordField('Password', validators=[DataRequired()])
 
 .. note::
 
