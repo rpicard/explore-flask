@@ -182,7 +182,7 @@ We'll start by defining a simple sign-up form.
    from wtforms.validators import DataRequired, Email
 
    class EmailPasswordForm(Form):
-       email = TextField('Email', validators=[DataRequired(), Email()])
+       email = StringField('Email', validators=[DataRequired(), Email()])
        password = PasswordField('Password', validators=[DataRequired()])
 
 Now we want to add our validator to make sure that the email they
