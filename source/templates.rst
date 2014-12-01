@@ -71,7 +71,7 @@ For templates, that place is in the package directory.
 
 The structure of the *templates* directory parallels the structure of
 our routes. The template for the route *myapp.com/admin/analytics* is
-*templates/admin/an-alytics.html*. There are also some extra templates
+*templates/admin/analytics.html*. There are also some extra templates
 in there that won't be rendered directly. The *layout.html* files are
 meant to be inherited by the other templates.
 
@@ -87,9 +87,9 @@ within. In our example, *layout.html* is a parent template and the other
 You'll generally have one top-level *layout.html* that defines the
 general layout for your application and one for each section of your
 site. If you take a look at the directory above, you'll see that there
-is a top-level *myapp/templates/lay-out.html* as well as
+is a top-level *myapp/templates/layout.html* as well as
 *myapp/templates/profile/layout.html* and
-*myapp/templat-es/admin/layout.html*. The last two files inherit and
+*myapp/templates/admin/layout.html*. The last two files inherit and
 modify the first.
 
 Inheritance is implemented with the ``{% extends %}`` and
