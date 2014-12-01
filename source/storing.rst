@@ -46,7 +46,7 @@ application code.
 Let's dive into some code. We're going to define some models then
 configure some SQLAlchemy. The models are going to go in
 *myapp/models.py*, but first we are going to define our database in
-*myapp/\ **init**.py*
+*myapp/__init__.py*
 
 ::
 
