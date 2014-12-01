@@ -145,7 +145,7 @@ probably don't want to start over from scratch. That's where database
 migrations come in.
 
 Alembic is a database migration tool created specifically for use with
-SQL-Alchemy. It lets us keep a versioned history of our database schema
+SQLAlchemy. It lets us keep a versioned history of our database schema
 so that we can later upgrade to a new schema and even downgrade back to
 an older one.
 
