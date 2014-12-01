@@ -505,7 +505,7 @@ request that a password reset link be sent for a given email address.
 
            # Here we use the URLSafeTimedSerializer we created in `util` at the
            # beginning of the chapter
-           token = ts.dumps(self.email, salt='recover-key')
+           token = ts.dumps(user.email, salt='recover-key')
 
            recover_url = url_for(
                'reset_with_token',
