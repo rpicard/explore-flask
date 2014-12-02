@@ -46,7 +46,7 @@ application code.
 Let's dive into some code. We're going to define some models then
 configure some SQLAlchemy. The models are going to go in
 *myapp/models.py*, but first we are going to define our database in
-*myapp/\ **init**.py*
+*myapp/__init__.py*
 
 ::
 
@@ -145,7 +145,7 @@ probably don't want to start over from scratch. That's where database
 migrations come in.
 
 Alembic is a database migration tool created specifically for use with
-SQL-Alchemy. It lets us keep a versioned history of our database schema
+SQLAlchemy. It lets us keep a versioned history of our database schema
 so that we can later upgrade to a new schema and even downgrade back to
 an older one.
 

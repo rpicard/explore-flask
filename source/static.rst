@@ -204,7 +204,7 @@ the admin section: *admin/layout.html*.
     </html>
 
 We can do the same thing for the home bundles in
-*templates/home/layout-.html*.
+*templates/home/layout.html*.
 
 Using filters
 ~~~~~~~~~~~~~
