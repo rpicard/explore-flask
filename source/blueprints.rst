@@ -652,7 +652,7 @@ Summary
 -  In a functional structure, each blueprint is just a collection of
    views. The templates are all kept together, as are the static files.
 -  To use a blueprint, you define it then register it on the application
-   with ``Flask.register_blueprint().``.
+   by calling ``Flask.register_blueprint().``.
 -  You can define a dynamic URL prefix that will be applied to all
    routes in a blueprint.
 -  You can also define a dynamic subdomain for all routes in a
