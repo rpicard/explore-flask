@@ -132,7 +132,7 @@ your repository, but these are common to most Flask applications.
 |                         | This may be split into several modules in the same way as       |
 |                         | views.py.                                                       |
 +-------------------------+-----------------------------------------------------------------+
-| /yourapp/static/        | This folder contains the public CSS, JavaScript, images and     |
+| /yourapp/static/        | This directory contains the public CSS, JavaScript, images and  |
 |                         | other files that you want to make public via your app. It       |
 |                         | is accessible from yourapp.com/static/ by default.              |
 +-------------------------+-----------------------------------------------------------------+
