@@ -85,7 +85,7 @@ virtualenvwrapper
 
 That virtual environment directory created in Listing~\ref{code:venv_create} adds clutter to your project repository. You only interact with it directly when activating the virtual environment and it shouldn't be in version control, so there's no need to have it in there. The solution is to use virtualenvwrapper. This package keeps all of your virtual environments out of the way in a single directory, usually _~/.virtualenvs/_ by default.
 
-To install virtualenvwrapper, follow the instructions in the documentation. See Box~\ref{aside:vwrap_docs} for that link.
+To install virtualenvwrapper, follow the instructions in the documentation.
 
 .. warning::
 
