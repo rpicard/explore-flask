@@ -302,7 +302,7 @@ Summary
 -  WTForms (and Flask-WTF) make it easy to define, secure and render
    your forms.
 -  Use the CSRF protection provided by Flask-WTF to secure your forms.
--  You can use sFlask-WTF to protect AJAX calls against CSRF attacks
+-  You can use Flask-WTF to protect AJAX calls against CSRF attacks
    too.
 -  Define custom form validators to keep validation logic out of your
    views.
