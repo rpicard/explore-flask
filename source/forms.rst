@@ -247,7 +247,7 @@ Rendering forms
 WTForms can also help us render the HTML for the forms. The ``Field``
 class implemented by WTForms renders an HTML representation of that
 field, so we just have to call the form fields to render them in our
-template. It's just like rendering the ``csrf_token`` field. Listing~
+template. It's just like rendering the ``csrf_token`` field. Listing
 gives an example of a login template using WTForms to render our fields.
 
 ::
