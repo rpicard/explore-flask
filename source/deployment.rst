@@ -110,7 +110,7 @@ environment with Pip. Running our app is a simple command away.
 
 ::
 
-    # app.py
+    # rocket.py
 
     from flask import Flask
 
