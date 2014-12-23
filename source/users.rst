@@ -393,7 +393,7 @@ Now we can define the ``signin`` view that will handle authentication.
    from flask.ext.login import login_user
 
    from . import app
-   from .forms import UsernamePasswordForm()
+   from .forms import UsernamePasswordForm
 
    @app.route('signin', methods=["GET", "POST"])
    def signin():
