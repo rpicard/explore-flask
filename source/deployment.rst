@@ -191,7 +191,7 @@ advises" that we use it.
 
 To configure Nginx as a reverse proxy to a Gunicorn server running on
 127.0.0.1:8000, we can create a file for our app:
-*/etc/nginx/sites-available/expl-oreflask.com*.
+*/etc/nginx/sites-available/exploreflask.com*.
 
 ::
 
