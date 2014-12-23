@@ -463,7 +463,7 @@ email has been verified.
        email = TextField('Email', validators=[DataRequired(), Email()])
 
    class PasswordForm(Form):
-       password = PasswordField('Email', validators=[DataRequired()])
+       password = PasswordField('Password', validators=[DataRequired()])
 
 This code assumes that our password reset form just needs one field for
 the password. Many apps require the user to enter their new password
