@@ -33,7 +33,7 @@ user's email address. For example, john@gmail.com signs up at our
 application. We register him in the database with an ``email_confirmed``
 column set to ``False`` and fire off an email to john@gmail.com with a
 unique URL. This URL usually contains a unique token, e.g.
-*http://myapp.com/accounts/confirm-/Q2hhZCBDYXRsZXR0IHJvY2tzIG15IHNvY2tz*.
+*http://myapp.com/accounts/confirm/Q2hhZCBDYXRsZXR0IHJvY2tzIG15IHNvY2tz*.
 When John gets that email, he clicks the link. Our app sees the token,
 knows which email to confirm and sets John's ``email_confirmed`` column
 to ``True``.
@@ -393,7 +393,7 @@ Now we can define the ``signin`` view that will handle authentication.
    from flask.ext.login import login_user
 
    from . import app
-   from .forms import UsernamePasswordForm()
+   from .forms import UsernamePasswordForm
 
    @app.route('signin', methods=["GET", "POST"])
    def signin():
@@ -463,7 +463,7 @@ email has been verified.
        email = TextField('Email', validators=[DataRequired(), Email()])
 
    class PasswordForm(Form):
-       password = PasswordField('Email', validators=[DataRequired()])
+       password = PasswordField('Password', validators=[DataRequired()])
 
 This code assumes that our password reset form just needs one field for
 the password. Many apps require the user to enter their new password
