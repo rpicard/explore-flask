@@ -426,7 +426,7 @@ definitions in *sitemaker/\_\_init.py\_\_*.
     app.register_blueprint(site, subdomain='<site_subdomain>')
 
 Since we're using a divisional structure, we'll define the blueprint in
-*sitema-ker/site/\_\_init\_\_.py*.
+*sitemaker/site/\_\_init\_\_.py*.
 
 ::
 
