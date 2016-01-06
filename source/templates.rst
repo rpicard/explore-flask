@@ -227,7 +227,7 @@ Custom filters
 --------------
 
 Jinja filters are functions that can be applied to the result of an
-expression in the ``{{ ... }}`` delimeters. It is applied before that
+expression in the ``{{ ... }}`` delimiters. It is applied before that
 result is printed to the template.
 
 ::
