@@ -450,7 +450,7 @@ Since we're using a divisional structure, we'll define the blueprint in
     # Import the views after site has been defined. The views
     # module will needto import 'site' so we need to make
     # sure that we import views after site has been defined.
-    import .views
+    from . import views
 
 Now we have the site information from the database that we'll use to
 display the user's site to the visitor who requests their subdomain.
@@ -592,7 +592,7 @@ the definition of the API blueprint.
         static_folder='static'
     )
 
-    import .views
+    from . import views
 
 Next we can register this blueprint in the U2FtIEJsYWNr package's
 top-level *\_\_init\_\_.py* file.
