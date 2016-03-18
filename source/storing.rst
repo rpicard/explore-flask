@@ -53,7 +53,7 @@ configure some SQLAlchemy. The models are going to go in
     # ourapp/__init__.py
 
     from flask import Flask
-    from flask.ext.sqlalchemy import SQLAlchemy
+    from flask_sqlalchemy import SQLAlchemy
 
     app = Flask(__name__, instance_relative_config=True)
 
@@ -73,7 +73,7 @@ models.
 
    # ourapp/models.py
 
-   from . import db 
+   from . import db
 
    class Engine(db.Model):
 
@@ -124,7 +124,7 @@ Let's open up a Python terminal in our repository root.
     /Users/me/Code/myapp
     $ workon myapp
     (myapp)$ python
-    Python 2.7.5 (default, Aug 25 2013, 00:04:04) 
+    Python 2.7.5 (default, Aug 25 2013, 00:04:04)
     [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
     Type "help", "copyright", "credits" or "license" for more information.
     >>> from myapp import db

@@ -184,7 +184,7 @@ encodings before comparing hashes).
 
     # ourapp/__init__.py
 
-    from flask.ext.bcrypt import Bcrypt
+    from flask_bcrypt import Bcrypt
 
     bcrypt = Bcrypt(app)
 
@@ -213,7 +213,7 @@ script that, well, hashes a password.
 
    # benchmark.py
 
-   from flask.ext.bcrypt import generate_password_hash
+   from flask_bcrypt import generate_password_hash
 
    # Change the number of rounds (second argument) until it takes between
    # 0.25 and 0.5 seconds to run.
@@ -358,7 +358,7 @@ In *\_\_init\_\_.py* we'll define the Flask-Login ``login_manager``.
 
     # ourapp/__init__.py
 
-    from flask.ext.login import LoginManager
+    from flask_login import LoginManager
 
     # Create and configure app
     # [...]
@@ -390,7 +390,7 @@ Now we can define the ``signin`` view that will handle authentication.
 
    from flask import redirect, url_for
 
-   from flask.ext.login import login_user
+   from flask_login import login_user
 
    from . import app
    from .forms import UsernamePasswordForm
@@ -418,7 +418,7 @@ current user out with ``logout_user()``.
    # ourapp/views.py
 
    from flask import redirect, url_for
-   from flask.ext.login import logout_user
+   from flask_login import logout_user
 
    from . import app
 
