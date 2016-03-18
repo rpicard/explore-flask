@@ -43,7 +43,7 @@ gives us a decorator to restrict certain views to authenticated users:
    # app.py
 
    from flask import render_template
-   from flask.ext.login import login_required, current_user
+   from flask_login import login_required, current_user
 
 
    @app.route('/')
@@ -93,7 +93,7 @@ decorated view would look like.
 
    # app.py
 
-   from flask.ext.cache import Cache
+   from flask_cache import Cache
    from flask import Flask
 
    app = Flask()
@@ -107,7 +107,7 @@ decorated view would look like.
        [...] # Make a few database calls to get the information we need
        return render_template(
            'index.html',
-           latest_posts=latest_posts, 
+           latest_posts=latest_posts,
            recent_users=recent_users,
            recent_photos=recent_photos
        )
@@ -136,7 +136,7 @@ the billing page and tell them to upgrade.
 
    from flask import flash, redirect, url_for
 
-   from flask.ext.login import current_user
+   from flask_login import current_user
 
    def check_expired(func):
        @wraps(func)
@@ -199,7 +199,7 @@ use multiple decorators by stacking them.
 
    from flask import render_template
 
-   from flask.ext.login import login_required
+   from flask_login import login_required
 
    from . import app
    from .util import check_expired

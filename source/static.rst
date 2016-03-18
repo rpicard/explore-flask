@@ -111,7 +111,7 @@ We'll put these in an assets module inside our ``util`` package.
 
    # myapp/util/assets.py
 
-   from flask.ext.assets import Bundle, Environment
+   from flask_assets import Bundle, Environment
    from .. import app
 
    bundles = {
