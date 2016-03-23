@@ -176,7 +176,7 @@ In production, we would leave the variables in Listing~ out of
 
 .. note::
 
-   - Read more about Flask-SQLAlchemy's `configuration keys <http://pythonhosted.org/Flask-SQLAlchemy/config.html#configuration-keys>`_
+   - Read more about Flask-SQLAlchemy's `configuration keys <http://flask-sqlalchemy.pocoo.org/latest/config/#configuration-keys>`_
 
 Configuring based on environment variables
 ------------------------------------------
