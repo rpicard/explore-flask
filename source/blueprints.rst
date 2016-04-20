@@ -448,7 +448,7 @@ Since we're using a divisional structure, we'll define the blueprint in
         g.site = query.first_or_404()
 
     # Import the views after site has been defined. The views
-    # module will needto import 'site' so we need to make
+    # module will need to import 'site' so we need to make
     # sure that we import views after site has been defined.
     from . import views
 
