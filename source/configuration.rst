@@ -31,7 +31,7 @@ dictionary -- e.g. ``app.config["DEBUG"]``.
 ::
 
    DEBUG = True # Turns on debugging features in Flask
-   BCRYPT_LEVEL = 12 # Configuration for the Flask-Bcrypt extension
+   BCRYPT_LOG_ROUNDS = 12 # Configuration for the Flask-Bcrypt extension
    MAIL_FROM_EMAIL = "robert@example.com" # For use in application emails
 
 Configuration variables can be used by Flask, extensions or you. In this
@@ -50,30 +50,30 @@ makes it easy to change it in the future.
 
     # Now we can access the configuration variables via app.config["VAR_NAME"].
 
-+---------------+---------------------------------------------------+----------------------------------------------+
-| Variable      | Decription                                        | Recommendation                               |
-+===============+===================================================+==============================================+
-| DEBUG         | Gives you some handy tools for debugging errors.  | Should be set to ``True`` in development and |
-|               | This includes a web-based stack trace and         | ``False`` in production.                     |
-|               | interactive Python console for errors.            |                                              |
-+---------------+---------------------------------------------------+----------------------------------------------+
-| SECRET\_KEY   | This is a secret key that is used by Flask to     | This should be a complex random value.       |
-|               | sign cookies. It's also used by extensions like   |                                              |
-|               | Flask-Bcrypt. You should define this in your      |                                              |
-|               | instance folder to keep it out of version         |                                              |
-|               | control. You can read more about instance folders |                                              |
-|               | in the next section.                              |                                              |
-+---------------+---------------------------------------------------+----------------------------------------------+
-| BCRYPT\_LEVEL | If you're using Flask-Bcrypt to hash user         | Later in this book we'll cover some of the   |
-|               | passwords, you'll need to specify the number of   | best practices for using Bcrypt in your      |
-|               | "rounds" that the algorithm executes in hashing a | Flask application.                           |
-|               | password. If you aren't using Flask-Bcrypt, you   |                                              |
-|               | should probably start. The more rounds used to    |                                              |
-|               | hash a password, the longer it'll take for an     |                                              |
-|               | attacker to guess a password given the hash. The  |                                              |
-|               | number of rounds should increase over time as     |                                              |
-|               | computing power increases.                        |                                              |
-+---------------+---------------------------------------------------+----------------------------------------------+
++---------------------+---------------------------------------------------+----------------------------------------------+
+| Variable            | Decription                                        | Recommendation                               |
++=====================+===================================================+==============================================+
+| DEBUG               | Gives you some handy tools for debugging errors.  | Should be set to ``True`` in development and |
+|                     | This includes a web-based stack trace and         | ``False`` in production.                     |
+|                     | interactive Python console for errors.            |                                              |
++---------------------+---------------------------------------------------+----------------------------------------------+
+| SECRET\_KEY         | This is a secret key that is used by Flask to     | This should be a complex random value.       |
+|                     | sign cookies. It's also used by extensions like   |                                              |
+|                     | Flask-Bcrypt. You should define this in your      |                                              |
+|                     | instance folder to keep it out of version         |                                              |
+|                     | control. You can read more about instance folders |                                              |
+|                     | in the next section.                              |                                              |
++---------------------+---------------------------------------------------+----------------------------------------------+
+| BCRYPT\_LOG\_ROUNDS | If you're using Flask-Bcrypt to hash user         | Later in this book we'll cover some of the   |
+|                     | passwords, you'll need to specify the number of   | best practices for using Bcrypt in your      |
+|                     | "rounds" that the algorithm executes in hashing a | Flask application.                           |
+|                     | password. If you aren't using Flask-Bcrypt, you   |                                              |
+|                     | should probably start. The more rounds used to    |                                              |
+|                     | hash a password, the longer it'll take for an     |                                              |
+|                     | attacker to guess a password given the hash. The  |                                              |
+|                     | number of rounds should increase over time as     |                                              |
+|                     | computing power increases.                        |                                              |
++---------------------+---------------------------------------------------+----------------------------------------------+
 
 .. warning::
 
