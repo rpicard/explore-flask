@@ -170,8 +170,8 @@ change the way your app is configured on different machines.
    DEBUG = True
    SQLALCHEMY_ECHO = True
 
-In production, we would leave the variables in Listing~ out of
-*instance/-config.py* and it would fall back to the values defined in
+In production, we would leave the variables in the above listing out of
+*instance/config.py* and it would fall back to the values defined in
 *config.py*.
 
 .. note::
