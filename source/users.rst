@@ -395,7 +395,7 @@ Now we can define the ``signin`` view that will handle authentication.
    from . import app
    from .forms import UsernamePasswordForm
 
-   @app.route('signin', methods=["GET", "POST"])
+   @app.route('/signin', methods=["GET", "POST"])
    def signin():
        form = UsernamePasswordForm()
 
@@ -460,7 +460,7 @@ email has been verified.
    from wtforms.validators import DataRequired, Email
 
    class EmailForm(Form):
-       email = TextField('Email', validators=[DataRequired(), Email()])
+       email = StringField('Email', validators=[DataRequired(), Email()])
 
    class PasswordForm(Form):
        password = PasswordField('Password', validators=[DataRequired()])
@@ -498,7 +498,7 @@ request that a password reset link be sent for a given email address.
    @app.route('/reset', methods=["GET", "POST"])
    def reset():
        form = EmailForm()
-       if form.validate_on_submit()
+       if form.validate_on_submit():
            user = User.query.filter_by(email=form.email.data).first_or_404()
 
            subject = "Password reset requested"
