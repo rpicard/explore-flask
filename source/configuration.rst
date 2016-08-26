@@ -263,7 +263,7 @@ can set up a shell script that sets our environment variables and runs
 
    # start.sh
 
-   APP_CONFIG_FILE=/var/www/yourapp/config/production.py
+   export APP_CONFIG_FILE=/var/www/yourapp/config/production.py
    python run.py
 
 *start.sh* is unique to each environment, so it should be left out of
