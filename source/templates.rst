@@ -305,8 +305,8 @@ Summary
 -  I recommend that the structure of the *templates/* directory mirror
    the URL structure of the app.
 -  You should have a top-level *layout.html* in *myapp/templates* as
-   well as one for each section of the site. The former extend the
-   latter.
+   well as one for each section of the site. The latter extend the
+   former.
 -  Macros are like functions made-up of template code.
 -  Filters are functions made-up of Python code and used in templates.
 
