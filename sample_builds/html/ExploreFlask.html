@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+<nav id="TOC">
+<ul>
+<li><a>Explore Flask</a></li>
+<li><a>Coding conventions</a></li>
+<li><a>Environment</a></li>
+<li><a>Organizing your project</a></li>
+<li><a>Configuration</a></li>
+<li><a>Advanced patterns for views and routing</a></li>
+<li><a>Blueprints</a></li>
+<li><a>Templates</a></li>
+<li><a>Static files</a></li>
+<li><a>Storing data</a></li>
+<li><a>Handling forms</a></li>
+<li><a>Patterns for handling users</a></li>
+<li><a>Deployment</a></li>
+<li><a>Conclusion</a></li>
+</ul>
+</nav>
+<h1>Explore Flask</h1>
+<p><em>Explore Flask</em> is a book about best practices and patterns for developing web applications with <a href="http://flask.pocoo.org/">Flask</a>. The book was funded by 426 backers <a href="https://www.kickstarter.com/projects/1223051718/practical-flask-book-project">on Kickstarter</a> in July 2013.</p>
+<p>I finally released the book, after spending almost a year working on it. Almost immediately I was tired of managing distribution and limiting the book's audience by putting it behind a paywall. I didn't write a book to run a business, I wrote it to put some helpful content out there and help grow the Flask community.</p>
+<p>In June of 2014, soon after finishing the book, I reformatted it for the web and released it here for free. No payment or donation or anything required. Just enjoy!</p>
+<h2>About the author</h2>
+<p>My name is Robert Picard. I'm a security consultant at Matasano Security and a Flask enthusiast. I like Flask for its simplicity in the face of frameworks like Django that try and be everything to everyone. That model works for a lot of people, but not for me.</p>
+<p>If you want to get in touch, feel free to send me an email at <script type="text/javascript">
+<!--
+h='&#114;&#x6f;&#98;&#x65;&#114;&#116;&#46;&#x69;&#x6f;';a='&#64;';n='&#114;&#x6f;&#98;&#x65;&#114;&#116;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#114;&#x6f;&#98;&#x65;&#114;&#116;&#32;&#x61;&#116;&#32;&#114;&#x6f;&#98;&#x65;&#114;&#116;&#32;&#100;&#x6f;&#116;&#32;&#x69;&#x6f;</noscript>. If you have feedback on the book, check out the <a href="https://github.com/rpicard/explore-flask">GitHub repository</a> too.</p>
+<h2>Contents</h2>
+<h2>Thank you</h2>
+<p>First of all, I'd like to say thank you to my volunteer editor, Will Kahn-Greene. He was great about going over my very rough drafts and helping me decide on the scope and direction of the content. I'm looking forward to working with him to manage the project into the future.</p>
+<p>Another big thanks to everyone who took the time to talk with me about how they are using Flask. This includes Armin Ronacher (Flask creator), Mark Harviston (Elsevier), Glenn Yonemitsu (Markup Hive), Andy Parsons (Happify), Oleg Lavrovsky (Apps with love), Joel Anderson (Cloudmancer) and Mahmoud Abdelkader (Balanced).</p>
+<p>The cover and all the illustrations in this book were done by <a href="http://www.dangerdom.com/">Dominic Flask</a>.</p>
+<p><em>Explore Flask</em> wouldn't be happening if it weren't for the hundreds of people who backed the project on Kickstarter. A big thanks to a particularly generous sponsor, <a href="https://balancedpayments.com">Balanced Payments</a>:</p>
+<p><img src="_static/images/balanced-logo.png" alt="Balanced Payments" /></p>
+<p>As promised in the Kickstarter project, here are the names of all of the generous men and women who pledged $50 or more:</p>
+<p>CodeLesson, Sam Black, Michał Bartoszkiewicz, Chad Catlett, Jacob Kaplan-Moss, John Schrom, Zach White, Dorothy L. Erwin, Brandon Brown, Fredrik Larsson, Karsten Hoffrath (khoffrath), Jonathan Chen, Mitch Wainer, John Cleaver, Paul Baines, Brandon Bennett, Gaelan Adams, Nick Charlton, Dustin Chapman and Senko Rašić.</p>
+<h2>License</h2>
+<p>In the spirit of open source software, I'm placing all of the content in this book in the public domain.</p>
+<p>Have fun with it.</p>
+<h2>Contributing</h2>
+<p>The project is hosted <a href="https://github.com/rpicard/explore-flask">on GitHub</a> and pull requests are welcome! Preface ============</p>
+<p>This book is a collection of the best practices for using Flask. There are a lot of pieces to the average Flask application. You'll often need to interact with a database and authenticate users, for example. In the coming pages I'll do my best to explain the &quot;right way&quot; to do this sort of stuff. My recommendations aren't always going to apply, but I'm hoping that they'll be a good option most of the time.</p>
+<h2>Assumptions</h2>
+<p>In order to present you with more specific advice, I've written this book with a few fundamental assumptions. It's important to keep this in mind when you're reading and applying these recommendations to your own projects.</p>
+<h3>Audience</h3>
+<p>The content of this book builds upon the information in the official documentation. I highly recommend that you go through <a href="http://flask.pocoo.org/docs/#user-s-guide">the user guide</a> and follow along with <a href="http://flask.pocoo.org/docs/tutorial/">the tutorial</a>. This will give you a chance to become familiar with the vocabulary of Flask. You should understand what views are, the basics of Jinja templating and other fundamental concepts defined for beginners. I've tried to avoid overlap with the information already available in the user guide, so if you read this book first, there's a good chance that you'll find yourself lost (is that an oxymoron?).</p>
+<p>With all of that said, the topics in this book aren't highly advanced. The goal is just to highlight best practices and patterns that will make development easier for you. While I'm trying to avoid too much overlap with the official documentation, you may find that I reiterate certain concepts to make sure that they're familiar. You shouldn't need to have the beginner's tutorial open while you read this.</p>
+<h3>Versions</h3>
+<h4>Python 2 versus Python 3</h4>
+<p>As I write this, the Python community is in the midst of a transition from Python 2 to Python 3. The official stance of the Python Software Foundation is as follows:</p>
+<blockquote>
+<p>Python 2.x is the status quo, Python 3.x is the present and future of the language. <sup><a href="#fn1" class="footnoteRef" id="fnref1">1</a></sup></p>
+</blockquote>
+<p>As of version 0.10, Flask runs with Python 3.3. When I asked Armin Ronacher about whether new Flask apps should begin using Python 3, he said that he's not yet recommending it to people.</p>
+<blockquote>
+<p>I'm not using it myself currently, and I don't ever recommend to people things that I don't believe in myself, so I'm very cautious about recommending Python 3.</p>
+<p>--- Armin Ronacher, creator of Flask <sup><a href="#fn2" class="footnoteRef" id="fnref2">2</a></sup></p>
+</blockquote>
+<p>One reason for holding off on Python 3 is that many common dependencies haven't been ported yet. You don't want to build a project around Python 3 only to realize a few months down the line that you can't use packages X, Y and Z. It's possible that eventually Flask will officially recommend Python 3 for new projects, but for now it's all about Python 2.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>The <a href="https://python3wos.appspot.com/">Python 3 Wall of Superpowers</a> tracks which major Python packages have been ported to Python 3.</p>
+</blockquote>
+<p>Since this book is meant to provide practical advice, I think it makes sense to write with the assumption of Python 2. Specifically, I'll be writing the book with Python 2.7 in mind. Future updates may very well change this to evolve with the Flask community, but for now 2.7 is where we stand.</p>
+<h4>Flask version 0.10</h4>
+<p>At the time of writing this, 0.10 is the latest version of Flask (0.10.1 to be exact). Most of the lessons in this book aren't going to change with minor updates to Flask, but it's something to keep in mind nonetheless.</p>
+<h2>Living document</h2>
+<p>The content of this books is going to be updated on the fly, rather than with periodic releases. That is one of the benefits of putting the content out there for free, rather than putting it behind a walled garden. The web is a much more fluid distribution channel than print or even PDFs.</p>
+<p>The book's source is hosted <a href="https://github.com/rpicard/explore-flask">on GitHub</a> and that is where &quot;development&quot; will be happening. Contributions and ideas are always welcome!</p>
+<h2>Conventions used in this book</h2>
+<h3>Each chapter stands on its own</h3>
+<p>Each chapter in this book is an isolated lesson. Many books and tutorials are written as one long lesson. Generally this means that an example program or application is created and updated throughout the book to demonstrate concepts and lessons. Instead, examples are included in each lesson to demonstrate the concepts, but the examples from different chapters aren't meant to be combined into one large project.</p>
+<h3>Formatting</h3>
+<p>Footnotes will be used for citations so you don't think I'm making things up. <sup><a href="#fn3" class="footnoteRef" id="fnref3">3</a></sup></p>
+<p><em>Italic text</em> will be used to denote a file name.</p>
+<p><strong>Bold text</strong> will be used to denote a new or important term.</p>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Common pitfalls that could cause major problems will be shown in a warning box.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Supplemental information will appear in note boxes.</p>
+</blockquote>
+<h2>Easter eggs</h2>
+<p>Six backer names from the Kickstarter campaign have been encoded and sprinkled around the book. If you find all six and email the locations to me, I'll send you an extraordinarily mediocre prize. No hints.</p>
+<h2>Summary</h2>
+<ul>
+<li>This book contains recommendations for using Flask.</li>
+<li>I'm assuming that you've gone through the Flask tutorial.</li>
+<li>I'm using Python 2.7.</li>
+<li>I'm using Flask 0.10.</li>
+<li>I'll do my best to keep the content of the book up-to-date.</li>
+<li>Each chapter in this book stands on its own.</li>
+<li>There are a few ways that I'll use formatting to convey additional information about the content.</li>
+<li>Summaries will appear as concise lists of takeaways from the chapters.</li>
+</ul>
+<h1>Coding conventions</h1>
+<p><img src="_static/images/conventions.png" alt="Coding conventions" /></p>
+<p>There are a number of conventions in the Python community to guide the way you format your code. If you've been developing with Python for a while, then you might already be familiar with some of these conventions. I'll keep things brief and leave a few URLs where you can find more information if you haven't come across these topics before.</p>
+<h2>Let's have a PEP rally!</h2>
+<p>A <strong>PEP</strong> is a &quot;Python Enhancement Proposal.&quot; These proposals are indexed and hosted at python.org. In the index, PEPs are grouped into a number of categories, including meta-PEPs, which are more informational than technical. The technical PEPs, on the other hand, often describe things like improvements to Python's internals.</p>
+<p>There are a few PEPs, like PEP 8 and PEP 257 that are meant to guide the way we write our code. PEP 8 contains coding style guidelines. PEP 257 contains guidelines for docstrings, the generally accepted method of documenting code.</p>
+<h3>PEP 8: Style Guide for Python Code</h3>
+<p>PEP 8 is the official style guide for Python code. I recommend that you read it and apply its recommendations to your Flask projects (and all of your other Python code). Your code will be much more approachable when it starts growing to many files with hundreds, or thousands, of lines of code. The PEP 8 recommendations are all about having more readable code. Plus, if your project is going to be open source, potential contributors will likely expect and be comfortable working on code written with PEP 8 in mind.</p>
+<p>One particularly important recommendation is to use 4 spaces per indentation level. No real tabs. If you break this convention, it'll be a burden on you and other developers when switching between projects. That sort of inconsistency is a pain in any language, but white-space is especially important in Python, so switching between real tabs and spaces could result in any number of errors that are a hassle to debug.</p>
+<h3>PEP 257: Docstring Conventions</h3>
+<p>PEP 257 covers another Python standard: <strong>docstrings</strong>. You can read the definition and recommendations in the PEP itself, but here's an example to give you an idea of what a docstring looks like:</p>
+<pre><code>def launch_rocket():
+   &quot;&quot;&quot;Main launch sequence director.
+
+   Locks seatbelts, initiates radio and fires engines.
+   &quot;&quot;&quot;
+   # [...]</code></pre>
+<p>These kinds of docstrings can be used by software such as Sphinx to generate documentation files in HTML, PDF and other formats. They also make it easier to understand your code.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li><a href="http://legacy.python.org/dev/peps/pep-0008/">PEP 8</a></li>
+<li><a href="http://legacy.python.org/dev/peps/pep-0257/">PEP 257</a></li>
+<li><a href="http://sphinx-doc.org/">Sphinx</a>, the documentation generator created by the same folks who brought us Flask</li>
+</ul>
+</blockquote>
+<h2>Relative imports</h2>
+<p>Relative imports make life a little easier when developing Flask apps. The premise is simple. Let's say you want to import the <code>User</code> model from the module <em>myapp/models.py</em>. You might think to use the app's package name, i.e. <code>myapp.models</code>. Using relative imports, you would indicate the location of the target module relative to the source. To do this we use a dot notation where the first dot indicates the current directory and each subsequent dot represents the next parent directory. Listing~ illustrates the diffence in syntax.</p>
+<pre><code># myapp/views.py
+
+# An absolute import gives us the User model
+from myapp.models import User
+
+# A relative import does the same thing
+from .models import User</code></pre>
+<p>The advantage of this method is that the package becomes a heck of a lot more modular. Now you can rename your package and re-use modules from other projects without the need to update the hard-coded import statements.</p>
+<p>In my research I came across a Tweet that illustrates the benefit of relative imports.</p>
+<blockquote>
+<p>Just had to rename our whole package. Took 1 second. Package relative imports FTW!</p>
+<p>--- <a href="https://twitter.com/dabeaz/status/372059407711887360">David Beazley, @dabeaz</a></p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>You can read a little more about the syntax for relative imports from this section in <a href="http://www.python.org/dev/peps/pep-0328/#guido-s-decision">PEP 328</a>.</p>
+</blockquote>
+<h2>Summary</h2>
+<ul>
+<li>Try to follow the coding style conventions laid out in PEP 8.</li>
+<li>Try to document your app with docstrings as defined in PEP 257.</li>
+<li>Use relative imports to import your apps internal modules.</li>
+</ul>
+<h1>Environment</h1>
+<p><img src="_static/images/environment.png" alt="Environment" /></p>
+<p>Your application is probably going to require a lot of software to function properly. If it doesn't at least require the Flask package, you may be reading the wrong book. Your application's <strong>environment</strong> is essentially all of the things that need to be around when it runs. Lucky for us, there are a number of things that we can do to make managing our environment much less complicated.</p>
+<h2>Use virtualenv to manage your environment</h2>
+<p><a href="http://www.virtualenv.org/en/latest/">virtualenv</a> is a tool for isolating your application in what is called a <strong>virtual environment</strong>. A virtual environment is a directory that contains the software on which your application depends. A virtual environment also changes your environment variables to keep your development environment contained. Instead of downloading packages, like Flask, to your system-wide — or user-wide — package directories, we can download them to an isolated directory used only for our current application. This makes it easy to specify which Python binary to use and which dependencies we want to have available on a per project basis.</p>
+<p>Virtualenv also lets you use different versions of the same package for different projects. This flexibility may be important if you're working on an older system with several projects that have different version requirements.</p>
+<p>When using virtualenv, you'll generally have only a few Python packages installed globally on your system. One of these will be virtualenv itself. You can install the <code>virtualenv</code> package with Pip.</p>
+<p>Once you have virtualenv on your system, you can start creating virtual environments. Navigate to your project directory and run the <code>virtualenv</code> command. It takes one argument, which is the deistination directory of the virtual environment. Listing~ shows what this looks like.</p>
+<pre><code>$ virtualenv venv
+New python executable in venv/bin/python
+Installing Setuptools...........[...].....done.
+Installing Pip..................[...].....done.
+$</code></pre>
+<p>virtualenv creates a new directory where the dependencies will be installed.</p>
+<p>Once the new virtual environment has been created, you must activate it by sourcing the <em>bin/activate</em> script that was created inside the virtual environment.</p>
+<pre><code>$ which python
+/usr/local/bin/python
+$ source venv/bin/activate
+(venv)$ which python
+/Users/robert/Code/myapp/venv/bin/python</code></pre>
+<p>The <em>bin/activate</em> script makes some changes to your shell's environment variables so that everything points to the new virtual environment instead of your global system. You can see the effect in code block above. After activation, the <code>python</code> command refers to the Python binary inside the virtual environment. When a virtual environment is active, dependencies installed with Pip will be downloaded to that virtual environment instead of the global system.</p>
+<p>You may notice that the shell prompt has been changed too. virtualenv prepends the name of the currently activated virtual environment, so you know that you're not working on the global system.</p>
+<p>You can deactivate your virtual environment by running the <code>deactivate</code> command.</p>
+<pre><code>(venv)$ deactivate
+$</code></pre>
+<h3>virtualenvwrapper</h3>
+<p><a href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> is a package used to manage the virtual environments created by virtualenv. I didn't want to mention this tool until you had seen the basics of virtualenv so that you understand what it's improving upon and understand why you should use it.</p>
+<p>That virtual environment directory created in Listing~ref{code:venv_create} adds clutter to your project repository. You only interact with it directly when activating the virtual environment and it shouldn't be in version control, so there's no need to have it in there. The solution is to use virtualenvwrapper. This package keeps all of your virtual environments out of the way in a single directory, usually _~/.virtualenvs/_ by default.</p>
+<p>To install virtualenvwrapper, follow the instructions in the documentation. See Box~ref{aside:vwrap_docs} for that link.</p>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Make sure that you've deactivated all virtual environments before installing virtualenvwrapper. You want it installed globally, not in a pre-existing environment.</p>
+</blockquote>
+<p>Now, instead of running <code>virtualenv</code> to create an environment, you'll run <code>mkvirtualenv</code>:</p>
+<pre><code>$ mkvirtualenv rocket
+New python executable in rocket/bin/python
+Installing setuptools...........[...].....done.
+Installing pip..................[...].....done.
+(rocket)$</code></pre>
+<p><code>mkvirtualenv</code> creates a directory in your virtual environments folder and activates it for you. Just like with plain old <code>virtualenv</code>, <code>python</code> and <code>pip</code> now point to that virtual environment instead of the system binaries. To activate a particular environment, use the command: <code>workon [environment name]</code>. <code>deactivate</code> still deactivates the environment.</p>
+<h3>Keeping track of dependencies</h3>
+<p>As a project grows, you'll find that the list of dependencies grows with it. It's not uncommon to need dozens of Python packages installed to run a Flask application. The easiest way to manage these is with a simple text file. Pip can generate a text file listing all installed packages. It can also read in this list to install each of them on a new system, or in a freshly minted environment.</p>
+<h5>pip freeze</h5>
+<p><em>requirements.txt</em> is a text file used by many Flask applications to list all of the packages needed to run an application. This code block shows how to create this file and the following one shows how to use that text file to install your dependencies in a new environment.</p>
+<pre><code>(rocket)$ pip freeze &gt; requirements.txt</code></pre>
+<pre><code>$ workon fresh-env
+(fresh-env)$ pip install -r requirements.txt
+[...]
+Successfully installed flask Werkzeug Jinja2 itsdangerous markupsafe
+Cleaning up...
+(fresh-env)$</code></pre>
+<h3>Manually tracking dependencies</h3>
+<p>As your project grows, you may find that certain packages listed by <code>pip freeze</code> aren't actually needed to run the application. You'll have packages that are installed for development only. <code>pip freeze</code> doesn't discriminate between the two, it just lists the packages that are currently installed. As a result, you may want to manually track your depencies as you add them. You can separate those packages needed to run your application and those needed to develop your application into <em>require_run.txt</em> and <em>require_dev.txt</em> respectively.</p>
+<h2>Version control</h2>
+<p>Pick a version control system and use it. I recommend Git. From what I've seen, Git is the most popular choice for new projects these days. Being able to delete code without worrying about making an irreversible mistake is invaluable. You'll be able to keep your project free of those massive blocks of commented out code, because you can delete it now and revert that change later should the need arise. Plus, you'll have backup copies of your entire project on GitHub, Bitbucket or your own Gitolite server.</p>
+<h3>What to keep out of version control</h3>
+<p>I usually keep a file out of version control for one of two reasons. Either it's clutter, or it's a secret. Compiled <em>.pyc</em> files and virtual environments --- if you're not using virtualenvwrapper for some reason --- are examples of clutter. They don't need to be in version control because they can be recreated from the <em>.py</em> files and your <em>requirements.txt</em> files respectively.</p>
+<p>API keys, application secret keys and database credentials are examples of secrets. They shouldn't be in version control because their exposure would be a massive breach of security.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>When making security related decisions, I always like to assume that my repository will become public at some point. This means keeping secrets out and never assuming that a security hole won't be found because, &quot;Who's going to guess that they can do that?&quot; This kind of assumption is known as security by obscurity and it's a bad policy to rely on.</p>
+</blockquote>
+<p>When using Git, you can create a special file called <em>.gitignore</em> in your repository. In it, list regular expression patterns to match against filenames. Any filename that matches one of the patterns will be ignored by Git. I recommend using the <em>.gitignore</em> shown in Listing~ to get you started.</p>
+<pre><code>*.pyc
+instance/</code></pre>
+<p>Instance folders are used to make secret configuration variables available to your application in a more secure way. We'll talk more about them later.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>You can read more about <em>.gitignore</em> here: <a href="http://git-scm.com/docs/gitignore">http://git-scm.com/docs/gitignore</a></p>
+</blockquote>
+<h2>Debugging</h2>
+<h3>Debug Mode</h3>
+<p>Flask comes with a handy feature called debug mode. To turn it on, you just have to set <code>debug = True</code> in your development configuration. When it's on, the server will reload on code changes and errors will come with a stack trace and an interactive console.</p>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Take care not to enable debug mode in production. The interactive console enables arbitrary code execution and would be a massive security vulnerability if it was left on in the live site.</p>
+</blockquote>
+<h3>Flask-DebugToolbar</h3>
+<p><a href="http://flask-debugtoolbar.readthedocs.org/en/latest/">Flask-DebugToolbar</a> is another great tool for debugging problems with your application. In debug mode, it overlays a side-bar onto every page in your application. The side bar gives you information about SQL queries, logging, versions, templates, configuration and other fun stuff that makes it easier to track down problems.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li>Take a look at the quick start <a href="http://flask.pocoo.org/docs/quickstart/#debug-mode">section on debug mode</a>.</li>
+<li>There is some good information on handling errors, logging and working with other debuggers <a href="http://flask.pocoo.org/docs/errorhandling">in the flask docs</a>.</li>
+</ul>
+</blockquote>
+<h2>Summary</h2>
+<ul>
+<li>Use virtualenv to keep your application's dependencies together.</li>
+<li>Use virtualenvwrapper to keep your virtual environments together.</li>
+<li>Keep track of dependencies with one or more text files.</li>
+<li>Use a version control system. I recommend Git.</li>
+<li>Use .gitignore to keep clutter and secrets out of version control.</li>
+<li>Debug mode can give you information about problems in development.</li>
+<li>The Flask-DebugToolbar extension will give you even more of that information.</li>
+</ul>
+<h1>Organizing your project</h1>
+<p><img src="_static/images/organizing.png" alt="Organizing your project" /></p>
+<p>Flask leaves the organization of your application up to you. This is one of the reasons I liked Flask as a beginner, but it does mean that you have to put some thought into how to structure your code. You could put your entire application in one file, or have it spread across multiple packages. There are a few organizational patterns that you can follow to make development and deployment easier.</p>
+<h2>Definitions</h2>
+<p>Let's define some of the terms that we'll run into in this chapter.</p>
+<p><strong>Repository</strong> - This is the base folder where your applications sits. This term traditionally refers to version control systems, which you should be using. When I refer to your repository in this chapter, I'm talking about the root directory of your project. You probably won't need to leave this directory when working on your application.</p>
+<p><strong>Package</strong> - This refers to a Python package that contains your application's code. I'll talk more about setting up your app as a package in this chapter, but for now just know that the package is a sub-directory of the repository.</p>
+<p><strong>Module</strong> - A module is a single Python file that can be imported by other Python files. A package is essentially multiple modules packaged together.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li>Read more about Python modules in <a href="http://docs.python.org/2/tutorial/modules.html">Python tutorial</a>.</li>
+<li>That same page has a <a href="http://docs.python.org/2/tutorial/modules.html#packages">section on packages</a>.</li>
+</ul>
+</blockquote>
+<h2>Organization patterns</h2>
+<h3>Single module</h3>
+<p>A lot of the Flask examples that you'll come across will keep all of the code in a single file, often <em>app.py</em>. This is great for quick projects (like the ones used for tutorials), where you just need to serve a few routes and you've got less than a few hundred lines of application code.</p>
+<pre><code>app.py
+config.py
+requirements.txt
+static/
+templates/</code></pre>
+<p>Application logic would sit in <em>app.py</em> for the example in Listing~.</p>
+<h3>Package</h3>
+<p>When you're working on a project that's a little more complex, a single module can get messy. You'll need to define classes for models and forms, and they'll get mixed in with the code for your routes and configuration. All of this can frustrate development. To solve this problem, we can factor out the different components of our app into a group of inter-connected modules — a package.</p>
+<pre><code>config.py
+requirements.txt
+run.py
+instance/
+    config.py
+yourapp/
+    __init__.py
+    views.py
+    models.py
+    forms.py
+    static/
+    templates/</code></pre>
+<p>The structure shown in this listing allows you to group the different components of your application in a logical way. The class definitions for models are together in <em>models.py</em>, the route definitions are in <em>views.py</em> and forms are defined in <em>forms.py</em> (we have a whole chapter for forms later).</p>
+<p>This table provides a basic rundown of the components you'll find in most Flask applications. You'll probably end up with a lot of other files in your repository, but these are common to most Flask applications.</p>
+<table>
+<col style="width: 28%" /><col style="width: 71%" /><tbody>
+<tr class="odd">
+<td style="text-align: left;">run.py</td>
+<td style="text-align: left;">This is the file that is invoked to start up a development server.It gets a copy of the app from your package and runs it. This won't be used in production, but it will see a lot of mileage in development.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">requirements.txt</td>
+<td style="text-align: left;">This file lists all of the Python packages that your app depends on. You may have separate files for production and development dependencies.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">config.py</td>
+<td style="text-align: left;">This file contains most of the configuration variables that your app needs.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">/instance/config.py</td>
+<td style="text-align: left;">This file contains configuration variables that shouldn't be in version control. This includes things like API keys and database URIs containing passwords. This also contains variables that are specific to this particular instance of your application. For example, you might have <code>DEBUG = False</code> in config.py, but set <code>DEBUG = True</code> in instance/config.py on your local machine for development. Since this file will be read in after config.py, it will override it and set <code>DEBUG = False</code>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">/yourapp/</td>
+<td style="text-align: left;">This is the package that contains your application.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">/yourapp/__init__.py</td>
+<td style="text-align: left;">This file initializes your application and brings together all of the various components.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">/yourapp/views.py</td>
+<td style="text-align: left;">This is where the routes are defined. It may be split into a package of its own (<em>yourapp/views/</em>) with related views grouped together into modules.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">/yourapp/models.py</td>
+<td style="text-align: left;">This is where you define the models of your application. This may be split into several modules in the same way as views.py.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">/yourapp/static/</td>
+<td style="text-align: left;">This file contains the public CSS, JavaScript, images and other files that you want to make public via your app. It is accessible from yourapp.com/static/ by default.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">/yourapp/templates/</td>
+<td style="text-align: left;">This is where you'll put the Jinja2 templates for your app.</td>
+</tr>
+</tbody>
+</table>
+<h3>Blueprints</h3>
+<p>At some point you may find that you have a lot of related routes. If you're like me, your first thought will be to split <em>views.py</em> into a package and group those views into modules. When you're at this point, it may be time to factor your application into blueprints.</p>
+<p>Blueprints are essentially components of your app defined in a somewhat self-contained manner. They act as apps within your application. You might have different blueprints for the admin panel, the front-end and the user dashboard. This lets you group views, static files and templates by components, while letting you share models, forms and other aspects of your application between these components. We'll talk about using Blueprints to organize your application soon.</p>
+<h2>Summary</h2>
+<ul>
+<li>Using a single module for your application is good for quick projects.</li>
+<li>Using a package for your application is good for projects with views, models, forms and other components.</li>
+<li>Blueprints are a great way to organize projects with several distinct components.</li>
+</ul>
+<h1>Configuration</h1>
+<p><img src="_static/images/configuration.png" alt="Configuration" /></p>
+<p>When you're learning Flask, configuration seems simple. You just define some variables in <em>config.py</em> and everything works. That simplicity starts to fade away when you have to manage configuration for a production application. You may need to protect secret API keys or use different configurations for different environments (e.g. development and production environments). In this chapter we'll go over some advanced Flask features that makes this managing configuration easier.</p>
+<h2>The simple case</h2>
+<p>A simple application may not need any of these complicated features. You may just need to put <em>config.py</em> in the root of your repository and load it in <em>app.py</em> or <em>yourapp/__init__.py</em></p>
+<p>The <em>config.py</em> file should contain one variable assignment per line. When your app is initialized, the variables in <em>config.py</em> are configure Flask and it's extensions are accessible via the <code>app.config</code> dictionary -- e.g. <code>app.config[&quot;DEBUG&quot;]</code>.</p>
+<pre><code>DEBUG = True # Turns on debugging features in Flask
+BCRYPT_LEVEL = 12 # Configuration for the Flask-Bcrypt extension
+MAIL_FROM_EMAIL = &quot;robert@example.com&quot; # For use in application emails</code></pre>
+<p>Configuration variables can be used by Flask, extensions or you. In this example, we could use <code>app.config[&quot;MAIL_FROM_EMAIL&quot;]</code> whenever we needed the default &quot;from&quot; address for a transactional email -- e.g. password resets. Putting that information in a configuration variable makes it easy to change it in the future.</p>
+<pre class="sourceCode "><code># app.py or app/__init__.py
+from flask import Flask
+
+app = Flask(__name__)
+app.config.from_object(&#39;config&#39;)
+
+# Now we can access the configuration variables via app.config[&quot;VAR_NAME&quot;].</code></pre>
+<table>
+<col style="width: 13%" /><col style="width: 45%" /><col style="width: 40%" /><thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Decription</th>
+<th style="text-align: left;">Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DEBUG</td>
+<td style="text-align: left;">Gives you some handy tools for debugging errors. This includes a web-based stack trace and interactive Python console for errors.</td>
+<td style="text-align: left;">Should be set to <code>True</code> in development and <code>False</code> in production.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SECRET_KEY</td>
+<td style="text-align: left;">This is a secret key that is used by Flask to sign cookies. It's also used by extensions like Flask-Bcrypt. You should define this in your instance folder to keep it out of version control. You can read more about instance folders in the next section.</td>
+<td style="text-align: left;">This should be a complex random value.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BCRYPT_LEVEL</td>
+<td style="text-align: left;">If you're using Flask-Bcrypt to hash user passwords, you'll need to specify the number of &quot;rounds&quot; that the algorithm executes in hashing a password. If you aren't using Flask-Bcrypt, you should probably start. The more rounds used to hash a password, the longer it'll take for an attacker to guess a password given the hash. The number of rounds should increase over time as computing power increases.</td>
+<td style="text-align: left;">Later in this book we'll cover some of the best practices for using Bcrypt in your Flask application.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Make sure <code>DEBUG</code> is set to <code>False</code> in production. Leaving it on will allow users to run arbitrary Python code on your server.</p>
+</blockquote>
+<h2>Instance folder</h2>
+<p>Sometimes you'll need to define configuration variables that contain sensitive information. We'll want to separate these variables from those in <em>config.py</em> and keep them out of the repository. You may be hiding secrets like database passwords and API keys, or defining variables specific to a given machine. To make this easy, Flask gives us a feature called <strong>instance folders</strong>. The instance folder is a sub-directory of the repository root and contains a configuration file specifically for this instance of the application. We don't want to commit it into version control.</p>
+<pre><code>config.py
+requirements.txt
+run.py
+instance/
+  config.py
+yourapp/
+  __init__.py
+  models.py
+  views.py
+  templates/
+  static/</code></pre>
+<h3>Using instance folders</h3>
+<p>To load configuration variables from an instance folder, we use <code>app.config.from_pyfile()</code>. If we set <code>instance_relative_config=True</code> when we create our app with the <code>Flask()</code> call, <code>app.config.from_pyfile()</code> will load the specified file from the <em>instance/</em> directory.</p>
+<pre class="sourceCode "><code># app.py or app/__init__.py
+
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object(&#39;config&#39;)
+app.config.from_pyfile(&#39;config.py&#39;)</code></pre>
+<p>Now, we can define variables in <em>instance/config.py</em> just like you did in <em>config.py</em>. You should also add the instance folder to your version control system's ignore list. To do this with Git, you would add <code>instance/</code> on a new line in <em>.gitignore</em>.</p>
+<h3>Secret keys</h3>
+<p>The private nature of the instance folder makes it a great candidate for defining keys that you don't want exposed in version control. These may include your app's secret key or third-party API keys. This is especially important if your application is open source, or might be at some point in the future. We usually want other users and contributors to use their own keys.</p>
+<pre><code># instance/config.py
+
+SECRET_KEY = &#39;Sm9obiBTY2hyb20ga2lja3MgYXNz&#39;
+STRIPE_API_KEY = &#39;SmFjb2IgS2FwbGFuLU1vc3MgaXMgYSBoZXJv&#39;
+SQLALCHEMY_DATABASE_URI= \
+&quot;postgresql://user:TWljaGHFgiBCYXJ0b3N6a2lld2ljeiEh@localhost/databasename&quot;</code></pre>
+<h3>Minor environment-based configuration</h3>
+<p>If the difference between your production and development environments are pretty minor, you may want to use your instance folder to handle the configuration changes. Variables defined in the <em>instance/config.py</em> file can override the value in <em>config.py</em>. You just need to make the call to <code>app.config.from_pyfile()</code> after <code>app.config.from_object()</code>. One way to take advantage of this is to change the way your app is configured on different machines.</p>
+<pre><code># config.py
+
+DEBUG = False
+SQLALCHEMY_ECHO = False
+
+
+# instance/config.py
+DEBUG = True
+SQLALCHEMY_ECHO = True</code></pre>
+<p>In production, we would leave the variables in Listing~ out of <em>instance/-config.py</em> and it would fall back to the values defined in <em>config.py</em>.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li>Read more about Flask-SQLAlchemy's <a href="http://pythonhosted.org/Flask-SQLAlchemy/config.html#configuration-keys">configuration keys</a></li>
+</ul>
+</blockquote>
+<h2>Configuring based on environment variables</h2>
+<p>The instance folder shouldn't be in version control. This means that you won't be able to track changes to your instance configurations. That might not be a problem with one or two variables, but if you have finely tuned configurations for various environments (production, staging, development, etc.) you don't want to risk losing that.</p>
+<p>Flask gives us the ability to choose a configuration file on load based on the value of an environment variable. This means that we can have several configuration files in our repository and always load the right one. Once we have several configuration files, we can move them to their own <code>config</code> directory.</p>
+<pre><code>requirements.txt
+run.py
+config/
+  __init__.py # Empty, just here to tell Python that it&#39;s a package.
+  default.py
+  production.py
+  development.py
+  staging.py
+instance/
+  config.py
+yourapp/
+  __init__.py
+  models.py
+  views.py
+  static/
+  templates/</code></pre>
+<p>In this listing we have a few different configuration files.</p>
+<table>
+<col style="width: 23%" /><col style="width: 76%" /><tbody>
+<tr class="odd">
+<td style="text-align: left;">config/default.py</td>
+<td style="text-align: left;">Default values, to be used for all environments or overridden by individual environments. An example might be setting DEBUG = False in config/default.py and DEBUG = True in config/development.py.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">config/development.py</td>
+<td style="text-align: left;">Values to be used during development. Here you might specify the URI of a database sitting on localhost.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">config/production.py</td>
+<td style="text-align: left;">Values to be used in production. Here you might specify the URI for your database server, as opposed to the localhost database URI used for development.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">config/staging.py</td>
+<td style="text-align: left;">Depending on your deployment process, you may have a staging step where you test changes to your application on a server that simulates a production environment. You'll probably use a different database, and you may want to alter other configuration values for staging applications.</td>
+</tr>
+</tbody>
+</table>
+<p>To decide which configuration file to load, we'll call <code>app.config.from_envvar()</code>.</p>
+<pre><code># yourapp/__init__.py
+
+app = Flask(__name__, instance_relative_config=True)
+
+# Load the default configuration
+app.config.from_object(&#39;config.default&#39;)
+
+# Load the configuration from the instance folder
+app.config.from_pyfile(&#39;config.py&#39;)
+
+# Load the file specified by the APP_CONFIG_FILE environment variable
+# Variables defined here will override those in the default configuration
+app.config.from_envvar(&#39;APP_CONFIG_FILE&#39;)</code></pre>
+<p>The value of the environment variable should be the absolute path to a configuration file.</p>
+<p>How we set this environment variable depends on the platform in which we're running the app. If we're running on a regular Linux server, we can set up a shell script that sets our environment variables and runs <em>run.py</em>.</p>
+<pre><code># start.sh
+
+APP_CONFIG_FILE=/var/www/yourapp/config/production.py
+python run.py</code></pre>
+<p><em>start.sh</em> is unique to each environment, so it should be left out of version control. On Heroku, we'll want to set the environment variables with the Heroku tools. The same idea applies to other PaaS platforms.</p>
+<h2>Summary</h2>
+<ul>
+<li>A simple app may only need one configuration file: <em>config.py</em>.</li>
+<li>Instance folders can help us hide secret configuration values.</li>
+<li>Instance folders can be used to alter an application's configuration for a specific environment.</li>
+<li>We should use environment variables and <code>app.config.from_envvar()</code> for more complicated environment-based configurations.</li>
+</ul>
+<h1>Advanced patterns for views and routing</h1>
+<p><img src="_static/images/views.png" alt="Advanced patterns for views and routing" /></p>
+<h2>View decorators</h2>
+<p>Python decorators are functions that are used to transform other functions. When a decorated function is called, the decorator is called instead. The decorator can then take action, modify the arguments, halt execution or call the original function. We can use decorators to wrap views with code we'd like to run before they are executed.</p>
+<pre><code>@decorator_function
+def decorated():
+    pass</code></pre>
+<p>If you've gone through the Flask tutorial, the syntax in this code block might look familiar to you. <code>@app.route</code> is a decorator used to match URLs to view functions in Flask apps.</p>
+<p>Let's take a look at some other decorators you can use in your Flask apps.</p>
+<h3>Authentication</h3>
+<p>The Flask-Login extension makes it easy to implement a login system. In addition to handling the details of user authentication, Flask-Login gives us a decorator to restrict certain views to authenticated users: <code>@login_required</code>.</p>
+<pre><code># app.py
+
+from Flask import render_template
+from flask.ext.login import login_required, current_user
+
+
+@app.route(&#39;/&#39;)
+def index():
+    return render_template(&quot;index.html&quot;)
+
+@app.route(&#39;/dashboard&#39;)
+@login_required
+def account():
+    return render_template(&quot;account.html&quot;)</code></pre>
+<blockquote>
+<p><strong>warning</strong></p>
+<p><code>@app.route</code> should always be the outermost view decorator.</p>
+</blockquote>
+<p>Only an authenticated user will be able to access the <em>/dashboard</em> route. We can configure Flask-Login to redirect unauthenticated users to a login page, return an HTTP 401 status or anything else we'd like it to do with them.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Read more about using Flask-Login in <a href="http://flask-login.readthedocs.org/en/latest/">the official docs</a>.</p>
+</blockquote>
+<h3>Caching</h3>
+<p>Imagine that an article mentioning our application just appeared on CNN and some other news sites. We're getting thousands of requests per second. Our homepage makes several trips to the database for each request, so all of this attention is slowing things down to a crawl. How can we speed things up quickly, so all of these visitors don't miss out on our site?</p>
+<p>There are a lot of good answers, but this section is about caching, so we'll talk about that. Specifically, we're going to use the <a href="http://pythonhosted.org/Flask-Cache/">Flask-Cache</a> extension. This extension provides us with a decorator that we can use on our index view to cache the response for some period of time.</p>
+<p>Flask-Cache can be configured to work with a bunch of different caching backends. A popular choice is <a href="http://redis.io/">Redis</a>, which is easy to set-up and use. Assuming Flask-Cache is already configured, this code block shows what our decorated view would look like.</p>
+<pre><code># app.py
+
+from flask.ext.cache import Cache
+from flask import Flask
+
+app = Flask()
+
+# We&#39;d normally include configuration settings in this call
+cache = Cache(app)
+
+@app.route(&#39;/&#39;)
+@cache.cached(timeout=60)
+def index():
+    [...] # Make a few database calls to get the information we need
+    return render_template(
+        &#39;index.html&#39;,
+        latest_posts=latest_posts, 
+        recent_users=recent_users,
+        recent_photos=recent_photos
+    )</code></pre>
+<p>Now the function will only be run once every 60 seconds, when the cache expires. The response will be saved in our cache and pulled from there for any intervening requests.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Flask-Cache also lets us <strong>memoize</strong> functions — or cache the result of a function being called with certain arguments. You can even cache computationally expensive Jinja2 template snippets.</p>
+</blockquote>
+<h3>Custom decorators</h3>
+<p>For this section, let's imagine we have an application that charges users each month. If a user's account is expired, we'll redirect them to the billing page and tell them to upgrade.</p>
+<pre><code># myapp/util.py
+
+from functools import wraps
+from datetime import datetime
+
+from flask import flash, redirect, url_for
+
+from flask.ext.login import current_user
+
+def check_expired(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if datetime.utcnow() &gt; current_user.account_expires:
+            flash(&quot;Your account has expired. Update your billing info.&quot;)
+            return redirect(url_for(&#39;account_billing&#39;))
+        return func(*args, **kwargs)
+
+    return decorated_function</code></pre>
+<table>
+<col style="width: 5%" /><col style="width: 94%" /><tbody>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">When a function is decorated with <code>@check_expired</code>, <code>check_expired()</code> is called and the decorated function is passed as a parameter.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">11</td>
+<td style="text-align: left;"><code>@wraps</code> is a decorator that does some bookkeeping so that <code>decorated_function()</code> appears as <code>func()</code> for the purposes of documentation and debugging. This makes the behavior of the functions a little more natural.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">12</td>
+<td style="text-align: left;"><code>decorated_function</code> will get all of the args and kwargs that were passed to the original view function <code>func()</code>. This is where we check if the user's account is expired. If it is, we'll flash a message and redirect them to the billing page.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Now that we've done what we wanted to do, we run the decorated view function <code>func()</code> with its original arguments.</td>
+</tr>
+</tbody>
+</table>
+<p>When we stack decorators, the topmost decorator will run first, then call the next function in line: either the view function or the next decorator. The decorator syntax is just a little syntactic sugar.</p>
+<pre><code># This code:
+@foo
+@bar
+def one():
+    pass
+
+r1 = one()
+
+# is the same as this code:
+def two():
+    pass
+
+two = foo(bar(two))
+r2 = two()
+
+r1 == r2 # True</code></pre>
+<p>This code block shows an example using our custom decorator and the <code>@login_required</code> decorator from the Flask-Login extension. We can use multiple decorators by stacking them.</p>
+<pre><code># myapp/views.py
+
+from flask import render_template
+
+from flask.ext.login import login_required
+
+from . import app
+from .util import check_expired
+
+@app.route(&#39;/use_app&#39;)
+@login_required
+@check_expired
+def use_app():
+    &quot;&quot;&quot;Use our amazing app.&quot;&quot;&quot;
+    # [...]
+    return render_template(&#39;use_app.html&#39;)
+
+@app.route(&#39;/account/billing&#39;)
+@login_required
+def account_billing():
+    &quot;&quot;&quot;Update your billing info.&quot;&quot;&quot;
+    # [...]
+    return render_template(&#39;account/billing.html&#39;)</code></pre>
+<p>Now when a user tries to access <em>/use_app</em>, <code>check_expired()</code> will make sure that their account hasn't expired before running the view function.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Read more about what the <code>wraps()</code> function does <a href="http://docs.python.org/2/library/functools.html#functools.wraps">in the Python docs</a>.</p>
+</blockquote>
+<h2>URL Converters</h2>
+<h3>Built-in converters</h3>
+<p>When you define a route in Flask, you can specify parts of it that will be converted into Python variables and passed to the view function.</p>
+<pre><code>@app.route(&#39;/user/&lt;username&gt;&#39;)
+def profile(username):
+    pass</code></pre>
+<p>Whatever is in the part of the URL labeled <code>&lt;username&gt;</code> will get passed to the view as the username argument. You can also specify a converter to filter the variable before it's passed to the view.</p>
+<pre><code>@app.route(&#39;/user/id/&lt;int:user_id&gt;&#39;)
+def profile(user_id):
+    pass</code></pre>
+<p>In this code block, the URL <em><a href="http://myapp.com/user/id/Q29kZUxlc3NvbiEh">http://myapp.com/user/id/Q29kZUxlc3NvbiEh</a></em> will return a 404 status code -- not found. This is because the part of the URL that is supposed to be an integer is actually a string.</p>
+<p>We could have a second view that looks for a string as well. That would be called for <em>/user/id/Q29kZUxlc3NvbiEh/</em> while the first would be called for <em>/user/id/124</em>.</p>
+<p>This table shows Flask's built-in URL converters.</p>
+<table>
+<col style="width: 12%" /><col style="width: 69%" /><tbody>
+<tr class="odd">
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Accepts any text without a slash (the default).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">Accepts integers.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">Like int but for floating point values.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">path</td>
+<td style="text-align: left;">Like string but accepts slashes.</td>
+</tr>
+</tbody>
+</table>
+<h3>Custom converters</h3>
+<p>We can also make custom converters to suit our needs. On Reddit — a popular link sharing site — users create and moderate communities for theme-based discussion and link sharing. Some examples are /r/python and /r/flask, denoted by the path in the URL: <em>reddit.com/r/python</em> and <em>reddit.com/r/flask</em> respectively. An interesting feature of Reddit is that you can view the posts from multiple subreddits as one by seperating the names with a plus-sign in the URL, e.g. <em>reddit.com/r/python+flask</em>.</p>
+<p>We can use a custom converter to implement this feature in our own Flask apps. We'll take an arbitrary number of elements separated by plus-signs, convert them to a list with a <code>ListConverter</code> class and pass the list of elements to the view function.</p>
+<pre><code># myapp/util.py
+
+from werkzeug.routing import BaseConverter
+
+class ListConverter(BaseConverter):
+
+    def to_python(self, value):
+        return value.split(&#39;+&#39;)
+
+    def to_url(self, values):
+        return &#39;+&#39;.join(BaseConverter.to_url(value)
+                        for value in values)</code></pre>
+<p>We need to define two methods: <code>to_python()</code> and <code>to_url()</code>. As the names suggest, <code>to_python()</code> is used to convert the path in the URL to a Python object that will be passed to the view and <code>to_url()</code> is used by <code>url_for()</code> to convert arguments to their appropriate forms in the URL.</p>
+<p>To use our <code>ListConverter</code>, we first have to tell Flask that it exists.</p>
+<pre><code># /myapp/__init__.py
+
+from flask import Flask
+
+app = Flask(__name__)
+
+from .util import ListConverter
+
+app.url_map.converters[&#39;list&#39;] = ListConverter</code></pre>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>This is another chance to run into some circular import problems if your <code>util</code> module has a <code>from . import app</code> line. That's why I waited until app had been initialized to import <code>ListConverter</code>.</p>
+<p>Now we can use our converter just like one of the built-ins. We specified the key in the dictionary as &quot;list&quot; so that's how we use it in <code>@app.route()</code>.</p>
+</blockquote>
+<pre><code># myapp/views.py
+
+from . import app
+
+@app.route(&#39;/r/&lt;list:subreddits&gt;&#39;)
+def subreddit_home(subreddits):
+    &quot;&quot;&quot;Show all of the posts for the given subreddits.&quot;&quot;&quot;
+    posts = []
+    for subreddit in subreddits:
+        posts.extend(subreddit.posts)
+
+    return render_template(&#39;/r/index.html&#39;, posts=posts)</code></pre>
+<p>This should work just like Reddit's multi-reddit system. This same method can be used to make any URL converter we can dream of.</p>
+<h2>Summary</h2>
+<ul>
+<li>The <code>@login_required</code> decorator from Flask-Login helps you limit views to authenticated users.</li>
+<li>The Flask-Cache extension gives you a bunch of decorators to implement various methods of caching.</li>
+<li>We can develop custom view decorators to help us organize our code and stick to DRY (Don't Repeat Yourself) coding principals.</li>
+<li>Custom URL converters can be a great way to implement creative features involving URL's.</li>
+</ul>
+<h1>Blueprints</h1>
+<p><img src="_static/images/blueprints.png" alt="Blueprints" /></p>
+<h2>What is a blueprint?</h2>
+<p>A blueprint defines a collection of views, templates, static files and other elements that can be applied to an application. For example, let's imagine that we have a blueprint for an admin panel. This blueprint would define the views for routes like <em>/admin/login</em> and <em>/admin/dashboard</em>. It may also include the templates and static files that will be served on those routes. We can then use this blueprint to add an admin panel to our app, be it a social network for astronauts or a CRM for rocket salesmen.</p>
+<h2>Why would you use blueprints?</h2>
+<p>The killer use-case for blueprints is to organize our application into distinct components. For a Twitter-like microblog, we might have a blueprint for the website pages, e.g. <em>index.html</em> and <em>about.html</em>. Then we could have another for the logged-in dashboard where we show all of the latest posts and yet another for our administrator's panel. Each distinct area of the site can be separated into distinct areas of the code as well. This lets us structure our app as several smaller &quot;apps&quot; that each do one thing.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Read more about the benefits of using blueprints in <a href="http://flask.pocoo.org/docs/blueprints/#why-blueprints">&quot;Why Blueprints&quot;</a> from the Flask docs.</p>
+</blockquote>
+<h2>Where do you put them?</h2>
+<p>Like everything with Flask, there are many ways that we can organize our app using blueprints. With blueprints, we can think of the choice as functional versus divisional (terms I'm borrowing from the business world).</p>
+<h3>Functional structure</h3>
+<p>With a functional structure, you organize the pieces of your app by what they do. Templates are grouped together in one directory, static files in another and views in a third.</p>
+<pre><code>yourapp/
+    __init__.py
+    static/
+    templates/
+        home/
+        control_panel/
+        admin/
+    views/
+        __init__.py
+        home.py
+        control_panel.py
+        admin.py
+    models.py</code></pre>
+<p>With the exception of <em>yourapp/views/__init__.py</em>, each of the <em>.py</em> files in the <em>yourapp/views/</em> directory from this listing is a blueprint. In <em>yourapp/__init__-.py</em> we would import those blueprints and <strong>register</strong> them on our <code>Flask()</code> object. We'll look a little more at how this is implemented later in this chapter.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>At the time of writing this, the Flask website at <a href="http://flask.pocoo.org"><a href="http://flask.pocoo.org">http://flask.pocoo.org</a></a> uses this structure. Take a look for yourself <a href="https://github.com/mitsuhiko/flask/tree/website/flask_website">on GitHub</a>.</p>
+</blockquote>
+<h3>Divisional</h3>
+<p>With the divisional structure, you organize the pieces of the application based on which part of the app they contribute to. All of the templates, views and static files for the admin panel go in one directory, and those for the user control panel go in another.</p>
+<pre><code>yourapp/
+    __init__.py
+    admin/
+        __init__.py
+        views.py
+        static/
+        templates/
+    home/
+        __init__.py
+        views.py
+        static/
+        templates/
+    control_panel/
+        __init__.py
+        views.py
+        static/
+        templates/
+    models.py</code></pre>
+<p>With a divisional structure like the app in this listing, each directory under <em>yourapp/</em> is a separate blueprint. All of the blueprints are applied to the <code>Flask()</code> app in the top-level <em>__init__.py</em></p>
+<h3>Which one is best?</h3>
+<p>The organizational structure you choose is largely a personal decision. The only difference is the way the hierarchy is represented -- i.e. you can architect Flask apps with either methodology -- so you should choose the one that makes sense to you.</p>
+<p>If your app has largely independent pieces that only share things like models and configuration, divisional might be the way to go. An example might be a SaaS app that lets user's build websites. You could have blueprints in &quot;divisions&quot; for the home page, the control panel, the user's website, and the admin panel. These components may very well have completely different static files and layouts. If you're considering spinning off your blueprints as extensions or using them for other projects, a divisional structure will be easier to work with.</p>
+<p>On the other hand, if the components of your app flow together a little more, it might be better represented with a functional structure. An example of this would be Facebook. If Facebook used Flask, it might have blueprints for the static pages (i.e. signed-out home, register, about, etc.), the dashboard (i.e. the news feed), profiles (<em>/robert/about</em> and <em>/robert/photos</em>), settings (<em>/settings/security</em> and <em>/settings/privacy</em>) and many more. These components all share a general layout and styles, but each has its own layout as well. The following listing shows a heavily abridged version of what Facebook might look like it if were built with Flask.</p>
+<pre><code>facebook/
+    __init__.py
+    templates/
+        layout.html
+        home/
+            layout.html
+            index.html
+            about.html
+            signup.html
+            login.html
+        dashboard/
+            layout.html
+            news_feed.html
+            welcome.html
+            find_friends.html
+        profile/
+            layout.html
+            timeline.html
+            about.html
+            photos.html
+            friends.html
+            edit.html
+        settings/
+            layout.html
+            privacy.html
+            security.html
+            general.html
+    views/
+        __init__.py
+        home.py
+        dashboard.py
+        profile.py
+        settings.py
+    static/
+        style.css
+        logo.png
+    models.py</code></pre>
+<p>The blueprints in <em>facebook/views/</em> are little more than collections of views rather than wholly independent components. The same static files will be used for the views in most of the blueprints. Most of the templates will extend a master template. A functional structure is a good way to organize this project.</p>
+<h2>How do you use them?</h2>
+<h3>Basic usage</h3>
+<p>Let's take a look at the code for one of the blueprints from that Facebook example.</p>
+<pre><code># facebook/views/profile.py
+
+from flask import Blueprint, render_template
+
+profile = Blueprint(&#39;profile&#39;, __name__)
+
+@profile.route(&#39;/&lt;user_url_slug&gt;&#39;)
+def timeline(user_url_slug):
+    # Do some stuff
+    return render_template(&#39;profile/timeline.html&#39;)
+
+@profile.route(&#39;/&lt;user_url_slug&gt;/photos&#39;)
+def photos(user_url_slug):
+    # Do some stuff
+    return render_template(&#39;profile/photos.html&#39;)
+
+@profile.route(&#39;/&lt;user_url_slug&gt;/about&#39;)
+def about(user_url_slug):
+    # Do some stuff
+    return render_template(&#39;profile/about.html&#39;)</code></pre>
+<p>To create a blueprint object, we import the <code>Blueprint()</code> class and initialize it with the arguments <code>name</code> and <code>import_name</code>. Usually <code>import_name</code> will just be <code>__name__</code>, which is a special Python variable containing the name of the current module.</p>
+<p>We're using a functional structure for this Facebook example. If we were using a divisional structure, we'd want to tell Flask that the blueprint has its own template and static directories. This code block shows what that would look like.</p>
+<pre><code>profile = Blueprint(&#39;profile&#39;, __name__,
+                    template_folder=&#39;templates&#39;,
+                    static_folder=&#39;static&#39;)</code></pre>
+<p>We have now defined our blueprint. It's time to register it on our Flask app.</p>
+<pre><code># facebook/__init__.py
+
+from flask import Flask
+from .views.profile import profile
+
+app = Flask(__name__)
+app.register_blueprint(profile)</code></pre>
+<p>Now the routes defined in <em>facebook/views/profile.py</em> (e.g. <code>/&lt;user_url_slug&gt;</code>) are registered on the application and act just as if you'd defined them with <code>@app.route()</code>.</p>
+<h3>Using a dynamic URL prefix</h3>
+<p>Continuing with the Facebook example, notice how all of the profile routes start with the <code>&lt;user_url_slug&gt;</code> portion and pass that value to the view. We want users to be able to access a profile by going to a URL like <em><a href="https://facebo-ok.com/john.doe">https://facebo-ok.com/john.doe</a></em>. We can stop repeating ourselves by defining a dynamic prefix for all of the blueprint's routes.</p>
+<p>Blueprints let us define both static and dynamic prefixes. We can tell Flask that all of the routes in a blueprint should be prefixed with <em>/profile</em> for example; that would be a static prefix. In the case of the Facebook example, the prefix is going to change based on which profile the user is viewing. Whatever text they choose is the URL slug of the profile which we should display; this is a dynamic prefix.</p>
+<p>We have a choice to make when defining our prefix. We can define the prefix in one of two places: when we instantiate the <code>Blueprint()</code> class or when we register it with <code>app.register_blueprint()</code>.</p>
+<pre><code># facebook/views/profile.py
+
+from flask import Blueprint, render_template
+
+profile = Blueprint(&#39;profile&#39;, __name__, url_prefix=&#39;/&lt;user_url_slug&gt;&#39;)
+
+# [...]</code></pre>
+<pre><code># facebook/__init__.py
+
+from flask import Flask
+from .views.profile import profile
+
+app = Flask(__name__)
+app.register_blueprint(profile, url_prefix=&#39;/&lt;user_url_slug&gt;&#39;)</code></pre>
+<p>While there aren't any technical limitations to either method, it's nice to have the prefixes available in the same file as the registrations. This makes it easier to move things around from the top-level. For this reason, I recommend setting <code>url_prefix</code> on registration.</p>
+<p>We can use converters to make the prefix dynamic, just like in <code>route()</code> calls. This includes any custom converters that we've defined. When using converters, we can pre-process the value given before handing it off to the view. In this case we'll want to grab the user object based on the URL slug passed into our profile blueprint. We'll do that by decorating a function with <code>url_value_preprocessor()</code>.</p>
+<pre><code># facebook/views/profile.py
+
+from flask import Blueprint, render_template, g
+
+from ..models import User
+
+# The prefix is defined on registration in facebook/__init__.py.
+profile = Blueprint(&#39;profile&#39;, __name__)
+
+@profile.url_value_preprocessor
+def get_profile_owner(endpoint, values):
+    query = User.query.filter_by(url_slug=values.pop(&#39;user_url_slug&#39;))
+    g.profile_owner = query.first_or_404()
+
+@profile.route(&#39;/&#39;)
+def timeline():
+    return render_template(&#39;profile/timeline.html&#39;)
+
+@profile.route(&#39;/photos&#39;)
+def photos():
+    return render_template(&#39;profile/photos.html&#39;)
+
+@profile.route(&#39;/about&#39;)
+def about():
+    return render_template(&#39;profile/about.html&#39;)</code></pre>
+<p>We're using the <code>g</code> object to store the profile owner and <code>g</code> is available in the Jinja2 template context. This means that for a barebones case all we have to do in the view is render the template. The information we need will be available in the template.</p>
+<pre><code>{# facebook/templates/profile/photos.html #}
+
+{% extends &quot;profile/layout.html&quot; %}
+
+{% for photo in g.profile_owner.photos.all() %}
+    &lt;img src=&quot;{{ photo.source_url }}&quot; alt=&quot;{{ photo.alt_text }}&quot; /&gt;
+{% endfor %}</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li>The Flask documentation has <a href="http://flask.pocoo.org/docs/patterns/urlprocessors/#internationalized-blueprint-urls">a great tutorial</a> on using prefixes for internationalizing your URLs.</li>
+</ul>
+</blockquote>
+<h3>Using a dynamic subdomain</h3>
+<p>Many SaaS (Software as a Service) applications these days provide users with a subdomain from which to access their software. Harvest, for example, is a time tracking application for consultants that gives you access to your dashboard from yourname.harvestapp.com. Here I'll show you how to get Flask to work with automatically generated subdomains like this.</p>
+<p>For this section I'm going to use the example of an application that lets users create their own websites. Imagine that our app has three blueprints for distinct sections: the home page where users sign-up, the user administration panel where the user builds their website and the user's website. Since these three parts are relatively unconnected, we'll organize them in a divisional structure.</p>
+<pre><code>sitemaker/
+    __init__.py
+    home/
+        __init__.py
+        views.py
+        templates/
+            home/
+        static/
+            home/
+    dash/
+        __init__.py
+        views.py
+        templates/
+            dash/
+        static/
+            dash/
+    site/
+        __init__.py
+        views.py
+        templates/
+            site/
+        static/
+            site/
+    models.py</code></pre>
+<p>This table explains the different blueprints in this app.</p>
+<table>
+<col style="width: 28%" /><col style="width: 17%" /><col style="width: 53%" /><thead>
+<tr class="header">
+<th style="text-align: left;">URL</th>
+<th style="text-align: left;">Route</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sitemaker.com</td>
+<td style="text-align: left;"><em>sitemaker/home</em></td>
+<td style="text-align: left;">Just a vanilla blueprint. Views, templates and static files for <em>index.html</em>, <em>about.html</em> and <em>pricing.html</em>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bigdaddy.sitemaker.com</td>
+<td style="text-align: left;"><em>sitemaker/site</em></td>
+<td style="text-align: left;">This blueprint uses a dynamic subdomain and includes the elements of the user's website. We'll go over some of the code used to implement this blueprint below.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bigdaddy.sitemaker.com/admin</td>
+<td style="text-align: left;"><em>sitemaker/dash</em></td>
+<td style="text-align: left;">This blueprint could use both a dynamic subdomain and a URL prefix by combining the techniques in this section with those from the previous section.</td>
+</tr>
+</tbody>
+</table>
+<p>We can define our dynamic subdomain the same way we defined our URL prefix. Both options (in the blueprint directory or in the top-level <em>__init__.py</em>) are available, but once again we'll keep the definitions in <em>sitemaker/__init.py__</em>.</p>
+<pre><code># sitemaker/__init__.py
+
+from flask import Flask
+from .site import site
+
+app = Flask(__name__)
+app.register_blueprint(site, subdomain=&#39;&lt;site_subdomain&gt;&#39;)</code></pre>
+<p>Since we're using a divisional structure, we'll define the blueprint in <em>sitema-ker/site/__init__.py</em>.</p>
+<pre><code># sitemaker/site/__init__py
+
+from flask import Blueprint
+
+from ..models import Site
+
+# Note that the capitalized Site and the lowercase site
+# are two completely separate variables. Site is a model
+# and site is a blueprint.
+
+site = Blueprint(&#39;site&#39;, __name__)
+
+@site.url_value_preprocessor
+def get_site(endpoint, values):
+    query = Site.query.filter_by(subdomain=values.pop(&#39;site_subdomain&#39;))
+    g.site = query.first_or_404()
+
+# Import the views after site has been defined. The views
+# module will needto import &#39;site&#39; so we need to make
+# sure that we import views after site has been defined.
+import .views</code></pre>
+<p>Now we have the site information from the database that we'll use to display the user's site to the visitor who requests their subdomain.</p>
+<p>To get Flask to work with subdomains, we'll need to specify the <code>SERVER_NAME</code> configuration variable.</p>
+<pre><code># config.py
+
+SERVER_NAME = &#39;sitemaker.com&#39;</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<p>A few minutes ago, as I was drafting this section, somebody in IRC said that their subdomains were working fine in development, but not in production. I asked if they had the <code>SERVER_NAME</code> configured, and it turned out that they had it in development but not production. Setting it in production solved their problem.</p>
+<p>See the conversation between myself (imrobert in the log) and aplavin: <a href="http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log"><a href="http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log">http://dev.pocoo.org/irclogs/%23pocoo.2013-07-30.log</a></a></p>
+<p>It was enough of a coincidence that I felt it warranted inclusion in the section.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>You can set both a subdomain and url_prefix. Think about how we would configure the blueprint in <em>sitemaker/dash</em> with the URL structure from the table above.</p>
+</blockquote>
+<h2>Refactoring small apps to use blueprints</h2>
+<p>I'd like to go over a brief example of the steps we can take to convert an app to use blueprints. We'll start off with a typical Flask app and restructure it.</p>
+<pre><code>config.txt
+requirements.txt
+run.py
+U2FtIEJsYWNr/
+  __init__.py
+  views.py
+  models.py
+  templates/
+  static/
+tests/</code></pre>
+<p>The <em>views.py</em> file has grown to 10,000 lines of code! We've been putting off refactoring it, but it's finally time. The file contains the views for every section of our site. The sections are the home page, the user dashboard, the admin dashboard, the API and the company blog.</p>
+<h3>Step 1: Divisional or functional?</h3>
+<p>This application is made up of very distinct sections. Templates and static files probably aren't going to be shared between the user dashboard and the company blog, for example. We'll go with a divisional structure.</p>
+<h3>Step 2: Move some files around</h3>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Before you make any changes to your app, commit everything to version control. You don't want to accidentally delete something for good.</p>
+</blockquote>
+<p>Next we'll go ahead and create the directory tree for our new app. We can start by creating a folder for each blueprint within the package directory. Then we'll copy <em>views.py</em>, <em>static/</em> and <em>templates/</em> in their entirety to each blueprint directory. We can then remove them from the top-level package directory.</p>
+<pre><code>config.txt
+requirements.txt
+run.py
+U2FtIEJsYWNr/
+  __init__.py
+  home/
+    views.py
+    static/
+    templates/
+  dash/
+    views.py
+    static/
+    templates/
+  admin/
+    views.py
+    static/
+    templates/
+  api/
+    views.py
+    static/
+    templates/
+  blog/
+    views.py
+    static/
+    templates/
+  models.py
+tests/</code></pre>
+<h3>Step 3: Cut the crap</h3>
+<p>Now we can go into each blueprint and remove the views, static files and templates that don't apply to that blueprint. How you go about this step largely depends on how your app was organized to begin with.</p>
+<p>The end result should be that each blueprint has a <em>views.py</em> file with all of the views for that blueprint. No two blueprints should define a view for the same route. Each <em>templates/</em> directory should only include the templates for the views in that blueprint. Each <em>static/</em> directory should only include the static files that should be exposed by that blueprint.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Make it a point to eliminate all unnecessary imports. It's easy to forget about them, but at best they clutter your code and at worst they slow down your application.</p>
+</blockquote>
+<h3>Step 4: Blueprint...ifi...cation or something</h3>
+<p>This is the part where we turn our directories into blueprints. The key is in the <em>__init__.py</em> files. For starters, let's take a look at the definition of the API blueprint.</p>
+<pre><code># U2FtIEJsYWNr/api/__init__.py
+
+from flask import Blueprint
+
+api = Blueprint(
+    &#39;site&#39;,
+    __name__,
+    template_folder=&#39;templates&#39;,
+    static_folder=&#39;static&#39;
+)
+
+import .views</code></pre>
+<p>Next we can register this blueprint in the U2FtIEJsYWNr package's top-level <em>__init__.py</em> file.</p>
+<pre><code># U2FtIEJsYWNr/__init__.py
+
+from flask import Flask
+from .api import api
+
+app = Flask(__name__)
+
+# Puts the API blueprint on api.U2FtIEJsYWNr.com.
+app.register_blueprint(api, subdomain=&#39;api&#39;)</code></pre>
+<p>Make sure that the routes are registered on the blueprint now rather than the app object.</p>
+<pre><code># U2FtIEJsYWNr/views.py
+
+from . import app
+
+@app.route(&#39;/search&#39;, subdomain=&#39;api&#39;)
+def api_search():
+    pass</code></pre>
+<pre><code># U2FtIEJsYWNr/api/views.py
+
+from . import api
+
+@api.route(&#39;/search&#39;)
+def search():
+    pass</code></pre>
+<h3>Step 5: Enjoy</h3>
+<p>Now our application is far more modular than it was with one massive <em>views.py</em> file. The route definitions are simpler because we can group them together into blueprints and configure things like subdomains and URL prefixes once for each blueprint.</p>
+<h2>Summary</h2>
+<ul>
+<li>A blueprint is a collection of views, templates, static files and other extensions that can be applied to an application.</li>
+<li>Blueprints are a great way to organize your application.</li>
+<li>In a divisional structure, each blueprint is a collection of views, templates and static files which constitute a particular section of your application.</li>
+<li>In a functional structure, each blueprint is just a collection of views. The templates are all kept together, as are the static files.</li>
+<li>To use a blueprint, you define it then register it on the application with <code>Flask.register_blueprint().</code>.</li>
+<li>You can define a dynamic URL prefix that will be applied to all routes in a blueprint.</li>
+<li>You can also define a dynamic subdomain for all routes in a blueprint.</li>
+<li>Refactoring a growing application to use blueprints can be done in five relatively small steps.</li>
+</ul>
+<h1>Templates</h1>
+<p><img src="_static/images/templates.png" alt="Templates" /></p>
+<p>While Flask doesn't force us to use any particular templating language, it assumes that we're going to use Jinja. Most of the developers in the Flask community use Jinja, and I recommend that you do the same. There are a few extensions that have been written to let us use other templating languages, like <a href="http://pythonhosted.org/Flask-Genshi/">Flask-Genshi</a> and <a href="http://pythonhosted.org/Flask-Mako/">Flask-Mako</a>. Stick with the default unless you have a good reason to use something else. Not knowing the Jinja syntax yet is not a good reason! You'll save yourself a lot of time and headache.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Almost all resources imply Jinja2 when they refer to &quot;Jinja.&quot; There was a Jinja1, but we won't be dealing with it here. When you see Jinja, we're talking about this: <a href="http://jinja.pocoo.org/"><a href="http://jinja.pocoo.org/">http://jinja.pocoo.org/</a></a></p>
+</blockquote>
+<h2>A quick primer on Jinja</h2>
+<p>The Jinja documentation does a great job of explaining the syntax and features of the language. I won't reiterate it all here, but I do want to make sure that you see this important note:</p>
+<blockquote>
+<p>There are two kinds of delimiters. <code>{% ... %}</code> and <code>{{ ... }}</code>. The first one is used to execute statements such as for-loops or assign values, the latter prints the result of the expression to the template.</p>
+<p>--- <a href="http://jinja.pocoo.org/docs/templates/#synopsis">Jinja Template Designer Documentation</a></p>
+</blockquote>
+<h2>How to organize templates</h2>
+<p>So where do templates fit into our app? If you've been following along at home, you may have noticed that Flask is really flexible about where we put things. Templates are no exception. You may also notice that there's usually a recommended place to put things. Two points for you. For templates, that place is in the package directory.</p>
+<pre><code>myapp/
+    __init__.py
+    models.py
+    views/
+    templates/
+    static/
+run.py
+requirements.txt</code></pre>
+<pre><code>templates/
+    layout.html
+    index.html
+    about.html
+    profile/
+        layout.html
+        index.html
+    photos.html
+    admin/
+        layout.html
+        index.html
+        analytics.html</code></pre>
+<p>The structure of the <em>templates</em> directory parallels the structure of our routes. The template for the route <em>myapp.com/admin/analytics</em> is <em>templates/admin/an-alytics.html</em>. There are also some extra templates in there that won't be rendered directly. The <em>layout.html</em> files are meant to be inherited by the other templates.</p>
+<h2>Inheritance</h2>
+<p>Much like Batman's backstory, a well organized templates directory relies heavily on inheritance. The <strong>parent template</strong> usually defines a generalized structure that all of the <strong>child templates</strong> will work within. In our example, <em>layout.html</em> is a parent template and the other <em>.html</em> files are child templates.</p>
+<p>You'll generally have one top-level <em>layout.html</em> that defines the general layout for your application and one for each section of your site. If you take a look at the directory above, you'll see that there is a top-level <em>myapp/templates/lay-out.html</em> as well as <em>myapp/templates/profile/layout.html</em> and <em>myapp/templat-es/admin/layout.html</em>. The last two files inherit and modify the first.</p>
+<p>Inheritance is implemented with the <code>{% extends %}</code> and <code>{% block %}</code> tags. In the parent template, we can define blocks which will be populated by child templates.</p>
+<pre><code>{# _myapp/templates/layout.html_ #}
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;title&gt;{% block title %}{% endblock %}&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    {% block body %}
+        &lt;h1&gt;This heading is defined in the parent.&lt;/h1&gt;
+    {% endblock %}
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>In the child template, we can extend the parent template and define the contents of those blocks.</p>
+<pre><code>{# _myapp/templates/index.html_ #}
+
+{% extends &quot;layout.html&quot; %}
+{% block title %}Hello world!{% endblock %}
+{% block body %}
+    {{ super() }}
+    &lt;h2&gt;This heading is defined in the child.&lt;/h2&gt;
+{% endblock %}</code></pre>
+<p>The <code>super()</code> function lets us include whatever was inside the block in the parent template.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>For more information on inheritance, refer to the <a href="http://jinja.pocoo.org/docs/templates/#template-inheritance">Jinja Template Inheritence documentation</a>.</p>
+</blockquote>
+<h2>Creating macros</h2>
+<p>We can implement DRY (Don't Repeat Yourself) principles in our templates by abstracting snippets of code that appear over and over into <strong>macros</strong>. If we're working on some HTML for our app's navigation, we might want to give a different class to the &quot;active&quot; link (i.e. the link to the current page). Without macros we'd end up with a block of <code>if ... else</code> statements that check each link to find the active one.</p>
+<p>Macros provide a way to modularize that code; they work like functions. Let's look at how we'd mark the active link using a macro.</p>
+<pre><code>{# myapp/templates/layout.html #}
+
+{% from &quot;macros.html&quot; import nav_link with context %}
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+    {% block head %}
+        &lt;title&gt;My application&lt;/title&gt;
+    {% endblock %}
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;ul class=&quot;nav-list&quot;&gt;
+            {{ nav_link(&#39;home&#39;, &#39;Home&#39;) }}
+            {{ nav_link(&#39;about&#39;, &#39;About&#39;) }}
+            {{ nav_link(&#39;contact&#39;, &#39;Get in touch&#39;) }}
+        &lt;/ul&gt;
+    {% block body %}
+    {% endblock %}
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>What we are doing in this template is calling an undefined macro — <code>nav_link</code> — and passing it two parameters: the target endpoint (i.e. the function name for the target view) and the text we want to show.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>You may notice that we specified <code>with context</code> in the import statement. The Jinja <strong>context</strong> consists of the arguments passed to the <code>render_template()</code> function as well as the Jinja environment context from our Python code. These variables are made available in the template that is being rendered.</p>
+<p>Some variables are explicitly passed by us, e.g. <code>render_template(&quot;index.html&quot;, color=&quot;red&quot;)</code>, but there are several variables and functions that Flask automatically includes in the context, e.g. <code>request</code>, <code>g</code> and <code>session</code>. When we say <code>{% from ... import ... with context %}</code> we are telling Jinja to make all of these variables available to the macro as well.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li>All of the global variables that are passed to the Jinja context by Flask: <a href="http://flask.pocoo.org/docs/templating/#standard-context">http://flask.pocoo.org/docs/templating/#standard-context</a>}</li>
+<li>We can define variables and functions that we want to be merged into the Jinja context with context processors: <a href="http://flask.pocoo.org/docs/templating/#context-processors">http://flask.pocoo.org/docs/templating/#context-processors</a></li>
+</ul>
+</blockquote>
+<p>Now it's time to define the <code>nav_link</code> macro that we used in our template.</p>
+<pre><code>{# myapp/templates/macros.html #}
+
+{% macro nav_link(endpoint, text) %}
+{% if request.endpoint.endswith(endpoint) %}
+    &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;{{ url_for(endpoint) }}&quot;&gt;{{text}}&lt;/a&gt;&lt;/li&gt;
+{% else %}
+    &lt;li&gt;&lt;a href=&quot;{{ url_for(endpoint) }}&quot;&gt;{{text}}&lt;/a&gt;&lt;/li&gt;
+{% endif %}
+{% endmacro %}</code></pre>
+<p>Now we've defined the macro in <em>myapp/templates/macros.html</em>. In this macro we're using Flask's <code>request</code> object — which is available in the Jinja context by default — to check whether or not the current request was routed to the endpoint passed to <code>nav_link</code>. If it was, than we're currently on that page, and we can mark it as active.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>The from x import y statement takes a relative path for x. If our template was in <em>myapp/templates/user/blog.html</em> we would use <code>from &quot;../macros.html&quot; import nav_link with context</code>.</p>
+</blockquote>
+<h2>Custom filters</h2>
+<p>Jinja filters are functions that can be applied to the result of an expression in the <code>{{ ... }}</code> delimeters. It is applied before that result is printed to the template.</p>
+<pre><code>&lt;h2&gt;{{ article.title|title }}&lt;/h2&gt;</code></pre>
+<p>In this code, the <code>title</code> filter will take <code>article.title</code> and return a title-cased version, which will then be printed to the template. This looks and works a lot like the UNIX practice of &quot;piping&quot; the output of one program to another.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>There are loads of built-in filters like <code>title</code>. See <a href="http://jinja.pocoo.org/docs/templates/#builtin-filters">the full list</a> in the Jinja docs.</p>
+</blockquote>
+<p>We can define our own filters for use in our Jinja templates. As an example, we'll implement a simple <code>caps</code> filter to capitalize all of the letters in a string.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Jinja already has an <code>upper</code> filter that does this, and a <code>capitalize</code> filter that capitalizes the first character and lowercases the rest. These also handle unicode conversion, but we'll keep our example simple to focus on the concept at hand.</p>
+</blockquote>
+<p>We're going to define our filter in a module located at <em>myapp/util/filters.py</em>. This gives us a <code>util</code> package in which to put other miscellaneous modules.</p>
+<pre><code># myapp/util/filters.py
+
+from .. import app
+
+@app.template_filter()
+def caps(text):
+    &quot;&quot;&quot;Convert a string to all caps.&quot;&quot;&quot;
+    return text.uppercase()</code></pre>
+<p>In this code we are registering our function as a Jinja filter by using the <code>@app.template_filter()</code> decorator. The default filter name is just the name of the function, but you can pass an argument to the decorator to change that.</p>
+<pre><code>@app.template_filter(&#39;make_caps&#39;)
+def caps(text):
+    &quot;&quot;&quot;Convert a string to all caps.&quot;&quot;&quot;
+    return text.uppercase()</code></pre>
+<p>Now we can call <code>make_caps</code> in the template rather than <code>caps</code>: <code>{{ &quot;hello world!&quot;|make_caps }}</code>.</p>
+<p>To make our filter available in the templates, we just need to import it in our top-level <em>__init.py__</em>.</p>
+<pre><code># myapp/__init__.py
+
+# Make sure app has been initialized first to prevent circular imports.
+from .util import filters</code></pre>
+<h2>Summary</h2>
+<ul>
+<li>Use Jinja for templating.</li>
+<li>Jinja has two kinds of delimeters: <code>{% ... %}</code> and <code>{{ ... }}</code>. The first one is used to execute statements such as for-loops or assign values, the latter prints the result of the contained expression to the template.</li>
+<li>Templates should go in <em>myapp/templates/</em> — i.e. a directory inside of the application package.</li>
+<li>I recommend that the structure of the <em>templates/</em> directory mirror the URL structure of the app.</li>
+<li>You should have a top-level <em>layout.html</em> in <em>myapp/templates</em> as well as one for each section of the site. The former extend the latter.</li>
+<li>Macros are like functions made-up of template code.</li>
+<li>Filters are functions made-up of Python code and used in templates.</li>
+</ul>
+<h1>Static files</h1>
+<p><img src="_static/images/static.png" alt="Static files" /></p>
+<p>As their name suggests, static files are the files that don't change. In your average app, this includes CSS files, JavaScript files and images. They can also include audio files and other things of that nature.</p>
+<h2>Organizing your static files</h2>
+<p>We'll create a directory for our static files called <em>static</em> inside our application package.</p>
+<pre><code>myapp/
+    __init__.py
+    static/
+    templates/
+    views/
+    models.py
+run.py</code></pre>
+<p>How you organize the files in <em>static/</em> is a matter of personal preference. Personally, I get a little irked by having third-party libraries (e.g. jQuery, Bootstrap, etc.) mixed in with my own JavaScript and CSS files. To avoid this, I recommend separating third-party libraries out into a <em>lib/</em> folder within the appropriate directory. Some projects use <em>vendor/</em> instead of <em>lib/</em>.</p>
+<pre><code>static/
+    css/
+        lib/
+            bootstrap.css
+        style.css
+        home.css
+        admin.css
+    js/
+        lib/
+            jquery.js
+        home.js
+        admin.js
+    img/
+        logo.svg
+        favicon.ico</code></pre>
+<h3>Serving a favicon</h3>
+<p>The files in our static directory will be served from <em>example.com/static/</em>. By default, web browsers and other software expects our favicon to be at <em>example.com/favicon.ico</em>. To fix this discrepency, we can add the following in the <code>&lt;head&gt;</code> section of our site template.</p>
+<pre><code>&lt;link rel=&quot;shortcut icon&quot;
+    href=&quot;{{ url_for(&#39;static&#39;, filename=&#39;img/favicon.ico&#39;) }}&quot;&gt;</code></pre>
+<h2>Manage static assets with Flask-Assets</h2>
+<p>Flask-Assets is an extension for managing your static files. There are two really useful tools that Flask-Assets provides. First, it lets you define <strong>bundles</strong> of assets in your Python code that can be inserted together in your template. Second, it lets you <strong>pre-process</strong> those files. This means that you can combine and minify your CSS and JavaScript files so that the user only has to load two minified files (CSS and JavaScript) without forcing you to develop a complex asset pipeline. You can even compile your files from Sass, LESS, CoffeeScript and a bunch of other sources.</p>
+<pre><code>static/
+    css/
+        lib/
+            reset.css
+        common.css
+        home.css
+        admin.css
+    js/
+        lib/
+            jquery-1.10.2.js
+            Chart.js
+        home.js
+        admin.js
+    img/
+        logo.svg
+        favicon.ico</code></pre>
+<h3>Defining bundles</h3>
+<p>Our app has two sections: the public site and the admin panel, referred to as &quot;home&quot; and &quot;admin&quot; respectively in our app. We'll define four bundles to cover this: a JavaScript and CSS bundle for each section. We'll put these in an assets module inside our <code>util</code> package.</p>
+<pre><code># myapp/util/assets.py
+
+from flask.ext.assets import Bundle, Environment
+from .. import app
+
+bundles = {
+
+    &#39;home_js&#39;: Bundle(
+        &#39;js/lib/jquery-1.10.2.js&#39;,
+        &#39;js/home.js&#39;,
+        output=&#39;gen/home.js),
+
+    &#39;home_css&#39;: Bundle(
+        &#39;css/lib/reset.css&#39;,
+        &#39;css/common.css&#39;,
+        &#39;css/home.css&#39;,
+        output=&#39;gen/home.css),
+
+    &#39;admin_js&#39;: Bundle(
+        &#39;js/lib/jquery-1.10.2.js&#39;,
+        &#39;js/lib/Chart.js&#39;,
+        &#39;js/admin.js&#39;,
+        output=&#39;gen/admin.js),
+
+    &#39;admin_css&#39;: Bundle(
+        &#39;css/lib/reset.css&#39;,
+        &#39;css/common.css&#39;,
+        &#39;css/admin.css&#39;,
+        output=&#39;gen/admin.css)
+}
+
+assets = Environment(app)
+
+assets.register(bundles)</code></pre>
+<p>Flask-Assets combines your files in the order in which they are listed here. If <em>admin.js</em> requires <em>jquery-1.10.2.js</em>, make sure jquery is listed first.</p>
+<p>We're defining the bundles in a dictionary to make it easy to register them. webassets, the package behind Flask-Assets lets us register bundles in a number of ways, including passing a dictionary like the one we made in this snippet. <sup><a href="#fn4" class="footnoteRef" id="fnref4">4</a></sup></p>
+<p>Since we're registering our bundles in <code>util.assets</code>, all we have to do is import that module in <em>__init__.py</em> after our app has been initialized.</p>
+<pre><code># myapp/__init__.py
+
+# [...] Initialize the app
+
+from .util import assets</code></pre>
+<h3>Using our bundles</h3>
+<p>To use our admin bundles, we'll insert them into the parent template for the admin section: <em>admin/layout.html</em>.</p>
+<pre><code>templates/
+    home/
+        layout.html
+        index.html
+        about.html
+    admin/
+        layout.html
+        dash.html
+        stats.html</code></pre>
+<pre><code>{# myapp/templates/admin/layout.html #}
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        {% assets &quot;admin_js&quot; %}
+            &lt;script type=&quot;text/javascript&quot; src=&quot;{{ ASSET_URL }}&quot;&gt;&lt;/script&gt;
+        {% endassets %}
+        {% assets &quot;admin_css&quot; %}
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ ASSET_URL }}&quot; /&gt;
+        {% endassets %}
+    &lt;/head&gt;
+    &lt;body&gt;
+    {% block body %}
+    {% endblock %}
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>We can do the same thing for the home bundles in <em>templates/home/layout-.html</em>.</p>
+<h3>Using filters</h3>
+<p>We can use filters to pre-process our static files. This is especially handy for minifying our JavaScript and CSS bundles.</p>
+<pre><code># myapp/util/assets.py
+
+# [...]
+
+bundles = {
+
+    &#39;home_js&#39;: Bundle(
+        &#39;lib/jquery-1.10.2.js&#39;,
+        &#39;js/home.js&#39;,
+        output=&#39;gen/home.js&#39;,
+        filters=&#39;jsmin&#39;),
+
+    &#39;home_css&#39;: Bundle(
+        &#39;lib/reset.css&#39;,
+        &#39;css/common.css&#39;,
+        &#39;css/home.css&#39;,
+        output=&#39;gen/home.css&#39;,
+        filters=&#39;cssmin&#39;),
+
+    &#39;admin_js&#39;: Bundle(
+        &#39;lib/jquery-1.10.2.js&#39;,
+        &#39;lib/Chart.js&#39;,
+        &#39;js/admin.js&#39;,
+        output=&#39;gen/admin.js&#39;,
+        filters=&#39;jsmin&#39;),
+
+    &#39;admin_css&#39;: Bundle(
+        &#39;lib/reset.css&#39;,
+        &#39;css/common.css&#39;,
+        &#39;css/admin.css&#39;,
+        output=&#39;gen/admin.css&#39;,
+        filters=&#39;cssmin&#39;)
+}
+
+# [...]</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<p>To use the <code>jsmin</code> and <code>cssmin</code> filters, you'll need to install the <code>jsmin</code> and <code>cssmin</code> packages (e.g. with <code>pip install jsmin cssmin</code>). Make sure to add them to <em>requirements.txt</em> too.</p>
+</blockquote>
+<p>Flask-Assets will merge and compress our files the first time the template is rendered, and it'll automatically update the compressed file when one of the source files changes.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>If you set ASSETS_DEBUG = True in your config, Flask-Assets will output each source file individually instead of merging them.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Take a look at some of <a href="http://elsdoerfer.name/docs/webassets/builtin_filters.html#js-css-compilers">the other filters</a> that we can use with Flask-Assets.</p>
+</blockquote>
+<h2>Summary</h2>
+<ul>
+<li>Static files go in the <em>static/</em> directory.</li>
+<li>Separate third-party libraries from your own static files.</li>
+<li>Specify the location of your favicon in your templates.</li>
+<li>Use Flask-Assets to insert static files in your templates.</li>
+<li>Flask-Assets can compile, combine and compress your static files.</li>
+</ul>
+<h1>Storing data</h1>
+<p><img src="_static/images/storing.png" alt="Storing data" /></p>
+<p>Most Flask applications are going to deal with storing data at some point. There are many different ways to store data. Finding the best one depends entirely on the data you are going to store. If you are storing relational data (e.g. a user has posts, posts have a user, etc.) a relational database is probably going to be the way to go (big suprise). Other types of data might be more suited to NoSQL data stores, such as MongoDB.</p>
+<p>I'm not going to tell you how to choose a database engine for your application. There are people who will tell you that NoSQL is the only way to go and those who will say the same about relational databases. All I will say on that subject is that if you are unsure, a relational database (MySQL, PostgreSQL, etc.) will almost certainly work for whatever you're doing.</p>
+<p>Plus, when you use a relational database you get to use SQLAlchemy and SQLAlchemy is fun.</p>
+<h2>SQLAlchemy</h2>
+<p>SQLAlchemy is an ORM (Object Relational Mapper). It's basically an abstraction layer that sits on top of the raw SQL queries being executed on our database. It provides a consistent API to a long list of database engines. The most popular include MySQL, PostgreSQL and SQLite. This makes it easy to move data between our models and our database and it makes it really easy to do other things like switch database engines and migrate our schemas.</p>
+<p>There is a great Flask extension that makes using SQLAlchemy in Flask even easier. It's called Flask-SQLAlchemy. Flask-SQLAlchemy configures a lot of sane defaults for SQLAlchemy. It also handles some session management so we don't have to deal with janitorial stuff in our application code.</p>
+<p>Let's dive into some code. We're going to define some models then configure some SQLAlchemy. The models are going to go in <em>myapp/models.py</em>, but first we are going to define our database in <em>myapp/init.py</em></p>
+<pre><code># ourapp/__init__.py
+
+from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+
+app = Flask(__name__, instance_relative_config=True)
+
+app.config.from_object(&#39;config&#39;)
+app.config.from_pyfile(&#39;config.py&#39;)
+
+db = SQLAlchemy(app)</code></pre>
+<p>First we initialize and configure our Flask app and then we use it to initialize our SQLAlchemy database handler. We're going to use an instance folder for our database configuration so we should use the <code>instance_relative_config</code> option when initializing the app and then call <code>app.config.from_pyfile</code> to load it. Then we can define our models.</p>
+<pre><code># ourapp/models.py
+
+from . import db 
+
+class Engine(db.Model):
+
+    # Columns
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    title = db.Column(db.String(128))
+
+    thrust = db.Column(db.Integer, default=0)</code></pre>
+<p><code>Column</code>, <code>Integer</code>, <code>String</code>, <code>Model</code> and other SQLAlchemy classes are all available via the <code>db</code> object constructed from Flask-SQLAlchemy. We have defined a model to store the current state of our spacecraft's engines. Each engine has an id, a title and a thrust level.</p>
+<p>We still need to add some database information to our configuration. We're using an instance folder to keep confidential configuration variables out of version control, so we are going to put it in <em>instance/config.py</em>.</p>
+<pre><code># instance/config.py
+
+SQLALCHEMY_DATABASE_URI = &quot;postgresql://user:password@localhost/spaceshipDB&quot;</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Your database URI will be different depending on the engine you use and where it's hosted. See the <a href="http://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=database#database-urls">SQLAlchemy documentation for this syntax</a>.</p>
+</blockquote>
+<h3>Initializing the database</h3>
+<p>Now that the database is configured and we have defined a model, we can initialize the database. This step basically involves creating the database schema from the model definitions.</p>
+<p>Normally that process might be a pain in the ... neck. Lucky for us, SQLAlchemy has a really cool command that will do all of this for us.</p>
+<p>Let's open up a Python terminal in our repository root.</p>
+<pre><code>$ pwd
+/Users/me/Code/myapp
+$ workon myapp
+(myapp)$ python
+Python 2.7.5 (default, Aug 25 2013, 00:04:04) 
+[GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from myapp import db
+&gt;&gt;&gt; db.create_all()
+&gt;&gt;&gt;</code></pre>
+<p>Now, thanks to SQLAlchemy, our tables have been created in the database specified in our configuration.</p>
+<h3>Alembic migrations</h3>
+<p>The schema of a database is not set in stone. For example, we may want to add a <code>last_fired</code> column to the engine table. If we don't have any data, we can just update the model and run <code>db.create_all()</code> again. However, if we have six months of engine data logged in that table, we probably don't want to start over from scratch. That's where database migrations come in.</p>
+<p>Alembic is a database migration tool created specifically for use with SQL-Alchemy. It lets us keep a versioned history of our database schema so that we can later upgrade to a new schema and even downgrade back to an older one.</p>
+<p>Alembic has an extensive tutorial to get you started, so I'll just give you a quick overview and point out a couple of things to watch out for.</p>
+<p>We'll create our alembic &quot;migration environment&quot; via the <code>alembic init</code> command. Once we run this in our repository root we'll have a new directory with the very creative name <em>alembic</em>. Our repository will end up looking something like the example in this listing, adapted from the Alembic tutorial.</p>
+<pre><code>ourapp/
+    alembic.ini
+    alembic/
+        env.py
+        README
+        script.py.mako
+        versions/
+            3512b954651e_add_account.py
+            2b1ae634e5cd_add_order_id.py
+            3adcc9a56557_rename_username_field.py
+    myapp/
+        __init__.py
+        views.py
+        models.py
+        templates/
+    run.py
+    config.py
+    requirements.txt</code></pre>
+<p>The <em>alembic/</em> directory has the scripts that migrate our data between versions. There is also an <em>alembic.ini</em> file that contains configuration information.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Add <em>alembic.ini</em> to <em>.gitignore</em>! You are going to have your database credentials in this file, so you <strong>do not</strong> want it to end up in version control.</p>
+<p>You do want to keep <em>alembic/</em> in version control though. It does not contain sensitive information (that can't already be derived from your source code) and keeping it in version control will mean having multiple copies should something happen to the files on your computer.</p>
+</blockquote>
+<p>When it comes time to make a schema change, there are a couple of steps. First we run <code>alembic revision</code> to generate a migration script. Then we'll open up the newly generated Python file in <em>myapp/alembic/versions/</em> and fill in the <code>upgrade</code> and <code>downgrade</code> functions using the tools provided by Alembic's <code>op</code> object.</p>
+<p>Once we have our migration script ready, we can run <code>alembic upgrade head</code> to migrade our data to the latest version.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>For the details on configuring Alembic, creating your migration scripts and running your migrations, see <a href="http://alembic.readthedocs.org/en/latest/tutorial.html">the Alembic tutorial</a>.</p>
+</blockquote>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Don't forget to put a plan in place to back up your data. The details of that plan are outside the scope of this book, but you should always have your datbase backed up in a secure and robust way.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>The NoSQL scene is less established with Flask, but as long as the database engine of your choice has a Python library, you should be able to use it. There are even several extensions in <a href="http://flask.pocoo.org/extensions/">the Flask extension registry</a> to help integrate NoSQL engines with Flask.</p>
+</blockquote>
+<h2>Summary</h2>
+<ul>
+<li>Use SQLAlchemy to work with relational databases.</li>
+<li>Use Flask-SQLAlchemy to work with SQLAlchemy.</li>
+<li>Alembic helps you migrate your data between schema changes.</li>
+<li>You can use NoSQL databases with Flask, but the methods and tools vary between engines.</li>
+<li>Back up your data!</li>
+</ul>
+<h1>Handling forms</h1>
+<p><img src="_static/images/forms.png" alt="Handling forms" /></p>
+<p>The form is the basic element that lets users interact with our web application. Flask alone doesn't do anything to help us handle forms, but the Flask-WTF extension lets us use the popular WTForms package in our Flask applications. This package makes defining forms and handling submissions easy.</p>
+<h2>Flask-WTF</h2>
+<p>The first thing we want to do with Flask-WTF (after installing it) is to define a form in a <code>myapp.forms</code> package.</p>
+<pre><code># ourapp/forms.py
+
+from flask.ext.wtforms import Form
+from wtforms import TextField, PasswordField, Required, Email
+
+class EmailPasswordForm(Form):
+    email = TextField(&#39;Email&#39;, validators=[Required(), Email()])
+    password = PasswordField(&#39;Password&#39;, validators=[Required()])</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Until version 0.9, Flask-WTF provided its own wrappers around the WTForms fields and validators. You may see a lot of code out in the wild that imports <code>TextField</code>, <code>PasswordField</code>, etc. from <code>flask.ext.wtforms</code> instead of <code>wtforms</code>.</p>
+<p>As of 0.9, we should be importing that stuff straight from <code>wtforms</code>.</p>
+</blockquote>
+<p>The form we defined is going to be a user sign-in form. We could have called it <code>SignInForm()</code>, but by keeping things a little more abstract, we can re-use this same form class for other things, like a sign-up form. If we were to define purpose-specific form classes we'd end up with a lot of identical forms for no good reason. It's much cleaner to name forms based on the fields they contain, as that is what makes them unique. Of course, sometimes we'll have long, one-off forms that we might want to give a more context-specific name.</p>
+<p>This sign-in form can do a few of things for us. It can secure our app against CSRF vulnerabilites, validate user input and render the appropriate markup for whatever fields we define for it.</p>
+<h3>CSRF Protection and validation</h3>
+<p>CSRF stands for cross site request forgery. CSRF attacks involve a third party forging a request (like a form submission) to an app's server. A vulnerable server assumes that the data is coming from a form on its own site and takes action accordingly.</p>
+<p>As an example, let's say that an email provider lets you delete your account by submitting a form. The form sends a POST request to an <code>account_delete</code> endpoint on their server and deletes the account that was logged-in when the form was submitted. We can create a form on our own site that sends a POST request to the same <code>account_delete</code> endpoint. Now, if we can get someone to click 'submit' on our form (or do it via JavaScript when they load the page) their logged-in account with the email provider will be deleted. Unless of course the email provider knows not to assume that form submissions are coming from their own forms.</p>
+<p>So how do we stop assuming that POST requests come from our own forms? WTForms makes it possible by generating a unique token when rendering each form. That token is meant to be passed back to the server, along with the form data in the POST request and must be validated before the form is accepted. The key is that the token is tied to a value stored in the user's session (cookies) and expires after a certain amount of time (30 minutes by default). This way the only person who can submit a valid form is the person who loaded the page (or at least someone at the same computer), and they can only do it for 30 minutes after loading the page.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li><p>Read more on how WTForms generates these tokens <a href="http://wtforms.simplecodes.com/docs/1.0.1/ext.html#module-wtforms.ext.csrf.session">in the docs</a>.</p></li>
+<li><p>Learn about CSRF in the <a href="https://www.owasp.org/index.php/CSRF">OWASP wiki</a>.</p></li>
+</ul>
+</blockquote>
+<p>To start using Flask-WTF for CSRF protection, we'll need to define a view for our login page.</p>
+<pre><code># ourapp/views.py
+
+from flask import render_template, redirect, url_for
+
+from . import app
+from .forms import EmailPasswordForm
+
+@app.route(&#39;/login&#39;, methods=[&quot;GET&quot;, &quot;POST&quot;])
+def login():
+    form = EmailPasswordForm()
+    if form.validate_on_submit():
+
+        # Check the password and log the user in
+        # [...]
+
+        return redirect(url_for(&#39;index&#39;))
+    return render_template(&#39;login.html&#39;, form=form)</code></pre>
+<p>We import our form from our <code>forms</code> package and instantiate it in the view. Then we run <code>form.validate_on_submit()</code>. This function returns <code>True</code> if the form has been both submitted (i.e. if the HTTP method is PUT or POST) and validated by the validators we defined in <em>forms.py</em>.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li><a href="http://pythonhosted.org/Flask-WTF/#flask.ext.wtf.Form.validate_on_submit">Documentation for Form.validate_on_submit</a></li>
+<li><a href="https://github.com/ajford/flask-wtf/blob/v0.8.4/flask_wtf/form.py#L120">Source for Form.validate_on_submit</a></li>
+</ul>
+</blockquote>
+<p>If the form has been submitted and validated, we can continue with the login logic. If it hasn't been submitted (i.e. it's just a GET request), we want to pass the form object to our template so it can be rendered. Here's what the template looks like when we're using CSRF protection.</p>
+<pre><code>{# ourapp/templates/login.html #}
+
+{% extends &quot;layout.html&quot; %}
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Login Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form action=&quot;{{ url_for(&#39;login&#39;) }}&quot; method=&quot;POST&quot;&gt;
+            &lt;input type=&quot;text&quot; name=&quot;email&quot; /&gt;
+            &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
+            {{ form.csrf_token }}
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><code>{{ form.csrf_token }}</code> renders a hidden field containing one of those fancy CSRF tokens and WTForms looks for that field when it validates the form. We don't have to worry about including any special &quot;is the token valid&quot; logic. Hooray!</p>
+<h4>Protecting AJAX calls with CSRF tokens</h4>
+<p>Flask-WTF CSRF tokens aren't limited to protecting form submissions. If your app makes other requests that might be forged (especially AJAX calls) you can add CSRF protection there too!</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>The Flask-WTF documentation talks more about <a href="https://flask-wtf.readthedocs.org/en/latest/csrf.html#ajax">using these CSRF tokens in AJAX calls</a>.</p>
+</blockquote>
+<h3>Custom validators</h3>
+<p>In addition to the built-in form validators provided by WTForms (e.g. <code>Required()</code>, <code>Email()</code>, etc.), we can create our own validators. We'll demonstrate this by making a <code>Unique()</code> validator that will check a database and make sure that the value provided by the user doesn't already exist. This could be used to make sure that a username or email address isn't already in use. Without WTForms, we'd probably be doing these checks in the view, but now we can abstract that away to the form itself.</p>
+<p>We'll start by defining a simple sign-up form.</p>
+<pre><code># ourapp/forms.py
+from flask.ext.wtforms import Form
+from wtforms import TextField, PasswordField, Required, Email
+
+class EmailPasswordForm(Form):
+    email = TextField(&#39;Email&#39;, validators=[Required(), Email()])
+    password = PasswordField(&#39;Password&#39;, validators=[Required()])</code></pre>
+<p>Now we want to add our validator to make sure that the email they provide isn't already in the database. We'll put the validator in a new <code>util</code> module, <code>util.validators</code>.</p>
+<pre><code># ourapp/util/validators.py
+from wtforms.validators import ValidationError
+
+class Unique(object):
+    def __init__(self, model, field, message=u&#39;This element already exists.&#39;):
+        self.model = model
+        self.field = field
+
+    def __call__(self, form, field):
+        check = self.model.query.filter(self.field == field.data).first()
+        if check:
+            raise ValidationError(self.message)</code></pre>
+<p>This validator assumes that we're using SQLAlchemy to define our models. WTForms expects validators to return some sort of callable (e.g. a callable class).</p>
+<p>In <em>__init__.py</em> we can specify which arguments should be passed to the validator. In this case we want to pass the relevant model (e.g. the <code>User</code> model in our case) and the field to check. When the validator is called, it will raise a <code>ValidationError</code> if any instance of the defined model matches the value submitted in the form. We've also made it possible to add a message with a generic default that will be included in the <code>ValidationError</code>.</p>
+<p>Now we can modify <code>EmailPasswordForm</code> to use the <code>Unique</code> validator.</p>
+<pre><code># ourapp/forms.py
+
+from flask.ext.wtforms import Form
+from wtforms import TextField, PasswordField, Required, Email
+
+from .util.validators import Unique
+from .models import User
+
+class EmailPasswordForm(Form):
+    email = TextField(&#39;Email&#39;, validators=[Required(), Email(),
+        Unique(
+            User,
+            User.email,
+            message=&#39;There is already an account with that email.&#39;])
+    password = PasswordField(&#39;Password&#39;, validators=[Required()])</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Our validator doesn't have to be a callable class. It could also be a factory that returns a callable or just a callable directly. The WTForms documentation has <a href="http://wtforms.simplecodes.com/docs/0.6.2/validators.html#custom-validators">some examples</a>.</p>
+</blockquote>
+<h3>Rendering forms</h3>
+<p>WTForms can also help us render the HTML for the forms. The <code>Field</code> class implemented by WTForms renders an HTML representation of that field, so we just have to call the form fields to render them in our template. It's just like rendering the <code>csrf_token</code> field. Listing~ gives an example of a login template using WTForms to render our fields.</p>
+<pre><code>{# ourapp/templates/login.html #}
+
+{% extends &quot;layout.html&quot; %}
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Login Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+            {{ form.email }}
+            {{ form.password }}
+            {{ form.csrf_token }}
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>We can customize how the fields are rendered by passing field properties as arguments to the call.</p>
+<pre><code>&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;
+    {{ form.email.label }}: {{ form.email(placeholder=&#39;yourname@email.com&#39;) }}
+    &lt;br&gt;
+    {{ form.password.label }}: {{ form.password }}
+    &lt;br&gt;
+    {{ form.csrf_token }}
+&lt;/form&gt;</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<p>If we want to pass the &quot;class&quot; HTML attribute, we have to use <code>class_=''</code> since &quot;class&quot; is a reserved keyword in Python.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>The WTForms documentation has a <a href="http://wtforms.simplecodes.com/docs/1.0.4/fields.html#wtforms.fields.Field.name">list of available field properties</a>.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>You may notice that we don't need to use Jinja's <code>|safe</code> filter. This is because WTForms renders HTML safe strings.</p>
+<p>Read more <a href="http://pythonhosted.org/Flask-WTF/#using-the-safe-filter">in the documentation</a>.</p>
+</blockquote>
+<h2>Summary</h2>
+<ul>
+<li>Forms can be scary from a security perspective.</li>
+<li>WTForms (and Flask-WTF) make it easy to define, secure and render your forms.</li>
+<li>Use the CSRF protection provided by Flask-WTF to secure your forms.</li>
+<li>You can use sFlask-WTF to protect AJAX calls against CSRF attacks too.</li>
+<li>Define custom form validators to keep validation logic out of your views.</li>
+<li>Use the WTForms field rendering to render your form's HTML so you don't have to update it every time you make some changes to the form definition.</li>
+</ul>
+<h1>Patterns for handling users</h1>
+<p><img src="_static/images/users.png" alt="Patterns for handling users" /></p>
+<p>One of the most common things that modern web applications need to do is handle users. An application with basic account features needs to handle a lot of things like registration, email confirmation, securely storing passwords, secure password reset, authentication and more. Since a lot of security issues present themselves when it comes to handling users, it's generally best to stick to standard patterns in this area.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>In this chapter I'm going to assume that you're using SQLAlchemy models and WTForms to handle your form input. If you aren't using those, you'll need to adapt these patterns to your preferred methods.</p>
+</blockquote>
+<h2>Email confirmation</h2>
+<p>When a new user gives us their email, we generally want to confirm that they gave us the right one. Once we've made that confirmation, we can confidently send password reset links and other sensitive information to our users without wondering who is on the receiving end.</p>
+<p>One of the most common patterns for confirming emails is to send a password reset link with a unique URL that, when visited, confirms that user's email address. For example, <script type="text/javascript">
+<!--
+h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#106;&#x6f;&#104;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#106;&#x6f;&#104;&#110;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript> signs up at our application. We register him in the database with an <code>email_confirmed</code> column set to <code>False</code> and fire off an email to <script type="text/javascript">
+<!--
+h='&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#106;&#x6f;&#104;&#110;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#106;&#x6f;&#104;&#110;&#32;&#x61;&#116;&#32;&#x67;&#x6d;&#x61;&#x69;&#108;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#x6f;&#x6d;</noscript> with a unique URL. This URL usually contains a unique token, e.g. <em><a href="http://myapp.com/accounts/confirm-/Q2hhZCBDYXRsZXR0IHJvY2tzIG15IHNvY2tz">http://myapp.com/accounts/confirm-/Q2hhZCBDYXRsZXR0IHJvY2tzIG15IHNvY2tz</a></em>. When John gets that email, he clicks the link. Our app sees the token, knows which email to confirm and sets John's <code>email_confirmed</code> column to <code>True</code>.</p>
+<p>How do we know which email to confirm with a given token? One way would be to store the token in the database when it is created and check that table when we receive the confirmation request. That's a lot of overhead and, lucky for us, it's unnecessary.</p>
+<p>We're going to encode the email address in the token. The token will also contain a timestamp to let us set a time limit on how long it's valid. To do this, we'll use the <code>itsdangerous</code> package. This package gives us tools to send sensitive data into untrusted environments (like sending an email confirmation token to an unconfirmed email). In this case, we're going to use an instance of the <code>URLSafeTimedSerializer</code> class.</p>
+<pre><code># ourapp/util/security.py
+
+from itsdangerous import URLSafeTimedSerializer
+
+from .. import app
+
+ts = URLSafeTimedSerializer(app.config[&quot;SECRET_KEY&quot;])</code></pre>
+<p>We can use that serializer to generate a confirmation token when a user gives us their email address. We'll implement a simple account creation process using this method.</p>
+<pre><code># ourapp/views.py
+
+from flask import redirect, render_template, url_for
+
+from . import app, db
+from .forms import EmailPasswordForm
+from .util import ts, send_email
+
+@app.route(&#39;/accounts/create&#39;, methods=[&quot;GET&quot;, &quot;POST&quot;])
+def create_account():
+    form = EmailPasswordForm()
+    if form.validate_on_submit():
+        user = User(
+            email = form.email.data,
+            password = form.password.data
+        )
+        db.session.add(user)
+        db.session.commit()
+
+        # Now we&#39;ll send the email confirmation link
+        subject = &quot;Confirm your email&quot;
+
+        token = ts.dumps(self.email, salt=&#39;email-confirm-key&#39;)
+
+        confirm_url = url_for(
+            &#39;confirm_email&#39;,
+            token=token,
+            _external=True)
+
+        html = render_template(
+            &#39;email/activate.html&#39;,
+            confirm_url=confirm_url)
+
+        # We&#39;ll assume that send_email has been defined in myapp/util.py
+        send_email(user.email, subject, html)
+
+        return redirect(url_for(&quot;index&quot;))
+
+    return render_template(&quot;accounts/create.html&quot;, form=form)</code></pre>
+<p>The view that we've defined handles the creation of the user and sends off an email to the given email address. You may notice that we're using a template to generate the HTML for the email.</p>
+<pre><code>{# ourapp/templates/email/activate.html #}
+
+Your account was successfully created. Please click the link below&lt;br&gt;
+to confirm your email address and activate your account:
+
+&lt;p&gt;
+&lt;a href=&quot;{{ confirm_url }}&quot;&gt;{{ confirm_url }}&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+--&lt;br&gt;
+Questions? Comments? Email hello@myapp.com.
+&lt;/p&gt;</code></pre>
+<p>Okay, so now we just need to implement a view that handles the confirmation link in that email.</p>
+<pre><code># ourapp/views.py
+
+@app.route(&#39;/confirm/&lt;token&gt;&#39;)
+def confirm_email(token):
+    try:
+        email = ts.loads(token, salt=&quot;email-confirm-key&quot;, max_age=86400)
+    except:
+        abort(404)
+
+    user = User.query.filter_by(email=email).first_or_404()
+
+    user.email_confirmed = True
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(url_for(&#39;signin&#39;))</code></pre>
+<p>This view is a simple form view. We just add the <code>try ... except</code> bit at the beginning to check that the token is valid. The token contains a timestamp, so we can tell <code>ts.loads()</code> to raise an exception if it is older than <code>max_age</code>. In this case, we're setting <code>max_age</code> to 86400 seconds, i.e. 24 hours.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>You can use very similar methods to implement an email update feature. Just send a confirmation link to the new email address with a token that contains both the old and the new addresses. If the token is valid, update the old address with the new one.</p>
+</blockquote>
+<h2>Storing passwords</h2>
+<p>Rule number one of handling users is to hash passwords with the Bcrypt (or scrypt, but we'll use Bcrypt here) algorithm before storing them. We never store passwords in plain text. It's a massive security issue and it's unfair to our users. All of the hard work has already been done and abstracted away for us, so there's no excuse for not following the best practices here.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>OWASP is one of the industry's most trusted source for information regarding web application security. Take a look at some of their <a href="https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet#Password_Storage">recommendations for secure coding</a>.</p>
+</blockquote>
+<p>We'll go ahead and use the Flask-Bcrypt extension to implement the bcrypt package in our application. This extension is basically just a wrapper around the <code>py-bcrypt</code> package, but it does handle a few things that would be annoying to do ourselves (like checking string encodings before comparing hashes).</p>
+<pre><code># ourapp/__init__.py
+
+from flask.ext.bcrypt import Bcrypt
+
+bcrypt = Bcrypt(app)</code></pre>
+<p>One of the reasons that the Bcrypt algorithm is so highly recommended is that it is &quot;future adaptable.&quot; This means that over time, as computing power becomes cheaper, we can make it more and more difficult to brute force the hash by guessing millions of possible passwords. The more &quot;rounds&quot; we use to hash the password, the longer it will take to make one guess. If we hash our passwords 20 times with the algorithm before storing them the attacker has to hash each of their guesses 20 times.</p>
+<p>Keep in mind that if we're hashing our passwords 20 times then our application is going to take a long time to return a response that depends on that process completing. This means that when choosing the number of rounds to use, we have to balance security and usability. The number of rounds we can complete in a given amount of time will depend on the computational resources available to our application. It's a good idea to test out some different numbers and shoot for between 0.25 and 0.5 seconds to hash a password. We should try to use at least 12 rounds though.</p>
+<p>To test the time it takes to hash a password, we can time a quick Python script that, well, hashes a password.</p>
+<pre><code># benchmark.py
+
+from flask.ext.bcrypt import generate_password_hash
+
+# Chance the number of rounds (second argument) until it takes between
+# 0.25 and 0.5 seconds to run.
+generate_password_hash(&#39;password1&#39;, 12) </code></pre>
+<p>Now we can keep timing our changes to the number of rounds with the UNIX <code>time</code> utility.</p>
+<pre><code>$ time python test.py 
+
+real    0m0.496s
+user    0m0.464s
+sys     0m0.024s</code></pre>
+<p>I did a quick benchmark on a small server that I have handy and 12 rounds seemed to take the right amount of time, so I'll configure our example to use that.</p>
+<dl>
+<dt>::</dt>
+<dd><p># config.py</p>
+<p>BCRYPT_LOG_ROUNDS = 12</p>
+</dd>
+</dl>
+<p>Now that Flask-Bcrypt is configured, it's time to start hashing passwords. We could do this manually in the view that receives the request from the sign-up form, but we'd have to do it again in the password reset and password change views. Instead, what we'll do is abstract away the hashing so that our app does it without us even thinking about it. We'll use a <strong>setter</strong> so that when we set <code>user.password = 'password1'</code>, it's automatically hashed with Bcrypt before being stored.</p>
+<pre><code># ourapp/models.py
+
+from sqlalchemy.ext.hybrid import hybrid_property
+
+from . import bcrypt, db
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(64), unique=True)
+    _password = db.Column(db.String(128))
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def _set_password(self, plaintext):
+        self._password = bcrypt.generate_password_hash(plaintext)</code></pre>
+<p>We're using SQLAlchemy's hybrid extension to define a property with several different functions called from the same interface. Our setter is called when we assign a value to the <code>user.password</code> property. In it, we hash the plaintext password and store it in the <code>_password</code> column of the user table. Since we're using a hybrid property we can then access the hashed password via the same <code>user.password</code> property.</p>
+<p>Now we can implement a sign-up view for an app using this model.</p>
+<pre><code># ourapp/views.py
+
+from . import app, db
+from .forms import EmailPasswordForm
+from .models import User
+
+@app.route(&#39;/signup&#39;, methods=[&quot;GET&quot;, &quot;POST&quot;])
+def signup():
+    form = EmailPasswordForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for(&#39;index&#39;))
+
+    return render_template(&#39;signup.html&#39;, form=form)</code></pre>
+<h2>Authentication</h2>
+<p>Now that we've got a user in the database, we can implement authentication. We'll want to let a user submit a form with their username and password (though this might be email and password for some apps), then make sure that they gave us the correct password. If it all checks out, we'll mark them as authenticated by setting a cookie in their browser. The next time they make a request we'll know that they have already logged in by looking for that cookie.</p>
+<p>Let's start by defining a <code>UsernamePassword</code> form with WTForms.</p>
+<pre><code># ourapp/forms.py
+
+from flask.ext.wtforms import Form
+from wtforms import TextField, PasswordField, Required
+
+class UsernamePasswordForm(Form):
+    username = TextField(&#39;Username&#39;, validators=[Required()])
+    password = PasswordField(&#39;Password&#39;, validators=[Required()])</code></pre>
+<p>Next we'll add a method to our user model that compares a string with the hashed password stored for that user.</p>
+<pre><code># ourapp/models.py
+
+from . import db
+
+class User(db.Model):
+
+    # [...] columns and properties
+
+    def is_correct_password(self, plaintext)
+        if bcrypt.check_password_hash(self._password, plaintext):
+            return True
+
+        return False</code></pre>
+<h3>Flask-Login</h3>
+<p>Our next goal is to define a sign-in view that serves and accepts our form. If the user enters the correct credentials, we will authenticate them using the Flask-Login extension. This extension simplifies the process of handling user sessions and authentication.</p>
+<p>We need to do a little bit of configuration to get Flask-Login ready to roll.</p>
+<p>In <em>__init__.py</em> we'll define the Flask-Login <code>login_manager</code>.</p>
+<pre><code># ourapp/__init__.py
+
+from flask.ext.login import LoginManager
+
+# Create and configure app
+# [...]
+
+from .models import User
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view =  &quot;signin&quot;
+
+@login_manager.user_loader
+def load_user(userid):
+    return User.query.filter(User.id == userid).first()</code></pre>
+<p>Here we created an instance of the <code>LoginManager</code>, initialized it with our <code>app</code> object, defined the login view and told it how to get a user object with a user's <code>id</code>. This is the baseline configuration we should have for Flask-Login.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>See more <a href="https://flask-login.readthedocs.org/en/latest/#customizing-the-login-process">ways to customize Flask-Login</a>.</p>
+</blockquote>
+<p>Now we can define the <code>signin</code> view that will handle authentication.</p>
+<pre><code># ourapp/views.py
+
+from flask import redirect, url_for
+
+from flask.ext.login import login_user
+
+from . import app
+from .forms import UsernamePasswordForm()
+
+@app.route(&#39;signin&#39;, methods=[&quot;GET&quot;, &quot;POST&quot;])
+def signin():
+    form = UsernamePasswordForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first_or_404()
+        if user.is_correct_password(form.password.data):
+            login_user(user)
+
+            return redirect(url_for(&#39;index&#39;))
+        else:
+            return redirect(url_for(&#39;signin&#39;))
+    return render_template(&#39;signin.html&#39;, form=form)</code></pre>
+<p>We simply import the <code>login_user</code> function from Flask-Login, check a user's login credentials and call <code>login_user(user)</code>. You can log the current user out with <code>logout_user()</code>.</p>
+<pre><code># ourapp/views.py
+
+from flask import redirect, url_for
+from flask.ext.login import logout_user
+
+from . import app
+
+@app.route(&#39;/signout&#39;)
+def signout():
+    logout_user()
+
+    return redirect(url_for(&#39;index&#39;))</code></pre>
+<h2>Forgot your password</h2>
+<p>We'll generally want to implement a &quot;Forgot your password&quot; feature that lets a user recover their account by email. This area has a plethora of potential vulnerabilities because the whole point is to let an unauthenticated user take over an account. We'll implement our password reset using some of the same techniques as our email confirmation.</p>
+<p>We'll need a form to request a reset for a given account's email and a form to choose a new password once we've confirmed that the unauthenticated user has access to that email address. The code in this section assumes that our user model has an email and a password, where the password is a hybrid property as we previously created.</p>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Don't send password reset links to an unconfirmed email address! You want to be sure that you are sending this link to the right person.</p>
+</blockquote>
+<p>We're going to need two forms. One is to request that a reset link be sent to a certain email and the other is to change the password once the email has been verified.</p>
+<pre><code># ourapp/forms.py
+
+from flask.ext.wtforms import Form
+
+from wtforms import TextField, PasswordField, Required, Email
+
+class EmailForm(Form):
+    email = TextField(&#39;Email&#39;, validators=[Required(), Email()])
+
+class PasswordForm(Form):
+    password = PasswordField(&#39;Email&#39;, validators=[Required()])</code></pre>
+<p>This code assumes that our password reset form just needs one field for the password. Many apps require the user to enter their new password twice to confirm that they haven't made a typo. To do this, we'd simply add another <code>PasswordField</code> and add the <code>EqualTo</code> WTForms validator to the main password field.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>There a lot of interesting discussions in the User Experience (UX) community about the best way to handle this in sign-up forms. I personally like the thoughts of one Stack Exchange user (Roger Attrill) who said:</p>
+<p>&quot;We should not ask for password twice - we should ask for it once and make sure that the 'forgot password' system works seamlessly and flawlessly.&quot;</p>
+<ul>
+<li><p>Read more about this topic in the <a href="http://ux.stackexchange.com/questions/20953/why-should-we-ask-the-password-twice-during-registration/21141">thread on the User Experience Stack Exchange</a>.</p></li>
+<li><p>There are also some cool ideas for simplifying sign-up and sign-in forms in an <a href="http://uxdesign.smashingmagazine.com/2011/05/05/innovative-techniques-to-simplify-signups-and-logins/">article on Smashing Magazine article</a>.</p></li>
+</ul>
+</blockquote>
+<p>Now we'll implement the first view of our process, where a user can request that a password reset link be sent for a given email address.</p>
+<pre><code># ourapp/views.py
+
+from flask import redirect, url_for, render_template
+
+from . import app
+from .forms import EmailForm
+from .models import User
+from .util import send_email, ts
+
+@app.route(&#39;/reset&#39;, methods=[&quot;GET&quot;, &quot;POST&quot;])
+def reset():
+    form = EmailForm()
+    if form.validate_on_submit()
+        user = User.query.filter_by(email=form.email.data).first_or_404()
+
+        subject = &quot;Password reset requested&quot;
+
+        # Here we use the URLSafeTimedSerializer we created in `util` at the 
+        # beginning of the chapter
+        token = ts.dumps(self.email, salt=&#39;recover-key&#39;)
+
+        recover_url = url_for(
+            &#39;reset_with_token&#39;,
+            token=token,
+            _external=True)
+
+        html = render_template(
+            &#39;email/recover.html&#39;,
+            recover_url=recover_url)
+
+        # Let&#39;s assume that send_email was defined in myapp/util.py
+        send_email(user.email, subject, html)
+
+        return redirect(url_for(&#39;index&#39;))
+    return render_template(&#39;reset.html&#39;, form=form)</code></pre>
+<p>When the form receives an email address, we grab the user with that email address, generate a reset token and send them a password reset URL. That URL routes them to a view that will validate the token and let them reset the password.</p>
+<pre><code># ourapp/views.py
+
+from flask import redirect, url_for, render_template
+
+from . import app, db
+from .forms import PasswordForm
+from .models import User
+from .util import ts
+
+@app.route(&#39;/reset/&lt;token&gt;&#39;, methods=[&quot;GET&quot;, &quot;POST&quot;])
+def reset_with_token(token):
+    try:
+        email = ts.loads(token, salt=&quot;recover-key&quot;, max_age=86400)
+    except:
+        abort(404)
+
+    form = PasswordForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=email).first_or_404()
+
+        user.password = form.password.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for(&#39;signin&#39;))
+
+    return render_template(&#39;reset_with_token.html&#39;, form=form, token=token)</code></pre>
+<p>We're using the same token validation method as we did to confirm the user's email address. The view passes the token from the URL back into the template. Then the template uses the token to submit the form to the right URL. Let's have a look at what that template might look like.</p>
+<pre><code>{# ourapp/templates/reset_with_token.html #}
+
+{% extends &quot;layout.html&quot; %}
+
+{% block body %}
+&lt;form action=&quot;{{ url_for(&#39;reset_with_token&#39;, token=token) }}&quot; method=&quot;POST&quot;&gt;
+    {{ form.password.label }}: {{ form.password }}&lt;br&gt;
+    {{ form.csrf_token }}
+    &lt;input type=&quot;submit&quot; value=&quot;Change my password&quot; /&gt;
+&lt;/form&gt;
+{% endblock %}</code></pre>
+<h2>Summary</h2>
+<ul>
+<li>Use the itsdangerous package to create and validate tokens sent to an email address.</li>
+<li>You can use these tokens to validate emails when a user creates an account, changes their email or forgets their password.</li>
+<li>Authenticate users using the Flask-Login extension to avoid dealing with a bunch of session management stuff yourself.</li>
+<li>Always think about how a malicious user could abuse your app to do things that you didn't intend.</li>
+</ul>
+<h1>Deployment</h1>
+<p><img src="_static/images/deployment.png" alt="Deployment" /></p>
+<p>We're finally ready to show our app to the world. It's time to deploy. This process can be a pain because there are so many moving parts. There are a lot of choices to make when it comes to our production stack as well. In this chapter, we're going to talk about some of the important pieces and some of the options we have with each.</p>
+<h2>The Host</h2>
+<p>We're going to need a server somewhere. There are thousands of providers out there, but these are the three that I personally recommend. I'm not going to go over the details of how to get started with them, because that's out of the scope of this book. Instead I'll talk about their benefits with regards to hosting Flask applications.</p>
+<h3>Amazon Web Services EC2</h3>
+<p>Amazon Web Services is a collection of services provided by ... Amazon! There's a good chance that you've heard of them before as they're probably the most popular choice for new startups these days. The AWS service that we're most concerned with here is EC2, or Elastic Compute Cloud. The big selling point of EC2 is that we get virtual servers - or <strong>instances</strong> as they're called in AWS parlance - that spin up in seconds. If we need to scale our app quickly it's just a matter of spinning up a few more EC2 instances for our app and sticking them behind a load balancer (we can even use the AWS Elastic Load Balancer).</p>
+<p>With regards to Flask, AWS is just a regular old virtual server. We can spin it up with our favorite linux distro and install our Flask app and our server stack without much overhead. It means that we're going to need a certain amount of systems administration knowledge though.</p>
+<h3>Heroku</h3>
+<p>Heroku is an application hosting service that is built on top of AWS services like EC2. They let us take advantage of the convenience of EC2 without the requisite systems administration experience.</p>
+<p>With Heroku, we deploy our application with a <code>git push</code> to their server. This is really convenient when we don't want to spend our time SSHing into a server, installing and configuring software and coming up with a sane deployment procedure. This convenience comes at a price of course, though both AWS and Heroku offer a certain amount of free service.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Heroku has a <a href="https://devcenter.heroku.com/articles/getting-started-with-python">tutorial on deploying Flask</a> with their service.</p>
+</blockquote>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Administrating your own databases can be time consuming and doing it well requires some experience. It's great to learn about database administration by doing it yourself for your side projects, but sometimes you'd like to save time and effort by outsourcing that part to professionals.</p>
+<p>Both Heroku and AWS have database management offerings. I don't have personal experience with either yet, but I've heard great things. It's worth considering if you want to make sure your data is being secured and backed-up without having to do it yourself.</p>
+<ul>
+<li><a href="https://www.heroku.com/postgres">Heroku Postgres</a></li>
+<li><a href="https://aws.amazon.com/rds/">Amazon RDS</a></li>
+</ul>
+</blockquote>
+<h3>Digital Ocean</h3>
+<p>Digital Ocean is an EC2 competitor that has recently begun to take off. Like EC2, Digital Ocean lets us spin up virtual servers - now called <strong>droplets</strong> - quickly. All droplets run on SSDs, which isn't something we get at the lower levels of EC2. The biggest selling point for me personally is an interface that is far simpler and easier to use than the AWS control panel. Digital Ocean is my preference for hosting and I recommend that you take a look at them.</p>
+<p>The Flask deployment experience on Digital Ocean is roughly the same as on EC2. We're starting with a clean linux distribution and installing our server stack from there.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>Digital Ocean was nice enough to make a contribution to the Kickstarter campaign for <em>Explore Flask</em>. With that said, I promise that my recommendation comes from my own experience as a user. If I didn't like them, I wouldn't have asked them to pledge in the first place.</p>
+</blockquote>
+<h2>The stack</h2>
+<p>This section will cover some of the software that we'll need to install on our server to serve our Flask application to the world. The basic stack is a front server that reverse proxies requests to an application runner that is running our Flask app. We'll usually have a database too, so we'll talk a little about those options as well.</p>
+<h3>Application runner</h3>
+<p>The server that we use to run Flask locally when we're developing our application isn't good at handling real requests. When we're actually serving our application to the public, we want to run it with an application runner like Gunicorn. Gunicorn handles requests and takes care of complicated things like threading.</p>
+<p>To use Gunicorn, we install the <code>gunicorn</code> package in our virtual environment with Pip. Running our app is a simple command away.</p>
+<pre><code># app.py
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route(&#39;/&#39;)
+def index():
+        return &quot;Hello World!&quot;</code></pre>
+<p>A fine app indeed. Now, to serve it up with Gunicorn, we simply run the <code>gunicorn</code> command.</p>
+<pre><code>(ourapp)$ gunicorn rocket:app
+2014-03-19 16:28:54 [62924] [INFO] Starting gunicorn 18.0
+2014-03-19 16:28:54 [62924] [INFO] Listening at: http://127.0.0.1:8000 (62924)
+2014-03-19 16:28:54 [62924] [INFO] Using worker: sync
+2014-03-19 16:28:54 [62927] [INFO] Booting worker with pid: 62927</code></pre>
+<p>At this point, we should see &quot;Hello World!&quot; when we navigate our browser to <em><a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></em>.</p>
+<p>To run this server in the background (i.e. daemonize it), we can pass the <code>-D</code> option to Gunicorn. That way it'll run even after we close our current terminal session.</p>
+<p>If we daemonize Gunicorn, we might have a hard time finding the process to close later when we want to stop the server. We can tell Gunicorn to stick the process ID in a file so that we can stop or restart it later without searching through lists of running processess. We use the <code>-p &lt;file&gt;</code> option to do that.</p>
+<pre><code>(ourapp)$ gunicorn rocket:app -p rocket.pid -D
+(ourapp)$ cat rocket.pid
+63101</code></pre>
+<p>To restart and kill the server, we can run <code>kill -HUP</code> and <code>kill</code> respectively.</p>
+<pre><code>(ourapp)$ kill -HUP `cat rocket.pid`
+(ourapp)$ kill `cat rocket.pid`</code></pre>
+<p>By default Gunicorn runs on port 8000. We can change the port by adding the <code>-b</code> bind option.</p>
+<pre><code>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 127.0.0.1:7999 -D</code></pre>
+<h4>Making Gunicorn public</h4>
+<blockquote>
+<p><strong>warning</strong></p>
+<p>Gunicorn is meant to sit behind a reverse proxy. If you tell it to listen to requests coming in from the public, it makes an easy target for denial of service attacks. It's just not meant to handle those kinds of requests. Only allow outside connections for debugging purposes and make sure to switch it back to only allowing internal connections when you're done.</p>
+</blockquote>
+<p>If we run Gunicorn like we have in the listings, we won't be able to access it from our local system. That's because Gunicorn binds to 127.0.0.1 by default. This means that it will only listen to connections coming from the server itself. This is the behavior that we want when we have a reverse proxy server that is sitting between the public and our Gunicorn server. If, however, we need to make requests from outside of the server for debugging purposes, we can tell Gunicorn to bind to 0.0.0.0. This tells it to listen for all requests.</p>
+<pre><code>(ourapp)$ gunicorn rocket:app -p rocket.pid -b 0.0.0.0:8000 -D</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li>Read more about running and deploying Gunicorn <a href="http://docs.gunicorn.org/en/latest/">in the documentation</a>.</li>
+<li><a href="http://docs.fabfile.org/en/latest">Fabric</a> is a tool that lets you run all of these deployment and management commands from the comfort of your local machine without SSHing into every server.</li>
+</ul>
+</blockquote>
+<h3>Nginx Reverse Proxy</h3>
+<p>A reverse proxy handles public HTTP requests, sends them back to Gunicorn and gives the response back to the requesting client. Nginx can be used very effectively as a reverse proxy and Gunicorn &quot;strongly advises&quot; that we use it.</p>
+<p>To configure Nginx as a reverse proxy to a Gunicorn server running on 127.0.0.1:8000, we can create a file for our app: <em>/etc/nginx/sites-available/expl-oreflask.com</em>.</p>
+<pre><code># /etc/nginx/sites-available/exploreflask.com
+
+# Redirect www.exploreflask.com to exploreflask.com
+server {
+        server_name www.exploreflask.com;
+        rewrite ^ http://exploreflask.com/ permanent;
+}
+
+# Handle requests to exploreflask.com on port 80
+server {
+        listen 80;
+        server_name exploreflask.com;
+
+                # Handle all locations
+        location / {
+                        # Pass the request to Gunicorn
+                proxy_pass http://127.0.0.1:8000;
+
+                # Set some HTTP headers so that our app knows where the 
+                # request really came from
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}</code></pre>
+<p>Now we'll create a symlink to this file at <em>/etc/nginx/sites-enabled</em> and restart Nginx.</p>
+<pre><code>$ sudo ln -s \
+/etc/nginx/sites-available/exploreflask.com \
+/etc/nginx/sites-enabled/exploreflask.com</code></pre>
+<p>We should now be able to make our requests to Nginx and receive the response from our app.</p>
+<blockquote>
+<p><strong>note</strong></p>
+<p>The <a href="http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration">Nginx configuration section</a> in the Gunicorn docs will give you more information about setting Nginx up for this purpose.</p>
+</blockquote>
+<h4>ProxyFix</h4>
+<p>We may run into some issues with Flask not properly handling the proxied requests. It has to do with those headers we set in the Nginx configuration. We can use the Werkzeug ProxyFix to ... fix the proxy.</p>
+<pre><code># app.py
+
+from flask import Flask
+
+# Import the fixer
+from werkzeug.contrib.fixers import ProxyFix
+
+app = Flask(__name__)
+
+# Use the fixer
+app.wsgi_app = ProxyFix(app.wsgi_app)
+
+@app.route(&#39;/&#39;)
+def index():
+        return &quot;Hello World!&quot;</code></pre>
+<blockquote>
+<p><strong>note</strong></p>
+<ul>
+<li>Read more about ProxyFix in <a href="http://werkzeug.pocoo.org/docs/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix">the Werkzeug docs</a>.</li>
+</ul>
+</blockquote>
+<h2>Summary</h2>
+<ul>
+<li>Three good choices for hosting Flask apps are AWS EC2, Heroku and Digital Ocean.</li>
+<li>The basic deployment stack for a Flask application consists of the app, an application runner like Gunicorn and a reverse proxy like Nginx.</li>
+<li>Gunicorn should sit behind Nginx and listen on 127.0.0.1 (internal requests) not 0.0.0.0 (external requests).</li>
+<li>Use Werkzeug's ProxyFix to handle the appropriate proxy headers in your Flask application.</li>
+</ul>
+<h1>Conclusion</h1>
+<p>I don't feel like there's a lot to conclude at this point. I hope reading this book has helped you in your adventure with Flask. If that's the case, please get in touch with me! I would love to hear from people who enjoyed reading this. Feel free to let me know if you have any suggestions to improve the book as well.</p>
+<p>Thanks for reading!</p>
+<p>- Robert</p>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Source: <a href="http://wiki.python.org/moin/Python2orPython3">The Python wiki</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Source: <a href="https://www.youtube.com/watch?feature=player_detailpage&amp;v=fs20qdvm0K4#t=190">My conversation with Armin Ronacher</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>See, it <em>must</em> be true!<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Source: <a href="http://wiki.python.org/moin/Python2orPython3">The Python wiki</a><a href="#fnref4">↩</a></p></li>
+</ol>
+</section>
+</body>
+</html>
