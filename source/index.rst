@@ -22,7 +22,7 @@ required. Just enjoy!
 About the author
 ----------------
 
-My name is Robert Picard. I'm a security engineer at `Addepar <https://www.addepar.com>`_ and a Flask
+My name is Robert Picard. I'm a security consultant and a Flask
 enthusiast. I like Flask for its simplicity in the face of frameworks like Django that
 try and be everything to everyone. That model works for a lot of people, but not for me.
 
