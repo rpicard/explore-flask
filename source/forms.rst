@@ -24,11 +24,11 @@ define a form in a ``myapp.forms`` package.
 
    # ourapp/forms.py
 
-   from flask_wtf import Form
+   from flask_wtf import FlaskForm
    from wtforms import StringField, PasswordField
    from wtforms.validators import DataRequired, Email
 
-   class EmailPasswordForm(Form):
+   class EmailPasswordForm(FlaskForm):
        email = StringField('Email', validators=[DataRequired(), Email()])
        password = PasswordField('Password', validators=[DataRequired()])
 
@@ -177,11 +177,11 @@ We'll start by defining a simple sign-up form.
 
    # ourapp/forms.py
 
-   from flask_wtf import Form
+   from flask_wtf import FlaskForm
    from wtforms import StringField, PasswordField
    from wtforms.validators import DataRequired, Email
 
-   class EmailPasswordForm(Form):
+   class EmailPasswordForm(FlaskForm):
        email = StringField('Email', validators=[DataRequired(), Email()])
        password = PasswordField('Password', validators=[DataRequired()])
 
@@ -222,14 +222,14 @@ Now we can modify ``EmailPasswordForm`` to use the ``Unique`` validator.
 
    # ourapp/forms.py
 
-   from flask_wtf import Form
+   from flask_wtf import FlaskForm
    from wtforms import StringField, PasswordField
    from wtforms.validators import DataRequired
 
    from .util.validators import Unique
    from .models import User
 
-   class EmailPasswordForm(Form):
+   class EmailPasswordForm(FlaskForm):
        email = StringField('Email', validators=[DataRequired(), Email(),
            Unique(
                User,
