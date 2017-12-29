@@ -206,7 +206,7 @@ Once we have our migration script ready, we can run
 
 .. note::
 
-   For the details on configuring Alembic, creating your migration scripts and running your migrations, see `the Alembic tutorial <http://alembic.readthedocs.org/en/latest/tutorial.html>`_.
+   For the details on configuring Alembic, creating your migration scripts and running your migrations, see `the Alembic tutorial <http://alembic.zzzcomputing.com/en/latest/tutorial.html>`_.
 
 .. warning::
 
