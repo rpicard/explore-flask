@@ -80,11 +80,11 @@ can we speed things up quickly, so all of these visitors don't miss out
 on our site?
 
 There are a lot of good answers, but this section is about caching, so
-we'll talk about that. Specifically, we're going to use the `Flask-Cache <http://pythonhosted.org/Flask-Cache/>`_
+we'll talk about that. Specifically, we're going to use the `Flask-Caching <https://flask-caching.readthedocs.io/en/latest/>`_
 extension. This extension provides us with a decorator that we can use
 on our index view to cache the response for some period of time.
 
-Flask-Cache can be configured to work with a bunch of different caching
+Flask-Caching can be configured to work with a bunch of different caching
 backends. A popular choice is `Redis <http://redis.io/>`_, which is easy to set-up and use.
 Assuming Flask-Cache is already configured, this code block shows what our
 decorated view would look like.
