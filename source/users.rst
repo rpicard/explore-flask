@@ -267,8 +267,8 @@ before being stored.
            return self._password
 
        @password.setter
-       def _set_password(self, plaintext):
-           self._password = bcrypt.generate_password_hash(plaintext)
+       def password(self, plaintext):
+           self._password = bcrypt.generate_password_hash(plaintext).decode("utf-8")
 
 We're using SQLAlchemy's hybrid extension to define a property with
 several different functions called from the same interface. Our setter
