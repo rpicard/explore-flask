@@ -81,6 +81,7 @@ process using this method.
        if form.validate_on_submit():
            user = User(
                email = form.email.data,
+               email_confirmed=False,
                password = form.password.data
            )
            db.session.add(user)
