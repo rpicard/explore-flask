@@ -22,7 +22,7 @@ required. Just enjoy!
 About the author
 ----------------
 
-My name is Robert Picard. I'm a security person and I'm creating _`Crucial Detection <https://www.crucialdetection.com>`_. I like Flask for its simplicity in the face of frameworks like Django that
+My name is Robert Picard. I'm a security person and I'm creating `Crucial Detection <https://www.crucialdetection.com>`_ to help companies detect compromised employee accounts. I like Flask for its simplicity in the face of frameworks like Django that
 try and be everything to everyone. That model works for a lot of people, but not for me.
 
 If you want to get in touch, feel free to send me an email at robert@robert.io. If you have
