@@ -48,7 +48,7 @@ makes them unique. Of course, sometimes we'll have long, one-off forms
 that we might want to give a more context-specific name.
 
 This sign-in form can do a few of things for us. It can secure our app
-against CSRF vulnerabilites, validate user input and render the
+against CSRF vulnerabilities, validate user input and render the
 appropriate markup for whatever fields we define for it.
 
 CSRF Protection and validation
