@@ -176,7 +176,7 @@ practices here.
 
 We'll go ahead and use the Flask-Bcrypt extension to implement the
 bcrypt package in our application. This extension is basically just a
-wrapper around the ``py-bcrypt`` package, but it does handle a few
+wrapper around the ``bcrypt`` package, but it does handle a few
 things that would be annoying to do ourselves (like checking string
 encodings before comparing hashes).
 
