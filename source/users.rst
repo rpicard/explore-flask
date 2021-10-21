@@ -89,7 +89,7 @@ process using this method.
            # Now we'll send the email confirmation link
            subject = "Confirm your email"
 
-           token = ts.dumps(self.email, salt='email-confirm-key')
+           token = ts.dumps(user.email, salt='email-confirm-key')
 
            confirm_url = url_for(
                'confirm_email',
