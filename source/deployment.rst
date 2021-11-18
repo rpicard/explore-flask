@@ -237,6 +237,47 @@ response from our app.
 
    The `Nginx configuration section <http://docs.gunicorn.org/en/latest/deploy.html#nginx-configuration>`_ in the Gunicorn docs will give you more information about setting Nginx up for this purpose.
 
+Haproxy
+~~~~~~~~~~~~~~~~~~~
+
+`Haproxy <http://www.haproxy.org/> ` can be used in Dockerized environments effectively. You can define more then one running container and Haproxy effectively manages the defined servers.  
+
+::
+
+frontend http-internal
+    bind *:80
+    reqadd X-Forwarded-Proto:\ http
+    reqadd X-Forwarded-Proto:\ https
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-backend if letsencrypt-acl
+    ### RATE LIMITING ###############################
+    stick-table type ip size 1m expire 60s store gpc0,http_req_rate(60s)
+    tcp-request connection track-sc0 src
+    use_backend http_429  if { src_get_gpc0 gt 0 }
+   # tcp-request content reject if { src_get_gpc0 gt 0 }
+   # http-request deny if { src_get_gpc0 gt 0 }
+    #################################################
+    capture request header Host len 64
+    capture request header origin len 128
+    acl is_auth hdr(host) -i your.site.com
+    
+    use_backend auth if is_auth
+
+backend auth
+    mode http
+    balance roundrobin
+    option httpclose
+    option forwardfor
+    redirect scheme https if !{ ssl_fc }
+    server worker-01 172.17.0.5:5000 check inter 10s
+    server worker-02 172.17.0.6:5000 check inter 10s
+    server worker-03 172.17.0.7:5000 check inter 10s
+
+.. note::
+
+   This config file is here to show how frontend and backend defined in haproxy for Flask app. Most of the parts of this config is excluded to show only Flask related stuff. Please also check SSL integration with `LetsEncrypt <https://letsencrypt.org/>` too. 
+
+
 ProxyFix
 ^^^^^^^^
 
