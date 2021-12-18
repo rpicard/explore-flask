@@ -202,11 +202,11 @@ we'll open up the newly generated Python file in
 functions using the tools provided by Alembic's ``op`` object.
 
 Once we have our migration script ready, we can run
-``alembic upgrade head`` to migrade our data to the latest version.
+``alembic upgrade head`` to migrate our data to the latest version.
 
 .. note::
 
-   For the details on configuring Alembic, creating your migration scripts and running your migrations, see `the Alembic tutorial <http://alembic.readthedocs.org/en/latest/tutorial.html>`_.
+   For the details on configuring Alembic, creating your migration scripts and running your migrations, see `the Alembic tutorial <https://alembic.sqlalchemy.org/en/latest/>`_.
 
 .. warning::
 
